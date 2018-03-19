@@ -1,14 +1,14 @@
 webpackJsonp([14],{
 
-/***/ 706:
+/***/ 722:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CustomerDashboardPageModule", function() { return CustomerDashboardPageModule; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DriverSearchDeliveryPageModule", function() { return DriverSearchDeliveryPageModule; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(37);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__customer_dashboard__ = __webpack_require__(372);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(20);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__driver_search_delivery__ = __webpack_require__(380);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -18,23 +18,23 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 
 
 
-var CustomerDashboardPageModule = (function () {
-    function CustomerDashboardPageModule() {
+var DriverSearchDeliveryPageModule = (function () {
+    function DriverSearchDeliveryPageModule() {
     }
-    CustomerDashboardPageModule = __decorate([
+    DriverSearchDeliveryPageModule = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["NgModule"])({
             declarations: [
-                __WEBPACK_IMPORTED_MODULE_2__customer_dashboard__["a" /* CustomerDashboardPage */],
+                __WEBPACK_IMPORTED_MODULE_2__driver_search_delivery__["a" /* DriverSearchDeliveryPage */],
             ],
             imports: [
-                __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["e" /* IonicPageModule */].forChild(__WEBPACK_IMPORTED_MODULE_2__customer_dashboard__["a" /* CustomerDashboardPage */]),
+                __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["e" /* IonicPageModule */].forChild(__WEBPACK_IMPORTED_MODULE_2__driver_search_delivery__["a" /* DriverSearchDeliveryPage */]),
             ],
         })
-    ], CustomerDashboardPageModule);
-    return CustomerDashboardPageModule;
+    ], DriverSearchDeliveryPageModule);
+    return DriverSearchDeliveryPageModule;
 }());
 
-//# sourceMappingURL=customer-dashboard.module.js.map
+//# sourceMappingURL=driver-search-delivery.module.js.map
 
 /***/ })
 

@@ -1,14 +1,14 @@
 webpackJsonp([15],{
 
-/***/ 703:
+/***/ 723:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AdminDashboardPageModule", function() { return AdminDashboardPageModule; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DriverListDeliveryPageModule", function() { return DriverListDeliveryPageModule; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(37);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__admin_dashboard__ = __webpack_require__(371);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(20);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__driver_list_delivery__ = __webpack_require__(381);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -18,23 +18,23 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 
 
 
-var AdminDashboardPageModule = (function () {
-    function AdminDashboardPageModule() {
+var DriverListDeliveryPageModule = (function () {
+    function DriverListDeliveryPageModule() {
     }
-    AdminDashboardPageModule = __decorate([
+    DriverListDeliveryPageModule = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["NgModule"])({
             declarations: [
-                __WEBPACK_IMPORTED_MODULE_2__admin_dashboard__["a" /* AdminDashboardPage */],
+                __WEBPACK_IMPORTED_MODULE_2__driver_list_delivery__["a" /* DriverListDeliveryPage */],
             ],
             imports: [
-                __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["e" /* IonicPageModule */].forChild(__WEBPACK_IMPORTED_MODULE_2__admin_dashboard__["a" /* AdminDashboardPage */]),
+                __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["e" /* IonicPageModule */].forChild(__WEBPACK_IMPORTED_MODULE_2__driver_list_delivery__["a" /* DriverListDeliveryPage */]),
             ],
         })
-    ], AdminDashboardPageModule);
-    return AdminDashboardPageModule;
+    ], DriverListDeliveryPageModule);
+    return DriverListDeliveryPageModule;
 }());
 
-//# sourceMappingURL=admin-dashboard.module.js.map
+//# sourceMappingURL=driver-list-delivery.module.js.map
 
 /***/ })
 
