@@ -1,5 +1,4 @@
 import { FormsModule } from '@angular/forms';
-import { MbscModule } from '@mobiscroll/angular';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { ErrorHandler, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
@@ -66,7 +65,6 @@ export function provideSettings(storage: Storage) {
   ],
   imports: [ 
     FormsModule, 
-    MbscModule,
     BrowserModule,
     HttpClientModule,
     TranslateModule.forRoot({
