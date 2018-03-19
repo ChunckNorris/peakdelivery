@@ -39,7 +39,6 @@ export class MyApp {
     { title: 'Customer Dashboard', component: CustomerDashboardPage },
     { title: 'My Profile', component: ProfilePage },
     { title: 'Settings', component: 'SettingsPage' },
-    { title: 'Search', component: 'SearchPage' },
     { title: 'Logout', component: LoginPage },
   ]
 
