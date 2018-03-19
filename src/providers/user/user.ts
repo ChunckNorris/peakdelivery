@@ -48,7 +48,7 @@ export class User {
     //Mock for demo replace with authenticated api user and jwt ir something later. 
     let requests = new Observable<boolean>(observer => {
     switch (accountInfo.email.toUpperCase()) {
-      case 'TESTADMIN@PEAKDELIEVERY.COM':
+      case 'TESTADMIN@PEAKDELIVERY.COM':
         let adminUser = new Profile;
         adminUser.firstName = 'Admin';
         adminUser.lastName = 'User';
@@ -58,7 +58,7 @@ export class User {
         this.profile = adminUser;
         observer.next(true); 
         break;
-      case 'TESTCLIENT@PEAKDELIEVERY.COM':
+      case 'TESTCLIENT@PEAKDELIVERY.COM':
         let clientUser = new Profile;
         clientUser.firstName = 'Client';
         clientUser.lastName = 'User';
@@ -68,7 +68,7 @@ export class User {
         this.profile = clientUser;
         observer.next(true);
         break;
-      case 'TESTDRIVER@PEAKDELIEVERY.COM':
+      case 'TESTDRIVER@PEAKDELIVERY.COM':
         let deliverytUser = new Profile;
         deliverytUser.firstName = 'Driver';
         deliverytUser.lastName = 'User';
