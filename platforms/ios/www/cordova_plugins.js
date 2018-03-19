@@ -71,6 +71,15 @@ module.exports = [
     "clobbers": [
       "CameraPopoverHandle"
     ]
+  },
+  {
+    "id": "cordova-plugin-ionic.common",
+    "file": "plugins/cordova-plugin-ionic/www/common.js",
+    "pluginId": "cordova-plugin-ionic",
+    "clobbers": [
+      "IonicCordova"
+    ],
+    "runs": true
   }
 ];
 module.exports.metadata = 
@@ -82,7 +91,8 @@ module.exports.metadata =
   "cordova-plugin-ionic-webview": "1.1.16",
   "cordova-plugin-ionic-keyboard": "2.0.5",
   "phonegap-plugin-barcodescanner": "7.1.0",
-  "cordova-plugin-camera": "4.0.2"
+  "cordova-plugin-camera": "4.0.2",
+  "cordova-plugin-ionic": "4.1.0"
 };
 // BOTTOM OF METADATA
 });

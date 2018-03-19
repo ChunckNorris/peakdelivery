@@ -33,6 +33,7 @@
         "cordova-ios": "4.5.4",
         "cordova-plugin-camera": "^4.0.2",
         "cordova-plugin-device": "^2.0.1",
+        "cordova-plugin-ionic": "^4.1.0",
         "cordova-plugin-ionic-keyboard": "^2.0.5",
         "cordova-plugin-ionic-webview": "^1.1.16",
         "cordova-plugin-splashscreen": "^5.0.2",
@@ -62,7 +63,15 @@
             "phonegap-plugin-barcodescanner": {
                 "ANDROID_SUPPORT_V4_VERSION": "27.+"
             },
-            "cordova-plugin-camera": {}
+            "cordova-plugin-camera": {},
+            "cordova-plugin-ionic": {
+                "APP_ID": "5554f3c4",
+                "CHANNEL_NAME": "Master",
+                "UPDATE_METHOD": "background",
+                "WARN_DEBUG": "true",
+                "UPDATE_API": "https://api.ionicjs.com",
+                "MAX_STORE": "2"
+            }
         },
         "platforms": [
             "ios",

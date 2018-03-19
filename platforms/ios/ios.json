@@ -43,6 +43,54 @@
             {
               "xml": "<preference name=\"CameraUsesGeolocation\" value=\"false\" />",
               "count": 1
+            },
+            {
+              "xml": "<feature name=\"IonicDeploy\"><param name=\"ios-package\" onload=\"true\" value=\"IonicDeploy\" /></feature>",
+              "count": 1
+            },
+            {
+              "xml": "<feature name=\"IonicCordovaCommon\"><param name=\"ios-package\" onload=\"true\" value=\"IonicCordovaCommon\" /></feature>",
+              "count": 1
+            }
+          ]
+        }
+      },
+      "*-Info.plist": {
+        "parents": {
+          "IonAppId": [
+            {
+              "xml": "<string>5554f3c4</string>",
+              "count": 1
+            }
+          ],
+          "IonDebug": [
+            {
+              "xml": "<string>true</string>",
+              "count": 1
+            }
+          ],
+          "IonChannelName": [
+            {
+              "xml": "<string>Master</string>",
+              "count": 1
+            }
+          ],
+          "IonApi": [
+            {
+              "xml": "<string>https://api.ionicjs.com</string>",
+              "count": 1
+            }
+          ],
+          "IonUpdateMethod": [
+            {
+              "xml": "<string>background</string>",
+              "count": 1
+            }
+          ],
+          "IonMaxVersions": [
+            {
+              "xml": "<string>2</string>",
+              "count": 1
             }
           ]
         }
@@ -69,6 +117,15 @@
       "PACKAGE_NAME": "io.ionic.starter"
     },
     "cordova-plugin-camera": {
+      "PACKAGE_NAME": "io.ionic.starter"
+    },
+    "cordova-plugin-ionic": {
+      "APP_ID": "5554f3c4",
+      "CHANNEL_NAME": "Master",
+      "WARN_DEBUG": "true",
+      "UPDATE_API": "https://api.ionicjs.com",
+      "UPDATE_METHOD": "background",
+      "MAX_STORE": "2",
       "PACKAGE_NAME": "io.ionic.starter"
     }
   },
@@ -145,6 +202,15 @@
       "clobbers": [
         "CameraPopoverHandle"
       ]
+    },
+    {
+      "id": "cordova-plugin-ionic.common",
+      "file": "plugins/cordova-plugin-ionic/www/common.js",
+      "pluginId": "cordova-plugin-ionic",
+      "clobbers": [
+        "IonicCordova"
+      ],
+      "runs": true
     }
   ],
   "plugin_metadata": {
@@ -154,6 +220,7 @@
     "cordova-plugin-ionic-webview": "1.1.16",
     "cordova-plugin-ionic-keyboard": "2.0.5",
     "phonegap-plugin-barcodescanner": "7.1.0",
-    "cordova-plugin-camera": "4.0.2"
+    "cordova-plugin-camera": "4.0.2",
+    "cordova-plugin-ionic": "4.1.0"
   }
 }

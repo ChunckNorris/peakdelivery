@@ -54,5 +54,17 @@
     },
     "is_top_level": true,
     "variables": {}
+  },
+  "cordova-plugin-ionic": {
+    "source": {
+      "type": "registry",
+      "id": "cordova-plugin-ionic@4.1.0"
+    },
+    "is_top_level": true,
+    "variables": {
+      "APP_ID": "5554f3c4",
+      "CHANNEL_NAME": "Master",
+      "UPDATE_METHOD": "background"
+    }
   }
 }
