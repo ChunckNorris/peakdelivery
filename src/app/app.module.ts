@@ -11,7 +11,7 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 
 import { BarcodeScanner } from '@ionic-native/barcode-scanner';
-
+import { SignaturePadModule } from 'angular2-signaturepad';
 
 
 
@@ -69,6 +69,7 @@ export function provideSettings(storage: Storage) {
     FormsModule, 
     BrowserModule,
     HttpClientModule,
+    SignaturePadModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
