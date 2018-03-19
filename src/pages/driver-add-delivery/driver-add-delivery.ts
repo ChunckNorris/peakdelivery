@@ -56,13 +56,13 @@ export class DriverAddDeliveryPage {
   scanCode(type) {
     if (type === 'tote') {
       this.barcodeScanner.scan().then((barcodeData) => {
-        this.form.controls['bagToteId'].setValue(barcodeData);
+        this.form.controls['bagToteId'].setValue(barcodeData.text);
       }, (err) => {
         alert(err);
       });
     } else if (type === 'slip') {
       this.barcodeScanner.scan().then((barcodeData) => {
-        this.form.controls['slipToteId'].setValue(barcodeData);
+        this.form.controls['slipToteId'].setValue(barcodeData.text);
       }, (err) => {
         alert(err);
       });
