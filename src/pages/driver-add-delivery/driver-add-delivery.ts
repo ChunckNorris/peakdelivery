@@ -54,19 +54,47 @@ export class DriverAddDeliveryPage {
   }
 
   scanCode(type) {
-    if (type === 'tote') {
+    switch(type){
+      case 'tote':
       this.barcodeScanner.scan().then((barcodeData) => {
         this.form.controls['bagToteId'].setValue(barcodeData.text);
       }, (err) => {
         alert(err);
       });
-    } else if (type === 'slip') {
+      break;
+      case 'slip':
       this.barcodeScanner.scan().then((barcodeData) => {
         this.form.controls['slipToteId'].setValue(barcodeData.text);
       }, (err) => {
         alert(err);
       });
+      break;
+      case 'multiLine':
+      this.barcodeScanner.scan().then((barcodeData) => {
+        this.form.controls['multiLineText'].setValue(barcodeData.text);
+      }, (err) => {
+        alert(err);
+      });
+      break;
+      default:
+      break;
+
     }
+
+
+    // if (type === 'tote') {
+    //   this.barcodeScanner.scan().then((barcodeData) => {
+    //     this.form.controls['bagToteId'].setValue(barcodeData.text);
+    //   }, (err) => {
+    //     alert(err);
+    //   });
+    // } else if (type === 'slip') {
+    //   this.barcodeScanner.scan().then((barcodeData) => {
+    //     this.form.controls['slipToteId'].setValue(barcodeData.text);
+    //   }, (err) => {
+    //     alert(err);
+    //   });
+    // }
 
 
   }

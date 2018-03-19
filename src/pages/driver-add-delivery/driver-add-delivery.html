@@ -89,6 +89,9 @@
       <ion-item>
         <ion-label>MultiLine Text</ion-label>
         <ion-textarea formControlName="multiLineText"></ion-textarea>
+        <button ion-button item-end (click)="scanCode('multiLine')">
+            <ion-icon name="camera"></ion-icon>
+          </button>
       </ion-item>
       <ion-item>
         <button ion-button full icon-right>

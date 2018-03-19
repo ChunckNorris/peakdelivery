@@ -28,7 +28,8 @@ import { CustomerDashboardPage,
   DriverAddDeliveryPage, 
   DriverEditDeliveryPage, 
   DriverListDeliveryPage, 
-  DriverSearchDeliveryPage } from '../pages/pages'
+  DriverSearchDeliveryPage,
+  ProfilePage } from '../pages/pages'
 
 // The translate loader needs to know where to load i18n files
 // in Ionic's static asset pipeline.
@@ -61,7 +62,8 @@ export function provideSettings(storage: Storage) {
     DriverAddDeliveryPage, 
     DriverEditDeliveryPage, 
     DriverListDeliveryPage, 
-    DriverSearchDeliveryPage
+    DriverSearchDeliveryPage,
+    ProfilePage
   ],
   imports: [ 
     FormsModule, 
@@ -87,7 +89,8 @@ export function provideSettings(storage: Storage) {
     DriverAddDeliveryPage, 
     DriverEditDeliveryPage, 
     DriverListDeliveryPage, 
-    DriverSearchDeliveryPage
+    DriverSearchDeliveryPage,
+    ProfilePage
   ],
   providers: [
     Api,

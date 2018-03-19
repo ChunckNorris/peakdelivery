@@ -7,7 +7,7 @@ import { Config, Nav, Platform } from 'ionic-angular';
 import { WelcomePage } from '../pages/welcome/welcome';
 import { LoginPage } from '../pages/login/login';
 import { Settings } from '../providers/providers';
-import { AdminDashboardPage, CustomerDashboardPage, DriverDashboardPage } from '../pages/pages'
+import { AdminDashboardPage, CustomerDashboardPage, DriverDashboardPage, ProfilePage } from '../pages/pages'
 
 @Component({
   template: `<ion-menu [content]="content" side="right"  persistent="true">
@@ -37,6 +37,7 @@ export class MyApp {
     { title: 'Admin Dashboard', component: AdminDashboardPage },
     { title: 'Driver Dashboard', component: DriverDashboardPage },
     { title: 'Customer Dashboard', component: CustomerDashboardPage },
+    { title: 'My Profile', component: ProfilePage },
     { title: 'Settings', component: 'SettingsPage' },
     { title: 'Search', component: 'SearchPage' },
     { title: 'Logout', component: LoginPage },

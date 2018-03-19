@@ -6,7 +6,7 @@ import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angul
   selector: 'page-profile',
   templateUrl: 'profile.html'
 })
-export class Profile {
+export class ProfilePage {
 
   form: FormGroup;
 
