@@ -1,0 +1,8 @@
+{
+  "name": "peakdelivery",
+  "app_id": "5554f3c4",
+  "type": "ionic-angular",
+  "integrations": {
+    "cordova": {}
+  }
+}

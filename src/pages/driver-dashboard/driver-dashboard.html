@@ -1,0 +1,54 @@
+<!-- <ion-header>
+    <ion-navbar>
+      <ion-buttons start>
+        <button ion-button icon-only>
+          <ion-icon name="contact"></ion-icon>
+        </button>
+      </ion-buttons>
+  
+      <ion-buttons end>
+        <button ion-button icon-only>
+          <ion-icon name="search"></ion-icon>
+        </button>
+      </ion-buttons>
+    </ion-navbar>
+  </ion-header> -->
+ 
+<ion-header>
+    
+        <ion-navbar>
+            <ion-title>Driver Dashboard</ion-title>
+<!--         
+            <ion-buttons end>
+                <button ion-button menuToggle>
+                    <ion-icon name="menu"></ion-icon>
+                </button>
+              </ion-buttons> -->
+              
+          </ion-navbar>
+    
+    </ion-header>
+
+
+<ion-content padding>
+
+    <ion-list>
+        <ion-item>
+            Add New Item For Delivery
+          <button ion-button outline item-end icon-left (click)="addNewDelivery()">
+            <ion-icon name="add-circle"></ion-icon>
+            Add
+          </button>
+        </ion-item>
+        <ion-item>
+            Deliver Item
+            <button ion-button outline item-end icon-left (click)="deliverItem()">
+              <ion-icon name="cube"></ion-icon>
+              Select
+            </button>
+          </ion-item>
+
+      </ion-list>
+
+
+</ion-content>
