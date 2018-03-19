@@ -5,6 +5,8 @@ export class Profile {
     firstName: string
     middleName: string
     lastName: string
+    phoneNumber: string;
+    email: string;
     suffix: string
     dateOfBirth: Date
     address1: string

@@ -1,0 +1,104 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Profile</ion-title>
+
+    <ion-buttons end>
+      <button ion-button menuToggle>
+        <ion-icon name="menu"></ion-icon>
+      </button>
+    </ion-buttons>
+
+  </ion-navbar>
+
+</ion-header>
+
+
+
+<ion-content>
+
+
+  <div padding>
+    <ion-segment [(ngModel)]="patientProfile">
+      <ion-segment-button value="profileview">
+        Profile
+      </ion-segment-button>
+      <ion-segment-button value="preferencesview">
+        Preferences
+      </ion-segment-button>
+    </ion-segment>
+  </div>
+
+  <form [formGroup]="form">
+
+
+
+    <div [ngSwitch]="patientProfile">
+      <div *ngSwitchCase="'profileview'" ngSelected="selected">
+        <ion-input type="text" readonly formControlName="firstName" class="field" placeholder="first name"></ion-input>
+
+        <ion-list>
+          <ion-item>
+            <ion-label color="primary">First Name</ion-label>
+            <ion-input formControlName="firstName" placeholder="first name"></ion-input>
+
+
+          </ion-item>
+          <ion-item>
+            <ion-label color="primary">Last Name</ion-label>
+            <ion-input formControlName="lastName" placeholder="last name"></ion-input>
+
+
+          </ion-item>
+          <ion-item>
+            <ion-label color="primary">Phone Number</ion-label>
+            <ion-input formControlName="phone" placeholder="phone"></ion-input>
+
+
+          </ion-item>
+          <ion-item>
+            <ion-label color="primary">Email Address</ion-label>
+            <ion-input formControlName="email" placeholder="email"></ion-input>
+
+
+          </ion-item>
+
+        </ion-list>
+        <br>
+        <button ion-button full large>Update</button>
+
+        <br>
+        <ion-list>
+          <ion-item>
+            <ion-label color="primary">Password</ion-label>
+            <ion-input formControlName="password" placeholder="email"></ion-input>
+
+
+          </ion-item>
+          <ion-item>
+            <ion-label color="primary">New Password</ion-label>
+            <ion-input formControlName="newPassword" placeholder="new password"></ion-input>
+
+
+          </ion-item>
+          <ion-item>
+            <ion-label color="primary">Confirm Password</ion-label>
+            <ion-input formControlName="confirmPassword" placeholder="confirm password"></ion-input>
+
+
+          </ion-item>
+
+
+        </ion-list>
+        <br>
+        <button ion-button full large>Update</button>
+
+        <br>
+
+      </div>
+      <div *ngSwitchCase="'preferencesview'">
+
+      </div>
+    </div>
+  </form>
+</ion-content>
