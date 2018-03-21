@@ -30,6 +30,8 @@ import { CustomerDashboardPage,
   DriverListDeliveryPage, 
   DriverSearchDeliveryPage,
   ProfilePage } from '../pages/pages'
+import { Ui} from '../providers/ui/ui';
+import { LoadingIndicatorComponent } from '../components/loading-indicator/loading-indicator';
 
 // The translate loader needs to know where to load i18n files
 // in Ionic's static asset pipeline.
@@ -63,7 +65,8 @@ export function provideSettings(storage: Storage) {
     DriverEditDeliveryPage, 
     DriverListDeliveryPage, 
     DriverSearchDeliveryPage,
-    ProfilePage
+    ProfilePage,
+    LoadingIndicatorComponent
   ],
   imports: [ 
     FormsModule, 
@@ -103,7 +106,8 @@ export function provideSettings(storage: Storage) {
     BarcodeScanner,
     { provide: Settings, useFactory: provideSettings, deps: [Storage] },
     // Keep this to enable Ionic's runtime error handling during development
-    { provide: ErrorHandler, useClass: IonicErrorHandler }
+    { provide: ErrorHandler, useClass: IonicErrorHandler },
+    Ui
   ]
 })
 export class AppModule { }

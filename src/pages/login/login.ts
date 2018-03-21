@@ -2,13 +2,15 @@ import { Component } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { IonicPage, NavController, ToastController } from 'ionic-angular';
 
-import { User } from '../../providers/providers';
-import {AuthUser} from '../../models/index';
+import { User, Ui } from '../../providers/providers';
+import { AuthUser } from '../../models/index';
 
-import { MainPage, 
-  CustomerDashboardPage, 
-  AdminDashboardPage, 
-  DriverDashboardPage } from '../pages';
+import {
+  MainPage,
+  CustomerDashboardPage,
+  AdminDashboardPage,
+  DriverDashboardPage
+} from '../pages';
 
 @IonicPage()
 @Component({
@@ -27,9 +29,10 @@ export class LoginPage {
   constructor(public navCtrl: NavController,
     public user: User,
     public toastCtrl: ToastController,
-    public translateService: TranslateService) {
+    public translateService: TranslateService,
+    public ui: Ui) {
 
-      this.account = new AuthUser();
+    this.account = new AuthUser();
 
     this.translateService.get('LOGIN_ERROR').subscribe((value) => {
       this.loginErrorString = value;
@@ -39,30 +42,38 @@ export class LoginPage {
   // Attempt to login in through our User service
   doLogin() {
 
-
+    this.ui.showLoadingIndicator(true);
 
 
     this.user.login(this.account).subscribe((resp) => {
-     
-      switch( this.user.profile.role){
-        case 'Admin':
-        this.navCtrl.setRoot(AdminDashboardPage);
-        break;
-        case 'Client':
-        this.navCtrl.setRoot(CustomerDashboardPage);
-        break;
-        case 'Driver':
-        this.navCtrl.setRoot(DriverDashboardPage);
-        break;
+      setTimeout(() => {
+        this.ui.showLoadingIndicator(false);
 
-      }
+
+        switch (this.user.profile.role) {
+          case 'Admin':
+            this.navCtrl.setRoot(AdminDashboardPage);
+            break;
+          case 'Client':
+            this.navCtrl.setRoot(CustomerDashboardPage);
+            break;
+          case 'Driver':
+            this.navCtrl.setRoot(DriverDashboardPage);
+            break;
+
+        }
+
+      },
+        5000);
+
     }, (err) => {
       let toast = this.toastCtrl.create({
         message: 'Invalid user name or password',
-        duration: 3000,
+        duration: 2000,
         position: 'top'
       });
       toast.present();
     });
   }
+
 }

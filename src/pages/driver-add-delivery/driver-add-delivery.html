@@ -1,7 +1,7 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>Add New Delivery</ion-title>
+    <ion-title>Delivery</ion-title>
 
   
 
@@ -93,7 +93,7 @@
             <ion-icon name="camera"></ion-icon>
           </button>
       </ion-item>
-      <ion-item>
+      <ion-item *ngIf="isNewDelivery">
         <button ion-button full icon-right>
           Signature
           <ion-icon ios="ios-clipboard" md="md-clipboard"></ion-icon>
@@ -101,10 +101,14 @@
       </ion-item>
 
     </ion-list>
-    <ion-item>
+    <ion-item *ngIf="isNewDelivery">
       <button ion-button full large>Save Delivery</button>
 
     </ion-item>
+    <ion-item *ngIf="!isNewDelivery">
+        <button ion-button full large>Complete Delivery</button>
+  
+      </ion-item>
   </form>
 
 

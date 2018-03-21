@@ -8,11 +8,14 @@ import { WelcomePage } from '../pages/welcome/welcome';
 import { LoginPage } from '../pages/login/login';
 import { Settings } from '../providers/providers';
 import { AdminDashboardPage, CustomerDashboardPage, DriverDashboardPage, ProfilePage } from '../pages/pages'
+import { LoadingIndicatorComponent } from '../components/loading-indicator/loading-indicator';
+
 
 @Component({
-  template: `<ion-menu [content]="content" side="right"  persistent="true">
+  template: `<loading-indicator></loading-indicator>
+  <ion-menu [content]="content" side="right"  persistent="true">
     <ion-header>
-      <ion-toolbar>
+      <ion-toolbar >
         <ion-title>Pages</ion-title>
       </ion-toolbar>
     </ion-header>
