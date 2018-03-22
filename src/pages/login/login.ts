@@ -43,6 +43,7 @@ export class LoginPage {
   doLogin() {
 
     this.ui.showLoadingIndicator(true);
+  
 
 
     this.user.login(this.account).subscribe((resp) => {

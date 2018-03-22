@@ -9,7 +9,8 @@ import {
   MainPage,
   CustomerDashboardPage,
   AdminDashboardPage,
-  DriverDashboardPage
+  DriverDashboardPage,
+  DriverListDeliveryPage
 } from '../pages';
 
 @IonicPage()
@@ -20,10 +21,11 @@ import {
 export class DriverAddDeliveryPage {
 
   form: FormGroup;
-  driver: Profile
+  driver: Profile;
   delivery: Delivery;
+  myItems: Array<Delivery>;
   isNewDelivery: boolean;
-
+  callback: any;
 
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
@@ -31,6 +33,19 @@ export class DriverAddDeliveryPage {
     private barcodeScanner: BarcodeScanner) {
 
 
+    this.callback = this.navParams.get('callback');
+    
+
+
+    if(this.navParams.data.data.length > 0){
+      
+        this.myItems = this.navParams.data.data;
+     
+      
+    }else{
+      this.myItems = new Array<Delivery>();
+
+    }
 
     this.driver = new Profile();
 
@@ -138,6 +153,44 @@ export class DriverAddDeliveryPage {
     //   });
     // }
 
+
+  }
+
+  saveDelivery() {
+    if (this.isNewDelivery) {
+      this.delivery.activity = this.form.value.activity;
+      this.delivery.driverName = this.form.value.driverName;
+      this.delivery.bagToteId = this.form.value.bagToteId;
+      this.delivery.slipToteId = this.form.value.slipToteId;
+      this.delivery.billing = this.form.value.billing;
+      this.delivery.timeDelivered = this.form.value.timeDelivered;
+      this.delivery.dateDelivered = this.form.value.dateDelivered;
+      this.delivery.text = this.form.value.text;
+      this.delivery.multiLineText = this.form.value.multiLineText;
+
+      this.myItems.push(this.delivery);
+
+      let data = {
+        delivery: this.delivery,
+        myitems: this.myItems
+      }
+
+
+      this.callback(this.myItems).then(() => {
+        this.navCtrl.pop();
+      });
+    } else {
+      this.navCtrl.pop();
+    }
+
+
+
+    //this.navCtrl.popTo(DriverListDeliveryPage,)
+
+  }
+
+
+  completeDelivery() {
 
   }
 

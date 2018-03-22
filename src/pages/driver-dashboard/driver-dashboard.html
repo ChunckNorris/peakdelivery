@@ -50,5 +50,41 @@
 
     </ion-list>
 
+
+    <div *ngFor="let del of myDeliveries">
+      <ion-card>
+
+        <ion-item>
+          <ion-avatar item-start>
+            <img src="assets/img/driver-avatar.png">
+          </ion-avatar>
+          <h2>{{del.driverName}}</h2>
+          <p>Est Delivery Date: 01/02/2019</p>
+        </ion-item>
+
+
+        <ion-card-content>
+          <p>Address: {{del.address1}}</p>
+          <p>{{del.city}}, {{del.state}} {{del.zip}}</p>
+
+        </ion-card-content>
+
+        <ion-item>
+          <span item-left>
+            <button ion-button icon-left clear small (click)="mapDelivery()">
+              <ion-icon name="navigate"></ion-icon>
+              <div>Map</div>
+            </button>
+          </span>
+          <button ion-button icon-left clear item-end (click)="deliverPackage(del)">
+            <ion-icon name="share-alt"></ion-icon>
+            Deliver
+          </button>
+        </ion-item>
+      </ion-card>
+
+    </div>
+   
+
   </div>
 </ion-content>

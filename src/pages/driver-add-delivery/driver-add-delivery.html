@@ -107,11 +107,11 @@
 
       </ion-list>
       <ion-item *ngIf="isNewDelivery">
-        <button ion-button full large>Save Delivery</button>
+        <button ion-button full large (click)="saveDelivery()">Save Delivery</button>
 
       </ion-item>
       <ion-item *ngIf="!isNewDelivery">
-        <button ion-button full large>Complete Delivery</button>
+        <button ion-button full large (click)="completeDelivery()">Complete Delivery</button>
 
       </ion-item>
     </form>

@@ -8,7 +8,8 @@ import { User, Ui } from '../../providers/providers';
 import { InAppBrowser, InAppBrowserOptions } from '@ionic-native/in-app-browser';
 
 import {
-  DriverAddDeliveryPage
+  DriverAddDeliveryPage,
+  DriverEditDeliveryPage
 } from '../pages';
 
 @IonicPage()
@@ -51,6 +52,9 @@ export class DriverListDeliveryPage {
     del1.city = 'Tempe';
     del1.state = 'AZ';
     del1.zip = ' 85234';
+    del1.dateDelivered = '03/22/2018';
+    del1.timeDelivered = '11:30 PM';
+    del1.bagToteId = '123456789';
 
     let del2 = new Delivery();
     del2.driverName = 'Kevin Bieber';
@@ -58,10 +62,19 @@ export class DriverListDeliveryPage {
     del2.city = 'Scottsdale';
     del2.state = 'AZ';
     del2.zip = ' 85034';
-    
+    del2.dateDelivered = '03/22/2018';
+    del2.timeDelivered = '11:30 PM';
+    del2.bagToteId = '555555558877';
 
-    this.deliveryList.push(del1);
-    this.deliveryList.push(del2);
+    this.ui.showLoadingIndicator(true);
+    setTimeout(() => {
+      this.deliveryList.push(del1);
+      this.deliveryList.push(del2);
+      this.ui.showLoadingIndicator(false);
+    },1000);
+
+
+
 
   }
 
@@ -86,7 +99,7 @@ export class DriverListDeliveryPage {
   
 
   deliverPackage(_delivery: Delivery){
-    this.navCtrl.push(DriverAddDeliveryPage, {delivery: _delivery});
+    this.navCtrl.push(DriverEditDeliveryPage, {delivery: _delivery});
     
   }
 

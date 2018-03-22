@@ -16,8 +16,8 @@
   <div style="max-width: 800px; margin: auto; ">
 
     <ion-item>
-      <ion-label color="primary">Scan</ion-label>
-      <ion-input placeholder="Scan Code"></ion-input>
+      <ion-label color="primary">Scan Id</ion-label>
+      <ion-input placeholder="Search....."></ion-input>
       <button ion-button item-end (click)="scanCode('tote')">
         <ion-icon name="camera"></ion-icon>
       </button>
@@ -26,13 +26,13 @@
 
     <div *ngFor="let del of deliveryList">
       <ion-card>
-
+    
         <ion-item>
           <ion-avatar item-start>
             <img src="assets/img/driver-avatar.png">
           </ion-avatar>
           <h2>{{del.driverName}}</h2>
-          <p>Est Delivery Date: 01/02/2019</p>
+          <p>Est Delivery Date: {{del.dateDelivered}} : {{del.timeDelivered}} </p>
         </ion-item>
 
 
