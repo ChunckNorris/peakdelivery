@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='utf-8'?>
 <widget id="com.peakdelivery.deliver" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>peakdelivery</name>
-    <description></description>
+    <description />
     <author email="tim.rankel@gmail.com" href="http://peakdelivery.com">Peak Delivery</author>
     <content src="index.html" />
     <access origin="*" />
@@ -96,4 +96,5 @@
     <engine name="ios" spec="4.5.4" />
     <engine name="android" spec="7.0.0" />
     <plugin name="cordova-plugin-inappbrowser" spec="^2.0.2" />
+    <plugin name="cordova-sqlite-storage" spec="^2.2.1" />
 </widget>

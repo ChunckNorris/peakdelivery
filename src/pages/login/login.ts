@@ -68,12 +68,12 @@ export class LoginPage {
         }
 
       },
-        5000);
+        2000);
 
     }, (err) => {
       let toast = this.toastCtrl.create({
         message: 'Invalid user name or password',
-        duration: 2000,
+        duration: 1000,
         position: 'top'
       });
       toast.present();

@@ -1,9 +1,11 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
 import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
 
 import { Profile, Delivery } from '../../models/index';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner';
+import { ModalSignPage } from '../../pages/pages'
+
 
 import {
   MainPage,
@@ -28,21 +30,22 @@ export class DriverEditDeliveryPage {
   myItems: Array<Delivery>;
   isNewDelivery: boolean;
   callback: any;
-
+  signature: any;
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
     public formBuilder: FormBuilder,
+    public modalCtrl: ModalController,
     private barcodeScanner: BarcodeScanner) {
-      this.driver = new Profile();
-      this.driver.firstName = 'Test';
-      this.driver.lastName = 'Driver';
+    this.driver = new Profile();
+    this.driver.firstName = 'Test';
+    this.driver.lastName = 'Driver';
 
 
-    if(this.navParams.data){
+    if (this.navParams.data) {
       this.delivery = this.navParams.data.delivery;
 
-  
-  
+
+
       this.form = this.formBuilder.group({
         driverName: [this.delivery.driverName]
         , run: [this.delivery.run]
@@ -56,7 +59,7 @@ export class DriverEditDeliveryPage {
         , multiLineText: [this.delivery.multiLineText]
       });
 
-    }else{
+    } else {
       this.delivery = new Delivery();
 
     }
@@ -68,6 +71,20 @@ export class DriverEditDeliveryPage {
     console.log('ionViewDidLoad DriverEditDeliveryPage');
   }
   completeDelivery() {
-    
+
+  }
+  getSig(){
+    let modal = this.modalCtrl.create(ModalSignPage);
+    modal.present();
+
+    modal.onDidDismiss(data => {
+      if(data.length && data.length > 0){
+        this.signature = data;
+      }else{
+        this.signature = null;
       }
+      
+        //alert(data);
+      });
+  }
 }

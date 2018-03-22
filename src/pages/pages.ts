@@ -24,3 +24,4 @@ export * from './driver-edit-delivery/driver-edit-delivery';
 export * from './driver-search-delivery/driver-search-delivery';
 export * from './driver-list-delivery/driver-list-delivery';
 export * from './profile/profile';
+export * from './modal-sign/modal-sign';

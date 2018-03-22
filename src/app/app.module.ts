@@ -22,6 +22,8 @@ import { Api } from '../providers/providers';
 import { MyApp } from './app.component';
 import { WelcomePage } from '../pages/welcome/welcome';
 
+
+
 import { CustomerDashboardPage, 
   DriverDashboardPage, 
   AdminDashboardPage, 
@@ -29,10 +31,17 @@ import { CustomerDashboardPage,
   DriverEditDeliveryPage, 
   DriverListDeliveryPage, 
   DriverSearchDeliveryPage,
-  ProfilePage } from '../pages/pages'
+  ProfilePage,
+  ModalSignPage } from '../pages/pages'
+  import { LoginPage } from '../pages/login/login';
 import { Ui} from '../providers/ui/ui';
 import { LoadingIndicatorComponent } from '../components/loading-indicator/loading-indicator';
+import { CollectSignatureComponent } from '../components/collect-signature/collect-signature';
+
 import { InAppBrowser } from '@ionic-native/in-app-browser';
+
+
+
 
 // The translate loader needs to know where to load i18n files
 // in Ionic's static asset pipeline.
@@ -49,9 +58,9 @@ export function provideSettings(storage: Storage) {
    */
   return new Settings(storage, {
     option1: true,
-    option2: 'Ionitron J. Framework',
+    option2: 'Tim Rankel',
     option3: '3',
-    option4: 'Hello'
+    option4: 'Test'
   });
 }
 
@@ -67,7 +76,10 @@ export function provideSettings(storage: Storage) {
     DriverListDeliveryPage, 
     DriverSearchDeliveryPage,
     ProfilePage,
-    LoadingIndicatorComponent
+    LoginPage,
+    LoadingIndicatorComponent,
+    CollectSignatureComponent,
+    ModalSignPage
   ],
   imports: [ 
     FormsModule, 
@@ -95,7 +107,9 @@ export function provideSettings(storage: Storage) {
     DriverEditDeliveryPage, 
     DriverListDeliveryPage, 
     DriverSearchDeliveryPage,
-    ProfilePage
+    ProfilePage,
+    LoginPage,
+    ModalSignPage
   ],
   providers: [
     Api,

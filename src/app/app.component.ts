@@ -7,7 +7,7 @@ import { Config, Nav, Platform, App } from 'ionic-angular';
 import { WelcomePage } from '../pages/welcome/welcome';
 import { LoginPage } from '../pages/login/login';
 import { Settings } from '../providers/providers';
-import { AdminDashboardPage, CustomerDashboardPage, DriverDashboardPage, ProfilePage } from '../pages/pages'
+import { AdminDashboardPage, CustomerDashboardPage, DriverDashboardPage, ProfilePage, ModalSignPage } from '../pages/pages'
 import { LoadingIndicatorComponent } from '../components/loading-indicator/loading-indicator';
 
 
@@ -32,7 +32,7 @@ import { LoadingIndicatorComponent } from '../components/loading-indicator/loadi
   <ion-nav #content [root]="rootPage"></ion-nav>`
 })
 export class MyApp {
-  rootPage = WelcomePage;
+  rootPage = LoginPage;
 
   @ViewChild(Nav) nav: Nav;
 
