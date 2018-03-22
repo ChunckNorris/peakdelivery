@@ -13,42 +13,42 @@
       </ion-buttons>
     </ion-navbar>
   </ion-header> -->
- 
 <ion-header>
-    
-        <ion-navbar>
-            <ion-title>Driver Dashboard</ion-title>
-<!--         
-            <ion-buttons end>
-                <button ion-button menuToggle>
-                    <ion-icon name="menu"></ion-icon>
-                </button>
-              </ion-buttons> -->
-              
-          </ion-navbar>
-    
-    </ion-header>
+
+  <ion-navbar>
+    <ion-title>Driver Dashboard</ion-title>
+
+    <ion-buttons end>
+      <button ion-button menuToggle>
+        <ion-icon name="menu"></ion-icon>
+      </button>
+    </ion-buttons>
+
+  </ion-navbar>
+
+</ion-header>
+
 
 
 <ion-content padding>
-
+    <div style="max-width: 800px; margin: auto; ">
     <ion-list>
-        <ion-item>
-            Add New Item For Delivery
-          <button ion-button outline item-end icon-left (click)="addNewDelivery()">
-            <ion-icon name="add-circle"></ion-icon>
-            Add
-          </button>
-        </ion-item>
-        <ion-item>
-            Deliver Item
-            <button ion-button outline item-end icon-left (click)="deliverItem()">
-              <ion-icon name="cube"></ion-icon>
-              Select
-            </button>
-          </ion-item>
+      <ion-item>
+        Add New Item For Delivery
+        <button ion-button outline item-end icon-left (click)="addNewDelivery()">
+          <ion-icon name="add-circle"></ion-icon>
+          Add
+        </button>
+      </ion-item>
+      <ion-item>
+        Deliver Item
+        <button ion-button outline item-end icon-left (click)="deliverItem()">
+          <ion-icon name="cube"></ion-icon>
+          Select
+        </button>
+      </ion-item>
 
-      </ion-list>
+    </ion-list>
 
-
+  </div>
 </ion-content>

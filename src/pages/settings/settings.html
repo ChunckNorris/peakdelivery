@@ -1,13 +1,19 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>{{ pageTitle }}</ion-title>
+    <ion-title>Settings</ion-title>
+    <ion-buttons end>
+        <button ion-button menuToggle>
+          <ion-icon name="menu"></ion-icon>
+        </button>
+      </ion-buttons>
+
   </ion-navbar>
 
 </ion-header>
 
 <ion-content>
-
+    <div style="max-width: 800px; margin: auto; ">
   <form [formGroup]="form" *ngIf="settingsReady">
     <ion-list *ngIf="page == 'main'">
       <ion-item>
@@ -20,5 +26,5 @@
     </ion-list>
 
   </form>
-
+    </div>
 </ion-content>

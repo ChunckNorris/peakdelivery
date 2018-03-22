@@ -1,41 +1,61 @@
-<ion-header style="background-color: #92e48f; background: #92e48f">
+<ion-header>
 
   <ion-navbar>
-    <ion-title>{{ 'LOGIN_TITLE' | translate }}</ion-title>
+    <ion-title>Login</ion-title>
 
-		<ion-buttons end>
-        <button ion-button menuToggle>
-            <ion-icon name="menu"></ion-icon>
-        </button>
-      </ion-buttons>
-      
+    <!-- <ion-buttons end>
+      <button ion-button menuToggle>
+        <ion-icon name="menu"></ion-icon>
+      </button>
+    </ion-buttons> -->
+
   </ion-navbar>
 
 </ion-header>
 
 
 <ion-content>
-    <div style="max-width: 800px; margin: auto; ">
-  <form (submit)="doLogin()">
-    <ion-list>
+  <div style="max-width: 800px; margin: auto; ">
+  
+    <br>
+    <br>
 
-      <ion-item>
-        <ion-label fixed>{{ 'EMAIL' | translate }}</ion-label>
-        <ion-input type="email" [(ngModel)]="account.email" name="email"></ion-input>
-      </ion-item>
+    <div style="margin: 0 auto; text-align: center">
+      <img src="assets/img/Peak-Logo.png" style="max-width: 300px">
 
-     
-
-      <ion-item>
-        <ion-label fixed>{{ 'PASSWORD' | translate }}</ion-label>
-        <ion-input type="password" [(ngModel)]="account.password" name="password"></ion-input>
-      </ion-item>
-
-      <div padding>
-        <button ion-button color="primary" block>{{ 'LOGIN_BUTTON' | translate }}</button>
-      </div>
-
-    </ion-list>
-  </form>
     </div>
+    <br>
+    <br>
+    <form (submit)="doLogin()">
+      <ion-list>
+
+        <ion-item>
+          <ion-label fixed>{{ 'EMAIL' | translate }}</ion-label>
+          <ion-input type="email" [(ngModel)]="account.email" name="email"></ion-input>
+        </ion-item>
+
+
+
+        <ion-item>
+          <ion-label fixed>{{ 'PASSWORD' | translate }}</ion-label>
+          <ion-input type="password" [(ngModel)]="account.password" name="password"></ion-input>
+        </ion-item>
+
+        <div padding>
+          <button ion-button color="primary" block>{{ 'LOGIN_BUTTON' | translate }}</button>
+        </div>
+
+      </ion-list>
+      <br>
+      <br>
+
+    </form>
+    <div style="margin: 0 auto; text-align: center;">
+        <p>Request an account</p>
+           <button ion-button outline (click)="signup()">Signup</button>
+        
+        
+       
+      </div>
+  </div>
 </ion-content>

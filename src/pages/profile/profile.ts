@@ -10,7 +10,7 @@ export class ProfilePage {
 
   form: FormGroup;
 
-
+ 
   constructor(public navCtrl: NavController,
     public formBuilder: FormBuilder,
         public navParams: NavParams) {

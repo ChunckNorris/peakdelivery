@@ -2,6 +2,10 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
 import { Profile, Delivery } from '../../models/index';
+import { BarcodeScanner } from '@ionic-native/barcode-scanner';
+import { User, Ui } from '../../providers/providers';
+
+import { InAppBrowser, InAppBrowserOptions } from '@ionic-native/in-app-browser';
 
 import {
   DriverAddDeliveryPage
@@ -16,7 +20,29 @@ export class DriverListDeliveryPage {
 
   deliveryList: Array<Delivery>;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  options: InAppBrowserOptions = {
+    location: 'yes',//Or 'no' 
+    hidden: 'no', //Or  'yes'
+    clearcache: 'yes',
+    clearsessioncache: 'yes',
+    zoom: 'yes',//Android only ,shows browser zoom controls 
+    hardwareback: 'yes',
+    mediaPlaybackRequiresUserAction: 'no',
+    shouldPauseOnSuspend: 'no', //Android only 
+    closebuttoncaption: 'Close', //iOS only
+    disallowoverscroll: 'no', //iOS only 
+    toolbar: 'yes', //iOS only 
+    enableViewportScale: 'no', //iOS only 
+    allowInlineMediaPlayback: 'no',//iOS only 
+    presentationstyle: 'pagesheet',//iOS only 
+    fullscreen: 'yes',//Windows only    
+  };
+
+  constructor(public navCtrl: NavController, 
+    public navParams: NavParams, 
+    public barcodeScanner: BarcodeScanner,
+    private iab: InAppBrowser,
+    public ui: Ui) {
     this.deliveryList = new Array<Delivery>();
 
     let del1 = new Delivery();
@@ -48,8 +74,36 @@ export class DriverListDeliveryPage {
 
   }
 
+  mapDelivery(){
+    let url = 'https://google.com';
+    let target = "_blank";
+    let browser = this.iab.create(encodeURIComponent(url), target, this.options);
+    browser.show();
+  }
+
+  
+  
+
   deliverPackage(_delivery: Delivery){
     this.navCtrl.push(DriverAddDeliveryPage, {delivery: _delivery});
     
   }
-}
+
+  scanCode() {
+   
+
+this.ui.showLoadingIndicator(true);
+
+    this.barcodeScanner.scan().then((barcodeData) => {
+      setTimeout(() => {
+        this.ui.showLoadingIndicator(false);
+        alert('No Delivery Found');
+      },
+      5000);
+    }, (err) => {
+      alert(err);
+    });
+  }
+    
+
+}   

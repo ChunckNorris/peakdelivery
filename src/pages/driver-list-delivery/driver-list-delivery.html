@@ -2,6 +2,11 @@
 
   <ion-navbar>
     <ion-title>My Deliveries</ion-title>
+    <ion-buttons end>
+        <button ion-button menuToggle>
+          <ion-icon name="menu"></ion-icon>
+        </button>
+      </ion-buttons>
   </ion-navbar>
 
 </ion-header>
@@ -9,6 +14,15 @@
 
 <ion-content padding>
   <div style="max-width: 800px; margin: auto; ">
+
+    <ion-item>
+      <ion-label color="primary">Scan</ion-label>
+      <ion-input placeholder="Scan Code"></ion-input>
+      <button ion-button item-end (click)="scanCode('tote')">
+        <ion-icon name="camera"></ion-icon>
+      </button>
+    </ion-item>
+
 
     <div *ngFor="let del of deliveryList">
       <ion-card>
@@ -30,7 +44,7 @@
 
         <ion-item>
           <span item-left>
-            <button ion-button icon-left clear small>
+            <button ion-button icon-left clear small (click)="mapDelivery()">
               <ion-icon name="navigate"></ion-icon>
               <div>Map</div>
             </button>

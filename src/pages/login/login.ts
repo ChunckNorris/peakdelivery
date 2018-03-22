@@ -60,6 +60,9 @@ export class LoginPage {
           case 'Driver':
             this.navCtrl.setRoot(DriverDashboardPage);
             break;
+          default:
+            this.navCtrl.setRoot(DriverDashboardPage);
+            break;
 
         }
 
@@ -75,5 +78,12 @@ export class LoginPage {
       toast.present();
     });
   }
+
+ 
+
+  signup() {
+    this.navCtrl.push('SignupPage');
+  }
+
 
 }

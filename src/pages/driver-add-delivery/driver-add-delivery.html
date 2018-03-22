@@ -3,115 +3,120 @@
   <ion-navbar>
     <ion-title>Delivery</ion-title>
 
-  
+    <ion-buttons end>
+        <button ion-button menuToggle>
+          <ion-icon name="menu"></ion-icon>
+        </button>
+      </ion-buttons>
 
   </ion-navbar>
 
 </ion-header>
 
 <ion-content padding>
-  <ion-card>
+  <div style="max-width: 800px; margin: auto; ">
+    <ion-card>
 
-    <ion-item>
-      <ion-avatar item-start>
-        <img src="assets/img/driver-avatar.png">
-      </ion-avatar>
-      <h2>Test Driver</h2>
-      <p>Peak Delivery</p>
-    </ion-item>
-
-
-
-
-
-  </ion-card>
-
-
-
-  <form [formGroup]="form">
-    <ion-list>
       <ion-item>
-        <ion-label color="primary">Driver Assigned</ion-label>
-        <ion-input formControlName="driverName" placeholder="Driver Name"></ion-input>
-        <button ion-button item-end>
-          <ion-icon name="checkmark-circle" (click)="assignToSelf()"></ion-icon>
-        </button>
-
+        <ion-avatar item-start>
+          <img src="assets/img/driver-avatar.png">
+        </ion-avatar>
+        <h2>Test Driver</h2>
+        <p>Peak Delivery</p>
       </ion-item>
-      <ion-item>
-        <ion-label>Run</ion-label>
-        <ion-select formControlName="run" submitText="Select" cancelText="Cancel">
-          <ion-option value="Stat">Stat</ion-option>
-          <ion-option value="OnCall">OnCall</ion-option>
-          <ion-option value="9AM">9 AM</ion-option>
-          <ion-option value="2:30PM">2:30 PM</ion-option>
-          <ion-option value="6PM">6 PM</ion-option>
-          <ion-option value="830PM">8:30 PM</ion-option>
-          <ion-option value="NorthernArizona">Northern Arizona</ion-option>
-        </ion-select>
 
 
-      </ion-item>
-      <ion-item>
-        <ion-label color="primary">Bag Tote</ion-label>
-        <ion-input formControlName="bagToteId" placeholder="Bag Tote"></ion-input>
-        <button ion-button item-end (click)="scanCode('tote')">
-          <ion-icon name="camera"></ion-icon>
-        </button>
-      </ion-item>
-      <ion-item>
-        <ion-label color="primary">Slip Tote</ion-label>
-        <ion-input formControlName="slipToteId" placeholder="Slip Tote"></ion-input>
-        <button ion-button item-end (click)="scanCode('slip')">
-          <ion-icon name="camera"></ion-icon>
-        </button>
-      </ion-item>
-      <ion-item>
-        <ion-label color="primary">Activity</ion-label>
-        <ion-input formControlName="activity" placeholder="Activity"></ion-input>
-      </ion-item>
-      <ion-item>
-        <ion-label color="primary">Billing</ion-label>
-        <ion-input formControlName="billing" placeholder="Billing"></ion-input>
-      </ion-item>
-      <ion-item>
-        <ion-label color="primary">Date Delivered</ion-label>
-        <ion-datetime displayFormat="MMM DD YYYY" formControlName="dateDelivered"></ion-datetime>
-      </ion-item>
-      <ion-item>
-        <ion-label color="primary">Time Delivered</ion-label>
-        <ion-datetime displayFormat="h:mm A" pickerFormat="h mm A" formControlName="timeDelivered"></ion-datetime>
-      </ion-item>
-      <ion-item>
-        <ion-label color="primary">Text</ion-label>
-        <ion-input formControlName="text" placeholder="Text"></ion-input>
-      </ion-item>
-      <ion-item>
-        <ion-label>MultiLine Text</ion-label>
-        <ion-textarea formControlName="multiLineText"></ion-textarea>
-        <button ion-button item-end (click)="scanCode('multiLine')">
+
+
+
+    </ion-card>
+
+
+
+    <form [formGroup]="form">
+      <ion-list>
+        <ion-item>
+          <ion-label color="primary">Driver Assigned</ion-label>
+          <ion-input formControlName="driverName" placeholder="Driver Name"></ion-input>
+          <button ion-button item-end>
+            <ion-icon name="checkmark-circle" (click)="assignToSelf()"></ion-icon>
+          </button>
+
+        </ion-item>
+        <ion-item>
+          <ion-label>Run</ion-label>
+          <ion-select formControlName="run" submitText="Select" cancelText="Cancel">
+            <ion-option value="Stat">Stat</ion-option>
+            <ion-option value="OnCall">OnCall</ion-option>
+            <ion-option value="9AM">9 AM</ion-option>
+            <ion-option value="2:30PM">2:30 PM</ion-option>
+            <ion-option value="6PM">6 PM</ion-option>
+            <ion-option value="830PM">8:30 PM</ion-option>
+            <ion-option value="NorthernArizona">Northern Arizona</ion-option>
+          </ion-select>
+
+
+        </ion-item>
+        <ion-item>
+          <ion-label color="primary">Bag Tote</ion-label>
+          <ion-input formControlName="bagToteId" placeholder="Bag Tote"></ion-input>
+          <button ion-button item-end (click)="scanCode('tote')">
             <ion-icon name="camera"></ion-icon>
           </button>
-      </ion-item>
+        </ion-item>
+        <ion-item>
+          <ion-label color="primary">Slip Tote</ion-label>
+          <ion-input formControlName="slipToteId" placeholder="Slip Tote"></ion-input>
+          <button ion-button item-end (click)="scanCode('slip')">
+            <ion-icon name="camera"></ion-icon>
+          </button>
+        </ion-item>
+        <ion-item>
+          <ion-label color="primary">Activity</ion-label>
+          <ion-input formControlName="activity" placeholder="Activity"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label color="primary">Billing</ion-label>
+          <ion-input formControlName="billing" placeholder="Billing"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label color="primary">Date Delivered</ion-label>
+          <ion-datetime displayFormat="MMM DD YYYY" formControlName="dateDelivered"></ion-datetime>
+        </ion-item>
+        <ion-item>
+          <ion-label color="primary">Time Delivered</ion-label>
+          <ion-datetime displayFormat="h:mm A" pickerFormat="h mm A" formControlName="timeDelivered"></ion-datetime>
+        </ion-item>
+        <ion-item>
+          <ion-label color="primary">Text</ion-label>
+          <ion-input formControlName="text" placeholder="Text"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label>MultiLine Text</ion-label>
+          <ion-textarea formControlName="multiLineText"></ion-textarea>
+          <button ion-button item-end (click)="scanCode('multiLine')">
+            <ion-icon name="camera"></ion-icon>
+          </button>
+        </ion-item>
+        <ion-item *ngIf="!isNewDelivery">
+          <button ion-button full icon-right>
+            Signature
+            <ion-icon ios="ios-clipboard" md="md-clipboard"></ion-icon>
+          </button>
+        </ion-item>
+
+      </ion-list>
       <ion-item *ngIf="isNewDelivery">
-        <button ion-button full icon-right>
-          Signature
-          <ion-icon ios="ios-clipboard" md="md-clipboard"></ion-icon>
-        </button>
+        <button ion-button full large>Save Delivery</button>
+
       </ion-item>
-
-    </ion-list>
-    <ion-item *ngIf="isNewDelivery">
-      <button ion-button full large>Save Delivery</button>
-
-    </ion-item>
-    <ion-item *ngIf="!isNewDelivery">
+      <ion-item *ngIf="!isNewDelivery">
         <button ion-button full large>Complete Delivery</button>
-  
+
       </ion-item>
-  </form>
+    </form>
 
-
+  </div>
 
 
 </ion-content>

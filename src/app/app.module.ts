@@ -32,6 +32,7 @@ import { CustomerDashboardPage,
   ProfilePage } from '../pages/pages'
 import { Ui} from '../providers/ui/ui';
 import { LoadingIndicatorComponent } from '../components/loading-indicator/loading-indicator';
+import { InAppBrowser } from '@ionic-native/in-app-browser';
 
 // The translate loader needs to know where to load i18n files
 // in Ionic's static asset pipeline.
@@ -104,6 +105,7 @@ export function provideSettings(storage: Storage) {
     SplashScreen,
     StatusBar,
     BarcodeScanner,
+    InAppBrowser,
     { provide: Settings, useFactory: provideSettings, deps: [Storage] },
     // Keep this to enable Ionic's runtime error handling during development
     { provide: ErrorHandler, useClass: IonicErrorHandler },
