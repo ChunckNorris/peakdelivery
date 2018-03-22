@@ -75,10 +75,11 @@ export class DriverListDeliveryPage {
   }
 
   mapDelivery(){
-    let url = 'https://google.com';
+    let mapsurl = "https://google.com/maps";
     let target = "_blank";
-    let browser = this.iab.create(encodeURIComponent(url), target, this.options);
-    browser.show();
+    let inAppbrowser =   this.iab.create(mapsurl, target, this.options);
+  
+    inAppbrowser.show();
   }
 
   
