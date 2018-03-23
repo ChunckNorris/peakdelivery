@@ -72,13 +72,24 @@
           </button>
         </ion-item>
         <ion-item>
-          <ion-label color="primary">Activity</ion-label>
-          <ion-input formControlName="activity" placeholder="Activity"></ion-input>
-        </ion-item>
+            <ion-label>Activity</ion-label>
+            <ion-select formControlName="activity" submitText="Select" cancelText="Cancel">
+              <ion-option value="Delivered">Delivered</ion-option>
+              <ion-option value="NOH">NOH</ion-option>
+              <ion-option value="Deceased">Deceased</ion-option>
+              <ion-option value="Cancelled">Cancelled</ion-option>
+              <ion-option value="Refused">Refused</ion-option>
+            </ion-select>  
+      </ion-item>
+
         <ion-item>
-          <ion-label color="primary">Billing</ion-label>
-          <ion-input formControlName="billing" placeholder="Billing"></ion-input>
-        </ion-item>
+            <ion-label>Billing</ion-label>
+            <ion-select formControlName="billing" submitText="Select" cancelText="Cancel">
+              <ion-option value="Standard">Standard</ion-option>
+              <ion-option value="Stat">Stat</ion-option>
+              <ion-option value="ASAP">ASAP</ion-option>
+            </ion-select>  
+      </ion-item>
         <ion-item>
           <ion-label color="primary">Date Delivered</ion-label>
           <ion-datetime displayFormat="MMM DD YYYY" formControlName="dateDelivered"></ion-datetime>
@@ -92,12 +103,26 @@
           <ion-input formControlName="text" placeholder="Text"></ion-input>
         </ion-item>
         <ion-item>
-          <ion-label>MultiLine Text</ion-label>
-          <ion-textarea formControlName="multiLineText"></ion-textarea>
-          <button ion-button item-end (click)="scanCode('multiLine')">
-            <ion-icon name="camera"></ion-icon>
-          </button>
-        </ion-item>
+            <ion-label color="primary">Address1</ion-label>
+            <ion-input formControlName="address1" placeholder="Address1"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label color="primary">Address2</ion-label>
+            <ion-input formControlName="address2" placeholder="Address2"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label color="primary">City</ion-label>
+            <ion-input formControlName="city" placeholder="City"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label color="primary">State</ion-label>
+            <ion-input formControlName="state" placeholder="State"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label color="primary">Zip</ion-label>
+            <ion-input formControlName="zip" placeholder="Zip"></ion-input>
+          </ion-item>
+  
         <ion-item *ngIf="!isNewDelivery">
           <button ion-button full icon-right>
             Signature

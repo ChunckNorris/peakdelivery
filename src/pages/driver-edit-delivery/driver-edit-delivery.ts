@@ -23,6 +23,7 @@ import {
   templateUrl: 'driver-edit-delivery.html',
 })
 export class DriverEditDeliveryPage {
+  isAdderChanged: boolean;
 
   delivery: Delivery;
   form: FormGroup;
@@ -37,6 +38,10 @@ export class DriverEditDeliveryPage {
     public modalCtrl: ModalController,
     private barcodeScanner: BarcodeScanner) {
     this.driver = new Profile();
+
+    this.isAdderChanged =  false;
+
+
     this.driver.firstName = 'Test';
     this.driver.lastName = 'Driver';
 
@@ -56,6 +61,17 @@ export class DriverEditDeliveryPage {
         , timeDelivered: [this.delivery.timeDelivered]
         , dateDelivered: [this.delivery.dateDelivered]
         , text: [this.delivery.text]
+        , address1: [this.delivery.address1]
+        , address2: [this.delivery.address2]
+        , city: [this.delivery.city]
+        , state: [this.delivery.state]
+        , zip: [this.delivery.zip]
+        , altAddress1: [this.delivery.altAddress1]
+        , altAddress2: [this.delivery.altAddress2]
+        , altCity: [this.delivery.altCity]
+        , altState: [this.delivery.altState]
+        , altZip: [this.delivery.altZip]
+        , isAltAddress: [this.delivery.isAltAddress]
         , multiLineText: [this.delivery.multiLineText]
       });
 
@@ -86,5 +102,8 @@ export class DriverEditDeliveryPage {
       
         //alert(data);
       });
+  }
+  changeAddress(){
+
   }
 }

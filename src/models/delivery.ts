@@ -16,5 +16,11 @@ export class Delivery {
     city: string;
     state: string;
     zip: string;
+    isAltAddress: boolean;
+    altAddress1: string;
+    altAddress2: string;
+    altCity: string;
+    altState: string;
+    altZip: string;
     
 }
