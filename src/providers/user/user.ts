@@ -1,9 +1,9 @@
 import 'rxjs/add/operator/toPromise';
-
+import { JwtHelper } from 'angular2-jwt';
 import { Injectable } from '@angular/core';
 import { Subject, Observable } from 'rxjs';
 import { Api } from '../api/api';
-import { Profile, AuthUser } from '../../models/index';
+import { Profile, AuthUser, TokenData, UserClaim } from '../../models/index';
 
 
 /**
@@ -29,10 +29,18 @@ import { Profile, AuthUser } from '../../models/index';
 export class User {
   _user: any;
   profile: Profile;
+  authToken: TokenData;
+  userProfile: UserClaim = new UserClaim();
+  userRole: string;
 
-  constructor(public api: Api) { 
+  private jwtHelper = new JwtHelper();
+
+
+  constructor(public api: Api) {
 
     this.profile = new Profile();
+    this.authToken = new TokenData();
+    this.userRole = '';
 
   }
 
@@ -47,44 +55,69 @@ export class User {
 
     //Mock for demo replace with authenticated api user and jwt ir something later. 
     let requests = new Observable<boolean>(observer => {
-    switch (accountInfo.email.toUpperCase()) {
-      case 'TESTADMIN@PEAKDELIVERY.COM':
-        let adminUser = new Profile;
-        adminUser.firstName = 'Admin';
-        adminUser.lastName = 'User';
-        adminUser.role = 'Admin';
-        adminUser.accountId = '0';
-        this._loggedIn(adminUser);
-        this.profile = adminUser;
-        observer.next(true); 
-        break;
-      case 'TESTCLIENT@PEAKDELIVERY.COM':
-        let clientUser = new Profile;
-        clientUser.firstName = 'Client';
-        clientUser.lastName = 'User';
-        clientUser.role = 'Client';
-        clientUser.accountId = '1';
-        this._loggedIn(clientUser);
-        this.profile = clientUser;
-        observer.next(true);
-        break;
-      case 'TESTDRIVER@PEAKDELIVERY.COM':
-        let deliverytUser = new Profile;
-        deliverytUser.firstName = 'Driver';
-        deliverytUser.lastName = 'User';
-        deliverytUser.role = 'Driver';
-        deliverytUser.accountId = '2';
-        this._loggedIn(deliverytUser);
-        this.profile = deliverytUser;
-        observer.next(true);
-        break;
-      default:
-        this._user = null;
-        observer.next(true);
-        break;
 
-    }
-  });
+      this.api.getBearerToken(accountInfo.email, accountInfo.password).subscribe(res => {
+
+        if (res.access_token) {
+          let jwt = this.jwtHelper.decodeToken(res.access_token);
+
+          if (jwt.nameid) {
+
+            this.api.getUserProfile(jwt.nameid).subscribe(results => {
+              this.userProfile = results;
+              let roles = this.userProfile.roles;
+
+              if (roles.length > 0) {
+                for (let i = 0; i < roles.length; i++) {
+                  if (roles[i] === 'ADMIN') {
+                    this.userRole = 'ADMIN'
+                    break;
+                  } if (roles[i] === 'DRIVER') {
+                    this.userRole = 'DRIVER'
+                    break;
+                  } if (roles[i] === 'CUSTOMER') {
+                    this.userRole = 'CUSTOMER'
+                    break;
+                  }
+                }
+              }
+
+
+              switch (this.userRole.toUpperCase()) {
+                case 'ADMIN':
+                  this._loggedIn(this.userProfile);
+                  observer.next(true);
+                  break;
+                case 'DRIVER':
+                  this._loggedIn(this.userProfile);
+                  observer.next(true);
+                  break;
+                case 'CUSTOMER':
+                  this._loggedIn(this.userProfile);
+                  observer.next(true);
+                  break;
+                default:
+                  this.userProfile = null;
+                  observer.error('Unauthorized');
+                  break;
+
+              }
+
+
+            }, err => {
+              alert('Invalid User Login');
+
+            })
+          }
+
+        }
+      }, err => {
+        observer.error('Unauthorized');
+        //alert('Invalid User Login');
+
+      })
+
+    });
 
 
 
@@ -108,26 +141,27 @@ export class User {
    * the user entered on the form.
    */
   signup(accountInfo: any) {
-    let seq = this.api.post('signup', accountInfo).share();
+    // let seq = this.api.post('signup', accountInfo).share();
 
-    seq.subscribe((res: any) => {
-      // If the API returned a successful response, mark the user as logged in
-      if (res.status == 'success') {
-        this._loggedIn(res);
-      }
-    }, err => {
-      console.error('ERROR', err);
-    });
+    // seq.subscribe((res: any) => {
+    //   // If the API returned a successful response, mark the user as logged in
+    //   if (res.status == 'success') {
+    //     this._loggedIn(res);
+    //   }
+    // }, err => {
+    //   console.error('ERROR', err);
+    // });
 
-    return seq;
+    // return seq;
   }
 
   /**
    * Log the user out, which forgets the session
    */
   logout() {
-    this._user = null;
+
     this.profile = null;
+    this.userProfile = null;
 
   }
 
@@ -135,7 +169,9 @@ export class User {
    * Process a login/signup response to store user data
    */
   _loggedIn(resp) {
-    this._user = resp.user;
-  
+
+    this.userProfile = resp;
+
+
   }
 }

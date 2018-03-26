@@ -43,34 +43,34 @@ export class LoginPage {
   doLogin() {
 
     this.ui.showLoadingIndicator(true);
-  
+
 
 
     this.user.login(this.account).subscribe((resp) => {
-      setTimeout(() => {
-        this.ui.showLoadingIndicator(false);
+
+      this.ui.showLoadingIndicator(false);
 
 
-        switch (this.user.profile.role) {
-          case 'Admin':
-            this.navCtrl.setRoot(AdminDashboardPage);
-            break;
-          case 'Client':
-            this.navCtrl.setRoot(CustomerDashboardPage);
-            break;
-          case 'Driver':
-            this.navCtrl.setRoot(DriverDashboardPage);
-            break;
-          default:
-            this.navCtrl.setRoot(DriverDashboardPage);
-            break;
+      switch (this.user.userRole) {
+        case 'ADMIN':
+          this.navCtrl.setRoot(AdminDashboardPage);
+          break;
+        case 'CUSTOMER':
+          this.navCtrl.setRoot(CustomerDashboardPage);
+          break;
+        case 'DRIVER':
+          this.navCtrl.setRoot(DriverDashboardPage);
+          break;
+        default:
+          this.navCtrl.setRoot(DriverDashboardPage);
+          break;
 
-        }
+      }
 
-      },
-        2000);
 
     }, (err) => {
+      this.ui.showLoadingIndicator(false);
+      
       let toast = this.toastCtrl.create({
         message: 'Invalid user name or password',
         duration: 1000,
@@ -80,7 +80,7 @@ export class LoginPage {
     });
   }
 
- 
+
 
   signup() {
     this.navCtrl.push('SignupPage');

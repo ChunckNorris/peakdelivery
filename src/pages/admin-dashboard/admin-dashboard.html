@@ -16,10 +16,10 @@
 
 
 <ion-content padding>
-
+  <div style="max-width: 800px; margin: auto; ">
     <ion-list>
             <ion-list-header>Deliveries</ion-list-header>
-        <button ion-item >
+        <button ion-item (click)="gotodriver()">
           <ion-thumbnail item-start>
             <img src="assets/img/driver-avatar.png" style="max-height: 40px; max-width: 40px; min-width: 40px; min-height: 40px;">
           </ion-thumbnail>
@@ -50,4 +50,5 @@
   
   
       </ion-list>
+  </div>
 </ion-content>

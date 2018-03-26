@@ -13,7 +13,7 @@ import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 import { SignaturePadModule } from 'angular2-signaturepad';
 
-
+import { HttpModule } from '@angular/http';
 
 import { Items } from '../mocks/providers/items';
 import { Settings } from '../providers/providers';
@@ -39,6 +39,7 @@ import { LoadingIndicatorComponent } from '../components/loading-indicator/loadi
 import { CollectSignatureComponent } from '../components/collect-signature/collect-signature';
 
 import { InAppBrowser } from '@ionic-native/in-app-browser';
+import { Environment } from '../providers/environment/environment';
 
 
 
@@ -86,6 +87,7 @@ export function provideSettings(storage: Storage) {
     BrowserModule,
     HttpClientModule,
     SignaturePadModule,
+    HttpModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
@@ -120,6 +122,7 @@ export function provideSettings(storage: Storage) {
     StatusBar,
     BarcodeScanner,
     InAppBrowser,
+    Environment,
     { provide: Settings, useFactory: provideSettings, deps: [Storage] },
     // Keep this to enable Ionic's runtime error handling during development
     { provide: ErrorHandler, useClass: IonicErrorHandler },

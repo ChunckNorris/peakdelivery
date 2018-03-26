@@ -21,4 +21,23 @@ export class AuthUser{
     password: string;
     
 }
+export class TokenData {
+    access_token: string;
+    token_type: string;
+    expires_in: number;
+}
+export class UserClaim {
+    url: string;
+    id: string;
+    userName: string;
+    fullName: string;
+    email: string;
+    emailConfirmed: boolean;
+    level: number;
+    joinDate: Date;
+    roles: string[];
+    claims: any[];
+}
+
+
 

@@ -36,10 +36,14 @@ export class MyApp {
 
   @ViewChild(Nav) nav: Nav;
 
+
+  // { title: 'Admin Dashboard', component: AdminDashboardPage },
+  // { title: 'Driver Dashboard', component: DriverDashboardPage },
+  // { title: 'Customer Dashboard', component: CustomerDashboardPage },
+
+
   pages: any[] = [
-    { title: 'Admin Dashboard', component: AdminDashboardPage },
-    { title: 'Driver Dashboard', component: DriverDashboardPage },
-    { title: 'Customer Dashboard', component: CustomerDashboardPage },
+
     { title: 'My Profile', component: ProfilePage },
     { title: 'Settings', component: 'SettingsPage' },
     { title: 'Logout', component: LoginPage },

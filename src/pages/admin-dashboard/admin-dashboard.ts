@@ -1,12 +1,11 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
-/**
- * Generated class for the AdminDashboardPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+import {
+  MainPage,
+  CustomerDashboardPage,
+  DriverDashboardPage
+} from '../pages';
 
 @IonicPage()
 @Component({
@@ -22,4 +21,13 @@ export class AdminDashboardPage {
     console.log('ionViewDidLoad AdminDashboardPage');
   }
 
+  gotodriver(){
+    this.navCtrl.push(DriverDashboardPage);
+  }
+  gottousers(){
+    //this.navCtrl.push(DriverDashboardPage);
+  }
+  gotoaccounts(){
+    //this.navCtrl.push(DriverDashboardPage);
+  }
 }
