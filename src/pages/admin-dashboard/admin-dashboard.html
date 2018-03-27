@@ -30,8 +30,8 @@
     </ion-list>
     <ion-list>
     <ion-list-header>System Users</ion-list-header>
-        <button ion-item >
-          <ion-thumbnail item-start>
+        <button ion-item (click)="gottousers()">
+          <ion-thumbnail item-start >
             <img src="assets/img/driver-avatar.png" style="max-height: 40px; max-width: 40px; min-width: 40px; min-height: 40px;">
           </ion-thumbnail>
           <ion-label>Manage Users</ion-label>
@@ -50,5 +50,28 @@
   
   
       </ion-list>
+      <ion-list>
+        <ion-list-header>Manage Accounts</ion-list-header>
+        <button ion-item (click)="gotoaccounts('Add')">
+            <ion-thumbnail item-start>
+              <img src="assets/img/driver-avatar.png" style="max-height: 40px; max-width: 40px; min-width: 40px; min-height: 40px;">
+            </ion-thumbnail>
+            <ion-label>Add Account</ion-label>
+    
+          </button>
+            <button ion-item (click)="gotoaccounts('Edit')">
+              <ion-thumbnail item-start>
+                <img src="assets/img/driver-avatar.png" style="max-height: 40px; max-width: 40px; min-width: 40px; min-height: 40px;">
+              </ion-thumbnail>
+              <ion-label>Edit Account</ion-label>
+      
+            </button>
+    
+      
+      
+      
+      
+      
+          </ion-list>
   </div>
 </ion-content>

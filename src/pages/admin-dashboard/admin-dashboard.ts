@@ -4,7 +4,10 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import {
   MainPage,
   CustomerDashboardPage,
-  DriverDashboardPage
+  DriverDashboardPage,
+  AccountAddPage,
+  AccountEditPage,
+  AdminManageUserPage
 } from '../pages';
 
 @IonicPage()
@@ -25,9 +28,14 @@ export class AdminDashboardPage {
     this.navCtrl.push(DriverDashboardPage);
   }
   gottousers(){
-    //this.navCtrl.push(DriverDashboardPage);
+    this.navCtrl.push(AdminManageUserPage);
   }
-  gotoaccounts(){
+  gotoaccounts(action){
+    if(action === 'Add'){
+      this.navCtrl.push(AccountAddPage);
+    }else if(action === 'Edit'){
+      this.navCtrl.push(AccountEditPage);
+    }
     //this.navCtrl.push(DriverDashboardPage);
   }
 }

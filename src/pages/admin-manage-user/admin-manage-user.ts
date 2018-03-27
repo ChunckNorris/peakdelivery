@@ -1,12 +1,9 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
-/**
- * Generated class for the AdminManageUserPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+import {
+  UserAddPage
+} from '../pages';
 
 @IonicPage()
 @Component({
@@ -21,5 +18,8 @@ export class AdminManageUserPage {
   ionViewDidLoad() {
     console.log('ionViewDidLoad AdminManageUserPage');
   }
+ addnewUser(){
+   this.navCtrl.push(UserAddPage);
 
+ }
 }

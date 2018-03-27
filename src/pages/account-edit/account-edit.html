@@ -1,0 +1,29 @@
+
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Edit Accounts</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+
+  <div *ngIf="!isValidAccountSelcted">
+      <button ion-button full large (click)="searchAccounts()">Account Lookup</button>
+  </div>
+  <div *ngIf="isValidAccountSelcted">
+    <p>{{account?.accountName}}</p>
+
+    <ion-item>
+        <ion-label color="primary">Run Option Text</ion-label>
+        <ion-input [(ngModel)]="runOption" placeholder="Enter Run Option"></ion-input>
+        <button ion-button item-end (click)="addrunOption()">
+          Add to Account
+          </button>
+      </ion-item>
+
+  </div>
+
+</ion-content>

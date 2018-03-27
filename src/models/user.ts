@@ -38,6 +38,27 @@ export class UserClaim {
     roles: string[];
     claims: any[];
 }
+export class NewUser
+{
+    Email: string;
+    Username: string;
+    FirstName: string;
+    LastName: string;
+    Password: string;
+    ConfirmPassword: string;
+    RoleName: string;
+  }
+  export class CreatedUser
+  {
+      url: string;
+      id: string;
+      userName: string;
+      fullName: string;
+      email: string;
+
+    }
+
+
 
 
 

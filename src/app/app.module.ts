@@ -32,7 +32,13 @@ import { CustomerDashboardPage,
   DriverListDeliveryPage, 
   DriverSearchDeliveryPage,
   ProfilePage,
-  ModalSignPage } from '../pages/pages'
+  ModalSignPage,
+AccountAddPage,
+AccountEditPage,
+AccountMainPage,
+AccountSearchPage,
+UserAddPage,
+AdminManageUserPage } from '../pages/pages'
   import { LoginPage } from '../pages/login/login';
 import { Ui} from '../providers/ui/ui';
 import { LoadingIndicatorComponent } from '../components/loading-indicator/loading-indicator';
@@ -80,7 +86,13 @@ export function provideSettings(storage: Storage) {
     LoginPage,
     LoadingIndicatorComponent,
     CollectSignatureComponent,
-    ModalSignPage
+    ModalSignPage,
+    AccountAddPage,
+    AccountEditPage,
+    AccountMainPage,
+    AccountSearchPage,
+    UserAddPage,
+    AdminManageUserPage
   ],
   imports: [ 
     FormsModule, 
@@ -111,7 +123,13 @@ export function provideSettings(storage: Storage) {
     DriverSearchDeliveryPage,
     ProfilePage,
     LoginPage,
-    ModalSignPage
+    ModalSignPage,
+    AccountAddPage,
+    AccountEditPage,
+    AccountMainPage,
+    AccountSearchPage,
+    UserAddPage,
+    AdminManageUserPage
   ],
   providers: [
     Api,

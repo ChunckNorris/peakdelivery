@@ -6,7 +6,7 @@ import 'rxjs/Rx';
 import { Platform } from 'ionic-angular';
 
 import { Environment } from '../environment/environment';
-import { UserClaim } from '../../models/index';
+import { UserClaim, NewUser, CreatedUser } from '../../models/index';
 declare var cordova: any;
 
 export class Endpoint {
@@ -25,6 +25,7 @@ export class Endpoints {
     static token = new Endpoint('~/oauth/token');
     static getUsers = new Endpoint('~/v1/getuser/');
     static getProfile = new Endpoint('~/v1/accounts/user/{userId}');
+    static createUser = new Endpoint('~/v1/accounts/create');
 
 
 }
@@ -111,6 +112,11 @@ export class Api {
     public getUserProfile(userId: string): Observable<UserClaim> {
         let endpoint = Endpoints.getProfile.getUrl({ 'userId': userId });
         return this.request<UserClaim>(HttpMethods.get, endpoint);
+    
+      }
+    public createNewUser(user: NewUser): Observable<CreatedUser> {
+        let endpoint = Endpoints.getProfile.getUrl();
+        return this.request<CreatedUser>(HttpMethods.post, endpoint, null, user);
     
       }
 
