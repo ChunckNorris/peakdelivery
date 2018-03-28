@@ -89,7 +89,23 @@ export class Api {
             .share();;
     }
 
+    // private userRequest<T>(method: string, relativeUrl: string, searchParams?: any, requestBody?: any, requestHeaders?: Headers, useBearerToken = true): Observable<T> {
+    //     let options = new RequestOptions();
+    //     options.headers = requestHeaders || new Headers();
+    //     options.method = method.toUpperCase();
 
+    //     options.body = options.body || requestBody;
+    //     if (searchParams) options.search = options.search || this.convertToUrlSearchParams(searchParams);
+
+    //     options.headers.append('Accept', 'application/json');
+    //     options.headers.append('Accept', 'aapplication/x-www-form-urlencoded');
+        
+
+    //     return this.http.request(this.env.settings.apiUrl + relativeUrl, options)
+    //         .map((res: Response) => { return res.json(); })
+    //         .map((stream => { return stream; }))
+    //         .share();
+    // }
 
 
 
@@ -115,9 +131,9 @@ export class Api {
     
       }
     public createNewUser(user: NewUser): Observable<CreatedUser> {
-        let endpoint = Endpoints.getProfile.getUrl();
-        return this.request<CreatedUser>(HttpMethods.post, endpoint, null, user);
-    
+        let endpoint = Endpoints.createUser.getUrl();
+        let newUser = this.request<CreatedUser>(HttpMethods.post, endpoint, null, user);
+        return newUser;
       }
 
 }

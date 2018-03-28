@@ -47,7 +47,7 @@ export class UserAddPage {
 
     this.newUser.Email = this.form.value.email;
 
-    this.newUser.Email = this.form.value.email;
+    this.newUser.Username = this.form.value.userName;
     this.newUser.FirstName = this.form.value.firstName;
     this.newUser.LastName = this.form.value.lastName;
     this.newUser.Password = this.form.value.password;
@@ -70,6 +70,13 @@ export class UserAddPage {
         });
         toast.present();
       }
+    }, err => {
+      let toast = this.toastCtrl.create({
+        message: err,
+        duration: 1000,
+        position: 'top'
+      });
+      toast.present();
     })
     
   }
