@@ -38,7 +38,9 @@ AccountEditPage,
 AccountMainPage,
 AccountSearchPage,
 UserAddPage,
-AdminManageUserPage } from '../pages/pages'
+AdminManageUserPage,
+UserSearchPage,
+UserEditPage } from '../pages/pages'
   import { LoginPage } from '../pages/login/login';
 import { Ui} from '../providers/ui/ui';
 import { LoadingIndicatorComponent } from '../components/loading-indicator/loading-indicator';
@@ -92,7 +94,9 @@ export function provideSettings(storage: Storage) {
     AccountMainPage,
     AccountSearchPage,
     UserAddPage,
-    AdminManageUserPage
+    AdminManageUserPage,
+    UserSearchPage,
+    UserEditPage
   ],
   imports: [ 
     FormsModule, 
@@ -129,7 +133,9 @@ export function provideSettings(storage: Storage) {
     AccountMainPage,
     AccountSearchPage,
     UserAddPage,
-    AdminManageUserPage
+    AdminManageUserPage,
+    UserSearchPage,
+    UserEditPage
   ],
   providers: [
     Api,

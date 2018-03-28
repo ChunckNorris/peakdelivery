@@ -2,7 +2,8 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
 import {
-  UserAddPage
+  UserAddPage,
+  UserEditPage
 } from '../pages';
 
 @IonicPage()
@@ -21,5 +22,8 @@ export class AdminManageUserPage {
  addnewUser(){
    this.navCtrl.push(UserAddPage);
 
+ }
+ editUserAccount(){
+   this.navCtrl.push(UserEditPage);
  }
 }

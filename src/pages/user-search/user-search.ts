@@ -1,38 +1,39 @@
 import { Component, ViewChild } from '@angular/core';
 import { IonicPage, NavController, NavParams, ToastController, ViewController } from 'ionic-angular';
 
-import { Profile, Delivery, Account } from '../../models/index';
-import { User, Ui } from '../../providers/providers';
+import { Api, Ui } from '../../providers/providers';
+
+import { UserClaim } from '../../models/user'
 
 @IonicPage()
 @Component({
-  selector: 'page-account-search',
-  templateUrl: 'account-search.html',
+  selector: 'page-user-search',
+  templateUrl: 'user-search.html',
 })
-export class AccountSearchPage {
-  isErrorSearch: boolean;
-  accounts: Array<Account>;
+export class UserSearchPage {
 
-  @ViewChild('searchBar') searchBar: any;
+  userResults: Array<UserClaim>;
+  isErrorSearch: boolean = false;
 
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
-    public ui: Ui,
+    public api: Api,
     public toastCtrl: ToastController,
-    public viewCtrl: ViewController) {
-    this.accounts = new Array<Account>();
+    public viewCtrl: ViewController,
+    public ui: Ui) {
+      this.userResults = new Array<UserClaim>();
 
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad AccountSearchPage');
+    console.log('ionViewDidLoad UserSearchPage');
   }
   searchChanged(event) {
     let searchTerm = event.target.value;
 
     try {
       if (searchTerm && searchTerm.trim().length > 4) {
-        this.accounts = [];
+        this.userResults = new Array<UserClaim>();
         this.ui.showLoadingIndicator(true);
 
         //Call API to Search
@@ -49,7 +50,7 @@ export class AccountSearchPage {
 
         this.ui.showLoadingIndicator(false);
       } else {
-        this.accounts = [];
+        this.userResults = [];
         this.isErrorSearch = true;
         this.ui.showLoadingIndicator(false);
 
@@ -69,11 +70,10 @@ export class AccountSearchPage {
     }
 
   }
+
   closeTapped() {
-
-
-    this.viewCtrl.dismiss({});
-  }
-
-
+    
+    
+            this.viewCtrl.dismiss({});
+        }
 }

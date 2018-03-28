@@ -1,0 +1,22 @@
+<ion-header>
+  
+    <ion-navbar>
+      <ion-title>Search Users</ion-title>
+      <ion-buttons end>
+        <button ion-button icon-only color="dark" clear (click)="closeTapped()" tappable>
+            <ion-icon name="close-circle"></ion-icon>
+        </button>
+      </ion-buttons>
+    </ion-navbar>
+    <ion-searchbar (ionInput)="searchChanged($event)" (ionCancel)="resetSearch()" (ionClear)="resetSearch()" placeholder="Search Account"
+    debounce="1000" tappable></ion-searchbar>
+  </ion-header>
+
+
+
+<ion-content padding>
+    <div style="max-width: 800px; margin: auto; ">
+
+
+    </div>
+</ion-content>

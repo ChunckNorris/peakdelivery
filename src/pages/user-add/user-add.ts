@@ -62,6 +62,18 @@ export class UserAddPage {
           position: 'top'
         });
         toast.present();
+
+
+        this.form.controls['userName'].setValue(null);
+        this.form.controls['email'].setValue(null);
+        this.form.controls['firstName'].setValue(null);
+        this.form.controls['lastName'].setValue(null);
+        this.form.controls['password'].setValue(null);
+        this.form.controls['confirmPassword'].setValue(null);
+        this.form.controls['roleName'].setValue(null);
+
+
+
       }else{
         let toast = this.toastCtrl.create({
           message: 'Error Creating User Account',
