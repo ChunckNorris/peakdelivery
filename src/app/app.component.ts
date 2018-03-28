@@ -2,7 +2,7 @@ import { Component, ViewChild } from '@angular/core';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 import { TranslateService } from '@ngx-translate/core';
-import { Config, Nav, Platform, App } from 'ionic-angular';
+import { Config, Nav, Platform, App, IonicApp, MenuController, Events } from 'ionic-angular';
 
 import { WelcomePage } from '../pages/welcome/welcome';
 import { LoginPage } from '../pages/login/login';
@@ -49,10 +49,20 @@ export class MyApp {
     { title: 'Logout', component: LoginPage },
   ]
 
-  constructor(private translate: TranslateService, platform: Platform, settings: Settings, public app: App, private config: Config, private statusBar: StatusBar, private splashScreen: SplashScreen) {
+  constructor(private translate: TranslateService, 
+    platform: Platform, 
+    settings: Settings, 
+    public app: App, 
+    private config: Config, 
+    private statusBar: StatusBar, 
+    private _ionicApp: IonicApp,
+    private menuCtrl: MenuController,
+    private splashScreen: SplashScreen) {
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
+      this.setupBackButtonBehavior();
+
       this.statusBar.styleDefault();
       this.splashScreen.hide();
       this.app.setTitle("Peak Delivery");
@@ -93,4 +103,43 @@ export class MyApp {
     this.nav.setRoot(page.component);
     this.app.setTitle("Peak Delivery");
   }
+  private setupBackButtonBehavior() {
+    
+        // If on web version (browser)
+        if (window.location.protocol !== "file:") {
+    
+          // Register browser back button action(s)
+          window.onpopstate = (evt) => {
+    
+            // Close menu if open
+            if (this.menuCtrl.isOpen()) {
+              this.menuCtrl.close();
+              return;
+            }
+    
+            // Close any active modals or overlays
+            let activePortal = this._ionicApp._loadingPortal.getActive() ||
+              this._ionicApp._modalPortal.getActive() ||
+              this._ionicApp._toastPortal.getActive() ||
+              this._ionicApp._overlayPortal.getActive();
+    
+            if (activePortal) {
+              activePortal.dismiss();
+              return;
+            }
+    
+            // Navigate back
+            if (this.app.getRootNav().canGoBack()) this.app.getRootNav().pop();
+    
+          };
+    
+          // Fake browser history on each view enter
+          this.app.viewDidEnter.subscribe((app) => {
+            history.pushState(null, null, "");
+          });
+    
+        }
+    
+      }
+
 }
