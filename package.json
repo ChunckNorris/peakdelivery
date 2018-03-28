@@ -1,7 +1,7 @@
 {
     "name": "peakdelivery",
     "version": "0.0.1",
-    "author": "Ionic Framework",
+    "author": "Tim Rankel",
     "homepage": "http://peakdelivery.com/",
     "private": true,
     "scripts": {
