@@ -1,6 +1,6 @@
 import { Component, VERSION, OnInit, ViewChild, OnDestroy, AfterContentInit } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-//import {  ZXingScannerComponent } from '@zxing/ngx-scanner';
+import {  ZXingScannerComponent } from '@zxing/ngx-scanner';
 import * as Quagga from 'Quagga';
 import { User, Ui, BarcodeDecoderProvider, BarcodeValidatorProvider } from '../../providers/providers';
 import { Subject } from 'rxjs/Subject';
@@ -16,15 +16,15 @@ import { Subject } from 'rxjs/Subject';
     templateUrl: 'modal-label-scanner.html',
 })
 export class ModalLabelScannerPage {
-    //@ViewChild('scanner') scanner: ZXingScannerComponent;
+    @ViewChild('scanner') scanner: ZXingScannerComponent;
 
     sound = new Audio('assets/barcode.wav');
     hasCameras = false;
     hasPermission: boolean;
     qrResultString: string;
 
-    // availableDevices: MediaDeviceInfo[];
-    // selectedDevice: MediaDeviceInfo;
+    availableDevices: MediaDeviceInfo[];
+    selectedDevice: MediaDeviceInfo;
 
     lastResult: any;
     message: any;
@@ -42,7 +42,31 @@ export class ModalLabelScannerPage {
 
 
     ngOnInit(): void {
+          this.scanner.camerasFound.subscribe((devices: MediaDeviceInfo[]) => {
+                this.hasCameras = true;
 
+                console.log('Devices: ', devices);
+                this.availableDevices = devices;
+
+                // selects the devices's back camera by default
+                for (const device of devices) {
+                    if (/back|rear|environment/gi.test(device.label)) {
+                        this.scanner.changeDevice(device);
+                        this.selectedDevice = device;
+                        break;
+                    }
+                }
+            });
+
+            this.scanner.camerasNotFound.subscribe((devices: MediaDeviceInfo[]) => {
+                console.error('An error has occurred when trying to enumerate your video-stream-enabled devices.');
+            });
+
+            this.scanner.permissionResponse.subscribe((answer: boolean) => {
+              this.hasPermission = answer;
+            });
+
+        
         this.decoderService.onLiveStreamInit();
         this.decoderService.onDecodeProcessed();
     
@@ -75,35 +99,20 @@ export class ModalLabelScannerPage {
       ngOnDestroy() {
         this.decoderService.onDecodeStop();
       }
+              // handleQrCodeResult(resultString: string) {
+        //     console.log('Result: ', resultString);
+        //     this.qrResultString = resultString;
+        // }
+
+        onDeviceSelectChange(selectedValue: string) {
+            console.log('Selection changed: ', selectedValue);
+            this.selectedDevice = this.scanner.getDeviceById(selectedValue);
+        }
 
 }
 
 
-      //     this.scanner.camerasFound.subscribe((devices: MediaDeviceInfo[]) => {
-        //         this.hasCameras = true;
 
-        //         console.log('Devices: ', devices);
-        //         this.availableDevices = devices;
-
-        //         // selects the devices's back camera by default
-        //         for (const device of devices) {
-        //             if (/back|rear|environment/gi.test(device.label)) {
-        //                 this.scanner.changeDevice(device);
-        //                 this.selectedDevice = device;
-        //                 break;
-        //             }
-        //         }
-        //     });
-
-        //     this.scanner.camerasNotFound.subscribe((devices: MediaDeviceInfo[]) => {
-        //         console.error('An error has occurred when trying to enumerate your video-stream-enabled devices.');
-        //     });
-
-        //     this.scanner.permissionResponse.subscribe((answer: boolean) => {
-        //       this.hasPermission = answer;
-        //     });
-
-        // }
 
         // handleQrCodeResult(resultString: string) {
         //     console.log('Result: ', resultString);

@@ -5,14 +5,18 @@ page-modal-label-scanner {
         align-content: center;
         margin: 0 auto;
     }
-    video {
-        max-height: 200px;
-        max-width: 200px;
-
-    }
+    .audio, canvas, progress, video {
+      vertical-align: baseline;
+      width: 100%;
+      height: 100%;
+        max-width: 50rem;
+  }
     #interactive {
+      width: 100%;
+      height: 100%;
         max-width: 50rem;
       }
+   
       
       .link {
         display: block;
