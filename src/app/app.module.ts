@@ -24,6 +24,8 @@ import { WelcomePage } from '../pages/welcome/welcome';
 
 
 
+import { ZXingScannerModule } from '@zxing/ngx-scanner';
+
 import { CustomerDashboardPage, 
   DriverDashboardPage, 
   AdminDashboardPage, 
@@ -40,17 +42,20 @@ AccountSearchPage,
 UserAddPage,
 AdminManageUserPage,
 UserSearchPage,
-UserEditPage } from '../pages/pages'
+UserEditPage,
+ModalLabelScannerPage } from '../pages/pages'
   import { LoginPage } from '../pages/login/login';
 import { Ui} from '../providers/ui/ui';
 import { LoadingIndicatorComponent } from '../components/loading-indicator/loading-indicator';
+import { LabelScannerComponent } from '../components/label-scanner/label-scanner';
 import { CollectSignatureComponent } from '../components/collect-signature/collect-signature';
-
 import { InAppBrowser } from '@ionic-native/in-app-browser';
 import { Environment } from '../providers/environment/environment';
 
 
-
+import { NgxQRCodeModule } from 'ngx-qrcode2';
+import { BarcodeValidatorProvider } from '../providers/barcode-validator/barcode-validator';
+import { BarcodeDecoderProvider } from '../providers/barcode-decoder/barcode-decoder';
 
 // The translate loader needs to know where to load i18n files
 // in Ionic's static asset pipeline.
@@ -96,7 +101,9 @@ export function provideSettings(storage: Storage) {
     UserAddPage,
     AdminManageUserPage,
     UserSearchPage,
-    UserEditPage
+    UserEditPage,
+    LabelScannerComponent,
+    ModalLabelScannerPage
   ],
   imports: [ 
     FormsModule, 
@@ -104,6 +111,8 @@ export function provideSettings(storage: Storage) {
     HttpClientModule,
     SignaturePadModule,
     HttpModule,
+    ZXingScannerModule,
+    NgxQRCodeModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
@@ -135,13 +144,14 @@ export function provideSettings(storage: Storage) {
     UserAddPage,
     AdminManageUserPage,
     UserSearchPage,
-    UserEditPage
+    UserEditPage,
+    LabelScannerComponent,
+    ModalLabelScannerPage
   ],
   providers: [
     Api,
     Items,
     User,
-    Camera,
     SplashScreen,
     StatusBar,
     BarcodeScanner,
@@ -150,7 +160,9 @@ export function provideSettings(storage: Storage) {
     { provide: Settings, useFactory: provideSettings, deps: [Storage] },
     // Keep this to enable Ionic's runtime error handling during development
     { provide: ErrorHandler, useClass: IonicErrorHandler },
-    Ui
+    Ui,
+    BarcodeValidatorProvider,
+    BarcodeDecoderProvider
   ]
 })
 export class AppModule { }

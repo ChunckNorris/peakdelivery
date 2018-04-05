@@ -1,0 +1,34 @@
+
+
+
+<ion-content padding>
+  <!-- <zxing-scanner></zxing-scanner> -->
+  <!-- <video id="video" width="300" height="200" style="border: 1px solid gray"></video> -->
+  <!-- <div *ngIf="availableDevices">
+    <select (change)="onDeviceSelectChange($event.target.value)">
+      <option value="" [selected]="!selectedDevice">No Device</option>
+      <option *ngFor="let device of availableDevices" [value]="device.deviceId" [selected]="selectedDevice && device.deviceId === selectedDevice.deviceId">{{ device.label }}</option>
+    </select>
+  </div>
+  <br>
+  <div class="small-video" >
+    <zxing-scanner #scanner  start="true" [device]="selectedDevice" (scanSuccess)="handleQrCodeResult($event)"></zxing-scanner> 
+  </div> -->
+ 
+
+
+  <!-- <p>Notice: You must allow to use your webcam. This Option only works on IE11+ and may not work with Android browser
+    older version. Alternatively use upload file option.</p>
+
+  <div class="show__sm" *ngIf="lastResult">
+    <p>Your Code is</p>
+    <p>{{ lastResult || async }}'</p>
+    <p *ngIf="!message">Searching...</p>
+    <p *ngIf="message">{{message}}</p>
+  </div> -->
+
+  <div id="interactive" class="viewport" #interactive></div>
+
+
+
+</ion-content>

@@ -33,4 +33,5 @@ export * from './account-search/account-search';
 export * from './user-add/user-add';
 export * from './user-search/user-search';
 export * from './user-edit/user-edit';
-export * from './admin-manage-user/admin-manage-user'
+export * from './admin-manage-user/admin-manage-user';
+export * from './modal-label-scanner/modal-label-scanner';

@@ -1,16 +1,22 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Platform, ModalController } from 'ionic-angular';
 
 import { Profile, Delivery } from '../../models/index';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 import { User, Ui } from '../../providers/providers';
 
 import { InAppBrowser, InAppBrowserOptions } from '@ionic-native/in-app-browser';
+import * as Quagga from 'Quagga';
+
 
 import {
   DriverAddDeliveryPage,
-  DriverEditDeliveryPage
+  DriverEditDeliveryPage,
+  ModalLabelScannerPage
 } from '../pages';
+
+
+declare var scanner: any;
 
 @IonicPage()
 @Component({
@@ -39,11 +45,18 @@ export class DriverListDeliveryPage {
     fullscreen: 'yes',//Windows only    
   };
 
-  constructor(public navCtrl: NavController, 
-    public navParams: NavParams, 
+  constructor(public navCtrl: NavController,
+    public navParams: NavParams,
     public barcodeScanner: BarcodeScanner,
     private iab: InAppBrowser,
-    public ui: Ui) {
+    public ui: Ui,
+    public platform: Platform,
+    public modalCtrl: ModalController) {
+
+    platform.ready().then(() => {
+      //scanner = window['cordova'];
+      //debugger;
+    })
     this.deliveryList = new Array<Delivery>();
 
     let del1 = new Delivery();
@@ -71,7 +84,7 @@ export class DriverListDeliveryPage {
       this.deliveryList.push(del1);
       this.deliveryList.push(del2);
       this.ui.showLoadingIndicator(false);
-    },1000);
+    }, 1000);
 
 
 
@@ -81,43 +94,67 @@ export class DriverListDeliveryPage {
   ionViewDidLoad() {
     console.log('ionViewDidLoad DriverListDeliveryPage');
 
-   
+
 
 
 
   }
 
-  mapDelivery(){
+  mapDelivery() {
     let mapsurl = "https://google.com/maps";
     let target = "_blank";
-    let inAppbrowser =   this.iab.create(mapsurl, target, this.options);
-  
+    let inAppbrowser = this.iab.create(mapsurl, target, this.options);
+
     inAppbrowser.show();
   }
 
-  
-  
 
-  deliverPackage(_delivery: Delivery){
-    this.navCtrl.push(DriverEditDeliveryPage, {delivery: _delivery});
-    
+
+
+  deliverPackage(_delivery: Delivery) {
+    this.navCtrl.push(DriverEditDeliveryPage, { delivery: _delivery });
+
   }
 
   scanCode() {
-   
+    // this.ui.showLoadingIndicator(true);
+  
+    // this.barcodeScanner.scan().then((barcodeData) => {
+    //   setTimeout(() => {
+    //     this.ui.showLoadingIndicator(false);
+    //     alert('No Delivery Found');
+    //   },
+    //     5000);
+    // }, (err) => {
+    //   alert(err);
+    //   this.ui.showLoadingIndicator(false);
+    // });
 
-this.ui.showLoadingIndicator(true);
+    let modal = this.modalCtrl.create(ModalLabelScannerPage);
+    modal.present();
 
-    this.barcodeScanner.scan().then((barcodeData) => {
-      setTimeout(() => {
-        this.ui.showLoadingIndicator(false);
-        alert('No Delivery Found');
-      },
-      5000);
-    }, (err) => {
-      alert(err);
-    });
+    modal.onDidDismiss(data => {
+ 
+      
+        //alert(data);
+      });
+
+
   }
-    
+
 
 }   
+// ,
+// {
+//     preferFrontCamera : true, // iOS and Android
+//     showFlipCameraButton : true, // iOS and Android
+//     showTorchButton : true, // iOS and Android
+//     torchOn: true, // Android, launch with the torch switched on (if available)
+//     saveHistory: true, // Android, save scan history (default false)
+//     prompt : "Place a barcode inside the scan area", // Android
+//     resultDisplayDuration: 500, // Android, display scanned text for X ms. 0 suppresses it entirely, default 1500
+//     formats : "QR_CODE,PDF_417", // default: all but PDF_417 and RSS_EXPANDED
+//     orientation : "landscape", // Android only (portrait|landscape), default unset so it rotates with the device
+//     disableAnimations : true, // iOS
+//     disableSuccessBeep: false // iOS and Android
+// }

@@ -76,7 +76,7 @@ export class DriverEditDeliveryPage {
       });
 
     } else {
-      this.delivery = new Delivery();
+      this.delivery = new Delivery(); 
 
     }
 

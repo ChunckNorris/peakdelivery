@@ -4,6 +4,8 @@ import { Settings } from './settings/settings';
 import { User } from './user/user';
 import { Ui } from './ui/ui';
 import { Environment } from './environment/environment'
+import { BarcodeDecoderProvider } from './barcode-decoder/barcode-decoder'
+import { BarcodeValidatorProvider } from './barcode-validator/barcode-validator'
 
 export {
     Api,
@@ -11,5 +13,7 @@ export {
     Settings,
     User,
     Ui, 
-    Environment
+    Environment,
+    BarcodeDecoderProvider,
+    BarcodeValidatorProvider
 };
