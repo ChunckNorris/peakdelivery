@@ -59,7 +59,7 @@ export class UserAddPage {
         let toast = this.toastCtrl.create({
           message: 'User Account Created',
           duration: 1000,
-          position: 'top'
+          position: 'top' 
         });
         toast.present();
 

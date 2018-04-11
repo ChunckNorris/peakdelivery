@@ -6,7 +6,7 @@ import 'rxjs/Rx';
 import { Platform } from 'ionic-angular';
 
 import { Environment } from '../environment/environment';
-import { UserClaim, NewUser, CreatedUser } from '../../models/index';
+import { UserClaim, NewUser, CreatedUser, Account } from '../../models/index';
 declare var cordova: any;
 
 export class Endpoint {
@@ -26,7 +26,7 @@ export class Endpoints {
     static getUsers = new Endpoint('~/v1/getuser/');
     static getProfile = new Endpoint('~/v1/accounts/user/{userId}');
     static createUser = new Endpoint('~/v1/accounts/create');
-
+    static upsertAccount = new Endpoint('~/v1/accounts/update');
 
 }
 export class Authorization {
@@ -135,5 +135,12 @@ export class Api {
         let newUser = this.request<CreatedUser>(HttpMethods.post, endpoint, null, user);
         return newUser;
       }
+
+      public upsertAccount(account: Account): Observable<any> {
+        let endpoint = Endpoints.upsertAccount.getUrl();
+        let newUser = this.request<any>(HttpMethods.post, endpoint, null, account);
+        return newUser;
+      }
+
 
 }

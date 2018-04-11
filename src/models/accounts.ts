@@ -11,6 +11,10 @@ export class Account {
     altCity: string;
     altState: string;
     altZip: string;
+    accountContact: string;
+    contactNumber: string;
+    contactEmail: string;
+    
     
 }
 export class AccountRunOptions {

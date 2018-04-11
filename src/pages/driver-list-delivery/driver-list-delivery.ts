@@ -4,7 +4,7 @@ import { IonicPage, NavController, NavParams, Platform, ModalController } from '
 import { Profile, Delivery } from '../../models/index';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 import { User, Ui } from '../../providers/providers';
-
+import { Camera, CameraOptions } from '@ionic-native/camera';
 import { InAppBrowser, InAppBrowserOptions } from '@ionic-native/in-app-browser';
 import * as Quagga from 'Quagga';
 
@@ -24,9 +24,9 @@ declare var scanner: any;
   templateUrl: 'driver-list-delivery.html',
 })
 export class DriverListDeliveryPage {
-
+  camoptions: CameraOptions;
   deliveryList: Array<Delivery>;
-
+  ocrData: string;
   options: InAppBrowserOptions = {
     location: 'yes',//Or 'no' 
     hidden: 'no', //Or  'yes'
@@ -48,10 +48,17 @@ export class DriverListDeliveryPage {
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
     public barcodeScanner: BarcodeScanner,
+    public camera: Camera,
     private iab: InAppBrowser,
     public ui: Ui,
     public platform: Platform,
     public modalCtrl: ModalController) {
+      this.camoptions = {
+        quality: 100,
+        destinationType: this.camera.DestinationType.DATA_URL,
+        encodingType: this.camera.EncodingType.JPEG,
+        mediaType: this.camera.MediaType.PICTURE
+      }
 
     platform.ready().then(() => {
       //scanner = window['cordova'];
@@ -117,6 +124,8 @@ export class DriverListDeliveryPage {
   }
 
   scanCode() {
+    //this.navCtrl.push(ModalLabelScannerPage);
+
     // this.ui.showLoadingIndicator(true);
   
     // this.barcodeScanner.scan().then((barcodeData) => {
@@ -135,10 +144,23 @@ export class DriverListDeliveryPage {
 
     modal.onDidDismiss(data => {
  
+        if(data.ocrdata){
+          this.ocrData = data.ocrdata;
+          alert(data);
+        }else{
+          alert('No scanned data found');
+        }
       
-        //alert(data);
       });
 
+
+    // this.camera.getPicture(this.camoptions).then((imageData) => {
+    //   // imageData is either a base64 encoded string or a file URI
+    //   // If it's base64:
+    //   let base64Image = 'data:image/jpeg;base64,' + imageData;
+    //  }, (err) => {
+    //   // Handle error
+    //  });
 
   }
 

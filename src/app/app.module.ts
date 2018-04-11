@@ -157,6 +157,7 @@ export function provideSettings(storage: Storage) {
     BarcodeScanner,
     InAppBrowser,
     Environment,
+    Camera,
     { provide: Settings, useFactory: provideSettings, deps: [Storage] },
     // Keep this to enable Ionic's runtime error handling during development
     { provide: ErrorHandler, useClass: IonicErrorHandler },

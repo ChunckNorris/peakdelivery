@@ -4,6 +4,8 @@ import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms'
 
 import { Profile, Delivery } from '../../models/index';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner';
+import { Camera, CameraOptions } from '@ionic-native/camera';
+
 
 import {
   MainPage,
@@ -30,19 +32,20 @@ export class DriverAddDeliveryPage {
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
     public formBuilder: FormBuilder,
+    public camera: Camera,
     private barcodeScanner: BarcodeScanner) {
 
 
     this.callback = this.navParams.get('callback');
-    
 
 
-    if(this.navParams.data.data.length > 0){
-      
-        this.myItems = this.navParams.data.data;
-     
-      
-    }else{
+
+    if (this.navParams.data.data.length > 0) {
+
+      this.myItems = this.navParams.data.data;
+
+
+    } else {
       this.myItems = new Array<Delivery>();
 
     }
@@ -78,7 +81,7 @@ export class DriverAddDeliveryPage {
         , multiLineText: [this.delivery.multiLineText]
       });
 
-
+      this.camera.cleanup().then(val => alert(val));
       // this.form = this.formBuilder.group({
       //   driverName: [this.delivery.driverName]
       //   , run: [null]

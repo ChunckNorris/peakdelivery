@@ -25,6 +25,11 @@
     </ion-item>
 
 
+    <ion-item *ngIf="ocrData">
+      <ion-label>Search Data</ion-label>
+      <ion-textarea [(ngModel)]="ocrData" name="ocrData"></ion-textarea>
+    </ion-item>
+
     <div *ngFor="let del of deliveryList">
       <ion-card>
     
