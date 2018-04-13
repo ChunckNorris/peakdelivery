@@ -22,5 +22,8 @@ export class Delivery {
     altCity: string;
     altState: string;
     altZip: string;
+    signature: string;
+    accountId: string;
+    accountName: string;
     
 }

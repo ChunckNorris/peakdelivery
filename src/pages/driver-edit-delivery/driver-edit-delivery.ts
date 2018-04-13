@@ -5,7 +5,7 @@ import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms'
 import { Profile, Delivery } from '../../models/index';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 import { ModalSignPage } from '../../pages/pages'
-
+import { Api } from '../../providers/api/api';
 
 import {
   MainPage,
@@ -36,7 +36,8 @@ export class DriverEditDeliveryPage {
     public navParams: NavParams,
     public formBuilder: FormBuilder,
     public modalCtrl: ModalController,
-    private barcodeScanner: BarcodeScanner) {
+    private barcodeScanner: BarcodeScanner,
+    public api: Api) {
     this.driver = new Profile();
 
     this.isAdderChanged =  false;
@@ -58,7 +59,6 @@ export class DriverEditDeliveryPage {
         , slipToteId: [this.delivery.slipToteId]
         , activity: [this.delivery.activity]
         , billing: [this.delivery.billing]
-        , timeDelivered: [this.delivery.timeDelivered]
         , dateDelivered: [this.delivery.dateDelivered]
         , text: [this.delivery.text]
         , address1: [this.delivery.address1]
@@ -87,6 +87,33 @@ export class DriverEditDeliveryPage {
     console.log('ionViewDidLoad DriverEditDeliveryPage');
   }
   completeDelivery() {
+
+    this.delivery.activity = this.form.value.activity;
+    this.delivery.driverName = this.form.value.driverName;
+    this.delivery.run = this.form.value.run;
+    this.delivery.bagToteId = this.form.value.bagToteId;
+    this.delivery.slipToteId = this.form.value.slipToteId;
+    this.delivery.billing = this.form.value.billing;
+    this.delivery.dateDelivered = this.form.value.dateDelivered;
+    this.delivery.text = this.form.value.text;
+    this.delivery.address1 = this.form.value.address1;
+    this.delivery.address2 = this.form.value.address2 ? this.form.value.address2 : '';
+    this.delivery.city = this.form.value.city;
+    this.delivery.state = this.form.value.state;
+    this.delivery.zip = this.form.value.zip;
+    this.delivery.altAddress1 = this.form.value.altAddress1 ? this.form.value.altAddress1 : '';
+    this.delivery.altAddress2 = this.form.value.altAddress2 ? this.form.value.altAddress2 : '';
+    this.delivery.altCity = this.form.value.altCity ? this.form.value.altCity : '';
+    this.delivery.altState = this.form.value.altState ? this.form.value.altState : '';
+    this.delivery.altZip = this.form.value.altZip ? this.form.value.altZip : '';
+    this.delivery.isAltAddress = this.form.value.isAltAddress ? this.form.value.isAltAddress : '';
+    this.delivery.multiLineText = this.form.value.multiLineText ? this.form.value.multiLineText : '';
+    this.delivery.signature = this.signature ? this.signature : '';
+
+    this.api.saveDelivered(this.delivery).subscribe(res => {
+      alert('Delivery Updated');
+      
+    })
 
   }
   getSig(){

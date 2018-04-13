@@ -16,7 +16,27 @@
 
 <ion-content padding>
     <div style="max-width: 800px; margin: auto; ">
-
+      <ion-list>
+        <ion-item detail-none *ngFor="let item of accounts" (click)="accountSelected(item)" tappable>
+            <ion-card>
+                
+                  <ion-item>
+                    <h2>{{item.accountName}}</h2>
+                  </ion-item>
+                
+       
+                
+                  <ion-card-content>
+                    <p>{{item.address1}}</p>
+                    <p *ngIf="item.address2">{{item?.address2}}</p>
+                    <p>{{ item?.city }}, {{ item?.state }}  {{ item?.zip }}</p>
+  
+                  </ion-card-content>
+   
+                
+                </ion-card>
+        </ion-item>
+      </ion-list>
 
 
     </div>

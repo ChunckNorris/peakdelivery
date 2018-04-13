@@ -1,18 +1,19 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
 import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
 
 import { Profile, Delivery } from '../../models/index';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 import { Camera, CameraOptions } from '@ionic-native/camera';
-
-
+import { Account, AccountBillingOptions, AccountRunOptions } from '../../models/index';
+import { Api } from '../../providers/api/api';
 import {
   MainPage,
   CustomerDashboardPage,
   AdminDashboardPage,
   DriverDashboardPage,
-  DriverListDeliveryPage
+  DriverListDeliveryPage,
+  AccountSearchPage
 } from '../pages';
 
 @IonicPage()
@@ -21,7 +22,7 @@ import {
   templateUrl: 'driver-add-delivery.html',
 })
 export class DriverAddDeliveryPage {
-
+  account: Account;
   form: FormGroup;
   driver: Profile;
   delivery: Delivery;
@@ -33,6 +34,8 @@ export class DriverAddDeliveryPage {
     public navParams: NavParams,
     public formBuilder: FormBuilder,
     public camera: Camera,
+    public modalCtrl: ModalController,
+    public api: Api,
     private barcodeScanner: BarcodeScanner) {
 
 
@@ -64,9 +67,11 @@ export class DriverAddDeliveryPage {
         , slipToteId: [this.delivery.slipToteId]
         , activity: [this.delivery.activity]
         , billing: [this.delivery.billing]
-        , timeDelivered: [this.delivery.timeDelivered]
-        , dateDelivered: [this.delivery.dateDelivered]
-        , text: [this.delivery.text]
+        , accountName: [this.delivery.accountName] 
+        , accountId: [this.delivery.accountId]
+        // , timeDelivered: [this.delivery.timeDelivered]
+        // , dateDelivered: [this.delivery.dateDelivered]
+        // , text: [this.delivery.text]
         , address1: [this.delivery.address1]
         , address2: [this.delivery.address2]
         , city: [this.delivery.city]
@@ -113,9 +118,11 @@ export class DriverAddDeliveryPage {
         , slipToteId: [null]
         , activity: [null]
         , billing: [null]
-        , timeDelivered: [null]
-        , dateDelivered: [null]
-        , text: [null]
+        , accountName: [null] 
+        , accountId: [null]
+        // , timeDelivered: [null]
+        // , dateDelivered: [null]
+        // , text: [null]
         , address1: [null]
         , address2: [null]
         , city: [null]
@@ -202,9 +209,11 @@ export class DriverAddDeliveryPage {
       this.delivery.bagToteId = this.form.value.bagToteId;
       this.delivery.slipToteId = this.form.value.slipToteId;
       this.delivery.billing = this.form.value.billing;
-      this.delivery.timeDelivered = this.form.value.timeDelivered;
-      this.delivery.dateDelivered = this.form.value.dateDelivered;
-      this.delivery.text = this.form.value.text;
+      this.delivery.accountId = this.form.value.accountId;
+      this.delivery.accountName = this.form.value.accountName;
+      // this.delivery.timeDelivered = this.form.value.timeDelivered;
+      // this.delivery.dateDelivered = this.form.value.dateDelivered;
+      // this.delivery.text = this.form.value.text;
       this.delivery.address1 = this.form.value.address1;
       this.delivery.address2 = this.form.value.address2;
       this.delivery.city = this.form.value.city;
@@ -212,6 +221,13 @@ export class DriverAddDeliveryPage {
       this.delivery.zip = this.form.value.zip;
       this.delivery.multiLineText = this.form.value.multiLineText;
 
+
+
+      this.api.saveDelivered(this.delivery).subscribe(res => {
+        this.callback(this.myItems).then(() => {
+          this.navCtrl.pop();
+        });
+      })
       this.myItems.push(this.delivery);
 
       let data = {
@@ -220,9 +236,7 @@ export class DriverAddDeliveryPage {
       }
 
 
-      this.callback(this.myItems).then(() => {
-        this.navCtrl.pop();
-      });
+  
     } else {
       this.navCtrl.pop();
     }
@@ -233,7 +247,18 @@ export class DriverAddDeliveryPage {
 
   }
 
+  findAccount(){
+    let modal = this.modalCtrl.create(AccountSearchPage);
+    modal.present();
+    modal.onDidDismiss(data => {
+      if (data && data.account) {
+        this.account = data.account;
 
+        this.form.controls['accountName'].setValue(this.account.accountName);
+        this.form.controls['accountId'].setValue(this.account.accountId);
+      }
+    });
+  }
   completeDelivery() {
 
   }

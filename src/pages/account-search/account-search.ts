@@ -3,6 +3,8 @@ import { IonicPage, NavController, NavParams, ToastController, ViewController } 
 
 import { Profile, Delivery, Account } from '../../models/index';
 import { User, Ui } from '../../providers/providers';
+import { Api } from '../../providers/api/api';
+
 
 @IonicPage()
 @Component({
@@ -18,6 +20,7 @@ export class AccountSearchPage {
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
     public ui: Ui,
+    public api: Api,
     public toastCtrl: ToastController,
     public viewCtrl: ViewController) {
     this.accounts = new Array<Account>();
@@ -36,7 +39,13 @@ export class AccountSearchPage {
         this.ui.showLoadingIndicator(true);
 
         //Call API to Search
-
+        this.api.getAccountList().subscribe(res => {
+          this.accounts = res;
+          this.ui.showLoadingIndicator(false);
+        }, err => {
+          this.accounts = new Array<Account>();
+          this.ui.showLoadingIndicator(false);
+        })
         //if no results 
         // let toast = this.toastCtrl.create({
         //   message: 'No Accounts Found',
@@ -47,11 +56,11 @@ export class AccountSearchPage {
 
         this.isErrorSearch = false;
 
-        this.ui.showLoadingIndicator(false);
+       
       } else {
         this.accounts = [];
         this.isErrorSearch = true;
-        this.ui.showLoadingIndicator(false);
+        //this.ui.showLoadingIndicator(false);
 
       }
 
@@ -69,11 +78,17 @@ export class AccountSearchPage {
     }
 
   }
+
+  accountSelected(account){
+    this.viewCtrl.dismiss({account: account});
+  }
   closeTapped() {
 
 
     this.viewCtrl.dismiss({});
   }
-
+  resetSearch(){
+    this.accounts = [];
+  }
 
 }

@@ -6,7 +6,11 @@ import 'rxjs/Rx';
 import { Platform } from 'ionic-angular';
 
 import { Environment } from '../environment/environment';
-import { UserClaim, NewUser, CreatedUser, Account } from '../../models/index';
+import { UserClaim, 
+    NewUser, 
+    CreatedUser, 
+    Account,
+    Delivery } from '../../models/index';
 declare var cordova: any;
 
 export class Endpoint {
@@ -26,8 +30,12 @@ export class Endpoints {
     static getUsers = new Endpoint('~/v1/getuser/');
     static getProfile = new Endpoint('~/v1/accounts/user/{userId}');
     static createUser = new Endpoint('~/v1/accounts/create');
-    static upsertAccount = new Endpoint('~/v1/accounts/update');
 
+    static upsertAccount = new Endpoint('~/v1/accounts/update');
+    static getAccountList = new Endpoint('~/v1/accounts/get/-1');
+
+
+    static upsertDelivery = new Endpoint('~/v1/delivery/update');
 }
 export class Authorization {
   access_token: string
@@ -136,11 +144,24 @@ export class Api {
         return newUser;
       }
 
+
+
       public upsertAccount(account: Account): Observable<any> {
         let endpoint = Endpoints.upsertAccount.getUrl();
         let newUser = this.request<any>(HttpMethods.post, endpoint, null, account);
         return newUser;
       }
+      public getAccountList(): Observable<Account[]> {
+        let endpoint = Endpoints.getAccountList.getUrl();
+        return this.request<Account[]>(HttpMethods.get, endpoint);
+    
+      }
 
 
+
+      public saveDelivered(delivery: Delivery): Observable<any> {
+        let endpoint = Endpoints.upsertDelivery.getUrl();
+        let newUser = this.request<any>(HttpMethods.post, endpoint, null, delivery);
+        return newUser;
+      }
 }

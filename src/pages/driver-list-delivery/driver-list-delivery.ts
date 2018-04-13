@@ -128,30 +128,58 @@ export class DriverListDeliveryPage {
 
     // this.ui.showLoadingIndicator(true);
   
-    // this.barcodeScanner.scan().then((barcodeData) => {
-    //   setTimeout(() => {
-    //     this.ui.showLoadingIndicator(false);
-    //     alert('No Delivery Found');
-    //   },
-    //     5000);
-    // }, (err) => {
-    //   alert(err);
-    //   this.ui.showLoadingIndicator(false);
-    // });
+    this.barcodeScanner.scan().then((barcodeData) => {
+      setTimeout(() => {
+        this.ui.showLoadingIndicator(false);
+        alert('No Delivery Found');
+      },
+        5000);
+    }, (err) => {
+      alert(err);
+      this.ui.showLoadingIndicator(false);
+    });
 
-    let modal = this.modalCtrl.create(ModalLabelScannerPage);
-    modal.present();
+    // let modal = this.modalCtrl.create(ModalLabelScannerPage);
+    // modal.present();
 
-    modal.onDidDismiss(data => {
+    // modal.onDidDismiss(data => {
  
-        if(data.ocrdata){
-          this.ocrData = data.ocrdata;
-          alert(data);
-        }else{
-          alert('No scanned data found');
-        }
+    //     if(data.ocrdata){
+    //       this.ocrData = data.ocrdata;
+    //       alert(data);
+    //     }else{
+    //       alert('No scanned data found');
+    //     }
       
-      });
+    //   });
+
+    // let modal = this.modalCtrl.create(ModalLabelScannerPage);
+    // modal.present();
+
+    // modal.onDidDismiss(data => {
+ 
+    //     if(data.ocrdata){
+    //       this.ocrData = data.ocrdata;
+    //       alert(data);
+    //     }else{
+    //       alert('No scanned data found');
+    //     }
+      
+    //   });
+
+    // let modal = this.modalCtrl.create(ModalLabelScannerPage);
+    // modal.present();
+
+    // modal.onDidDismiss(data => {
+ 
+    //     if(data.ocrdata){
+    //       this.ocrData = data.ocrdata;
+    //       alert(data);
+    //     }else{
+    //       alert('No scanned data found');
+    //     }
+      
+    //   });
 
 
     // this.camera.getPicture(this.camoptions).then((imageData) => {

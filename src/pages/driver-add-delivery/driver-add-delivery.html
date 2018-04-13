@@ -35,6 +35,14 @@
 
     <form [formGroup]="form">
       <ion-list>
+          <ion-item>
+              <ion-label color="primary">Select Delivery Account</ion-label>
+              <ion-input formControlName="accountName" placeholder="Account Name"></ion-input>
+              <button ion-button item-end>
+                <ion-icon name="contacts" (click)="findAccount()"></ion-icon>
+              </button>
+    
+            </ion-item>
         <ion-item>
           <ion-label color="primary">Driver Assigned</ion-label>
           <ion-input formControlName="driverName" placeholder="Driver Name"></ion-input>
@@ -90,18 +98,18 @@
               <ion-option value="ASAP">ASAP</ion-option>
             </ion-select>  
       </ion-item>
-        <ion-item>
+        <!-- <ion-item>
           <ion-label color="primary">Date Delivered</ion-label>
           <ion-datetime displayFormat="MMM DD YYYY" formControlName="dateDelivered"></ion-datetime>
         </ion-item>
         <ion-item>
           <ion-label color="primary">Time Delivered</ion-label>
           <ion-datetime displayFormat="h:mm A" pickerFormat="h mm A" formControlName="timeDelivered"></ion-datetime>
-        </ion-item>
-        <ion-item>
+        </ion-item> -->
+        <!-- <ion-item>
           <ion-label color="primary">Text</ion-label>
           <ion-input formControlName="text" placeholder="Text"></ion-input>
-        </ion-item>
+        </ion-item> -->
         <ion-item>
             <ion-label color="primary">Address1</ion-label>
             <ion-input formControlName="address1" placeholder="Address1"></ion-input>
@@ -136,7 +144,7 @@
 
       </ion-item>
       <ion-item *ngIf="!isNewDelivery">
-        <button ion-button full large (click)="completeDelivery()">Complete Delivery</button>
+        <button ion-button full large (click)="saveDelivery()">Complete Delivery</button>
 
       </ion-item>
     </form>

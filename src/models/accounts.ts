@@ -1,4 +1,5 @@
 export class Account {
+    accountId: string;
     accountName: string;
     address1: string;
     address2: string;
