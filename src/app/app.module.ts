@@ -9,7 +9,6 @@ import { IonicStorageModule, Storage } from '@ionic/storage';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
-
 import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 import { SignaturePadModule } from 'angular2-signaturepad';
 
@@ -23,8 +22,6 @@ import { MyApp } from './app.component';
 import { WelcomePage } from '../pages/welcome/welcome';
 
 
-
-import { ZXingScannerModule } from '@zxing/ngx-scanner';
 
 import { CustomerDashboardPage, 
   DriverDashboardPage, 
@@ -42,20 +39,16 @@ AccountSearchPage,
 UserAddPage,
 AdminManageUserPage,
 UserSearchPage,
-UserEditPage,
-ModalLabelScannerPage } from '../pages/pages'
+UserEditPage } from '../pages/pages'
   import { LoginPage } from '../pages/login/login';
 import { Ui} from '../providers/ui/ui';
 import { LoadingIndicatorComponent } from '../components/loading-indicator/loading-indicator';
-import { LabelScannerComponent } from '../components/label-scanner/label-scanner';
+
 import { CollectSignatureComponent } from '../components/collect-signature/collect-signature';
 import { InAppBrowser } from '@ionic-native/in-app-browser';
 import { Environment } from '../providers/environment/environment';
 
 
-import { NgxQRCodeModule } from 'ngx-qrcode2';
-import { BarcodeValidatorProvider } from '../providers/barcode-validator/barcode-validator';
-import { BarcodeDecoderProvider } from '../providers/barcode-decoder/barcode-decoder';
 
 // The translate loader needs to know where to load i18n files
 // in Ionic's static asset pipeline.
@@ -101,9 +94,7 @@ export function provideSettings(storage: Storage) {
     UserAddPage,
     AdminManageUserPage,
     UserSearchPage,
-    UserEditPage,
-    LabelScannerComponent,
-    ModalLabelScannerPage
+    UserEditPage
   ],
   imports: [ 
     FormsModule, 
@@ -111,8 +102,6 @@ export function provideSettings(storage: Storage) {
     HttpClientModule,
     SignaturePadModule,
     HttpModule,
-    ZXingScannerModule,
-    NgxQRCodeModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
@@ -144,9 +133,7 @@ export function provideSettings(storage: Storage) {
     UserAddPage,
     AdminManageUserPage,
     UserSearchPage,
-    UserEditPage,
-    LabelScannerComponent,
-    ModalLabelScannerPage
+    UserEditPage
   ],
   providers: [
     Api,
@@ -162,8 +149,6 @@ export function provideSettings(storage: Storage) {
     // Keep this to enable Ionic's runtime error handling during development
     { provide: ErrorHandler, useClass: IonicErrorHandler },
     Ui,
-    BarcodeValidatorProvider,
-    BarcodeDecoderProvider
   ]
 })
 export class AppModule { }
