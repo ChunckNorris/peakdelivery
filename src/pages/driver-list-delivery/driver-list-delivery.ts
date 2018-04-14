@@ -6,7 +6,7 @@ import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 import { User, Ui } from '../../providers/providers';
 import { Camera, CameraOptions } from '@ionic-native/camera';
 import { InAppBrowser, InAppBrowserOptions } from '@ionic-native/in-app-browser';
-import * as Quagga from 'Quagga';
+// import * as Quagga from 'Quagga';
 
 
 import {
