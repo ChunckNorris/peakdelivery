@@ -12,11 +12,9 @@ import * as Quagga from 'Quagga';
 import {
   DriverAddDeliveryPage,
   DriverEditDeliveryPage,
-  ModalLabelScannerPage
 } from '../pages';
 
 
-declare var scanner: any;
 
 @IonicPage()
 @Component({

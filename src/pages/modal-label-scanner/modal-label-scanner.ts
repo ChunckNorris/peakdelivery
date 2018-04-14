@@ -187,4 +187,4 @@
 //         // onDeviceSelectChange(selectedValue: string) {
 //         //     console.log('Selection changed: ', selectedValue);
 //         //     this.selectedDevice = this.scanner.getDeviceById(selectedValue);
-//         // }
+//         // } 
