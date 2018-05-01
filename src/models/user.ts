@@ -58,6 +58,28 @@ export class NewUser
 
     }
 
+    export class SearchedUser {
+        firstName: string;
+        lastName: string;
+        level: number;
+        joinDate: Date;
+        email: string;
+        emailConfirmed: boolean;
+        passwordHash: string;
+        securityStamp: string;
+        phoneNumber?: any;
+        phoneNumberConfirmed: boolean;
+        twoFactorEnabled: boolean;
+        lockoutEndDateUtc?: any;
+        lockoutEnabled: boolean;
+        accessFailedCount: number;
+        roles: any[];
+        claims: any[];
+        logins: any[];
+        id: string;
+        userName: string;
+    }
+
 
 
 

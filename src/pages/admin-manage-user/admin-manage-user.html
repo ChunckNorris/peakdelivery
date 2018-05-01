@@ -12,7 +12,16 @@
     <div style="max-width: 800px; margin: auto; ">
     <div padding>
         <button ion-button block (click)="addnewUser()">Add New User</button>
-        <button ion-button block>Edit User</button>
+        <button ion-button block (click)="editUserAccount()">Edit User</button>
       </div>
+      <ion-list>
+          <ion-item (click)="searchTapped(item)" *ngFor="let item of usersToApprove">
+            <h2> {{item.firstName}} {{item.lastName}} </h2>
+            <p>UserName: {{item.userName}}</p>
+            <p>Email: {{item.email}}</p>
+          </ion-item>
+        </ion-list> 
+        
+
     </div>
 </ion-content>

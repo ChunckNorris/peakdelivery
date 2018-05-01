@@ -1,23 +1,130 @@
-
 <ion-header>
-  
-      <ion-navbar>
-          <ion-title>Edit User</ion-title>
-      
-          <ion-buttons end>
-              <button ion-button menuToggle>
-                  <ion-icon name="menu"></ion-icon>
-              </button>
-            </ion-buttons>
-            
-        </ion-navbar>
-  
-  </ion-header>
+
+    <ion-navbar>
+        <ion-title>Edit User</ion-title>
+
+        <ion-buttons end>
+            <button ion-button menuToggle>
+                <ion-icon name="menu"></ion-icon>
+            </button>
+        </ion-buttons>
+
+    </ion-navbar>
+
+</ion-header>
 
 <ion-content padding>
     <div style="max-width: 800px; margin: auto; ">
 
-  <button ion-button full large (click)="searchAccounts()">Account Lookup</button>
+        <div *ngIf="isUserApproval">
+
+            <ion-card>
+
+                <ion-card-content>
+                    <ion-card-title>
+                        {{userFromSearch?.firstName}} {{userFromSearch?.lastName}}
+                    </ion-card-title>
+
+                    <p>UserName: {{userFromSearch.userName}}</p>
+                    <p>Email: {{userFromSearch.email}}</p>
+
+                </ion-card-content>
+                <ion-row no-padding>
+                    <ion-col>
+                        <button ion-button clear small color="primary" icon-start (click)="approveUser()">
+                            <ion-icon name='add-circle'></ion-icon>
+                            Approve
+                        </button>
+                    </ion-col>
+                    <ion-col text-right>
+                        <button ion-button clear small color="danger" icon-start (click)="denyUser()">
+                            <ion-icon name='close-circle'></ion-icon>
+                            Deny
+                        </button>
+                    </ion-col>
+                </ion-row>
+
+            </ion-card>
+
+
+        </div>
+
+        <div *ngIf="!isUserApproval">
+            <button ion-button full large (click)="searchUser()">User Lookup</button>
+        </div>
+        <div *ngIf="userForEdit">
+
+
+            <ion-card>
+ 
+                <ion-card-content>
+                    <ion-card-title>
+                        {{userFromSearch?.fullName}}
+                    </ion-card-title>
+
+                    <p>UserName: {{userFromSearch.userName}}</p>
+                    <p>Email: {{userFromSearch.email}}</p>
+
+                </ion-card-content>
+                <ion-row no-padding *ngIf="!editUser.emailConfirmed">
+                    <ion-col>
+                        <button ion-button clear small color="primary" icon-start (click)="approveUser()">
+                            <ion-icon name='add-circle'></ion-icon>
+                            Approve
+                        </button>
+                    </ion-col>
+                    <ion-col text-right>
+                        <button ion-button clear small color="danger" icon-start (click)="denyUser()">
+                            <ion-icon name='close-circle'></ion-icon>
+                            Deny
+                        </button>
+                    </ion-col> 
+                </ion-row>
+
+            </ion-card>
+
+
+
+
+            <!-- <form [formGroup]="form">
+                        <ion-list>
+                            <ion-list-header>Create New User</ion-list-header>
+                          <ion-item>
+                            <ion-label color="primary">Email</ion-label>
+                            <ion-input formControlName="email" placeholder="Email"></ion-input>
+               
+                          </ion-item>             
+                           <ion-item>
+                            <ion-label color="primary">User Name</ion-label>
+                            <ion-input formControlName="userName" placeholder="User Name"></ion-input>
+               
+                          </ion-item>
+                          <ion-item>
+                              <ion-label color="primary">First Name</ion-label>
+                              <ion-input formControlName="firstName" placeholder="First Name"></ion-input>
+                            </ion-item>
+                            <ion-item>
+                              <ion-label color="primary">Last Name</ion-label>
+                              <ion-input formControlName="lastName" placeholder="Last Name"></ion-input>
+                            </ion-item>
+                            <ion-item>
+                              <ion-label color="primary">Password</ion-label>
+                              <ion-input formControlName="password" placeholder="Password"></ion-input>
+                            </ion-item>
+                            <ion-item>
+                              <ion-label color="primary">Confirm Password</ion-label>
+                              <ion-input formControlName="confirmPassword" placeholder="Confirm Password"></ion-input>
+                            </ion-item>
+                            <ion-item>
+                              <ion-label color="primary">Role Name</ion-label>
+                              <ion-input formControlName="roleName" placeholder="Role Name"></ion-input>
+                            </ion-item>
+                  
+                        </ion-list>
+              
+                        <button [disabled]="!form.valid" ion-button full large (click)="saveNewUser()">Save User</button>
+                      </form> -->
+        </div>
 
 
     </div>

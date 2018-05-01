@@ -1,22 +1,42 @@
 <ion-header>
-  
-    <ion-navbar>
-      <ion-title>Search Users</ion-title>
-      <ion-buttons end>
-        <button ion-button icon-only color="dark" clear (click)="closeTapped()" tappable>
-            <ion-icon name="close-circle"></ion-icon>
-        </button>
-      </ion-buttons>
-    </ion-navbar>
-    <ion-searchbar (ionInput)="searchChanged($event)" (ionCancel)="resetSearch()" (ionClear)="resetSearch()" placeholder="Search Account"
+
+  <ion-navbar>
+    <ion-title>Search Users</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only color="dark" clear (click)="closeTapped()" tappable>
+        <ion-icon name="close-circle"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+  <ion-searchbar (ionInput)="searchChanged($event)" (ionCancel)="resetSearch()" (ionClear)="resetSearch()" placeholder="Search User"
     debounce="1000" tappable></ion-searchbar>
-  </ion-header>
+</ion-header>
 
 
 
 <ion-content padding>
-    <div style="max-width: 800px; margin: auto; ">
+  <div style="max-width: 800px; margin: auto; ">
 
+    <div *ngFor="let user of foundUsers">
+      <ion-card (click)="selectUser(user)">
+
+        <ion-card-content>
+          <ion-card-title>
+            {{user?.firstName}} {{user?.lastName}}
+          </ion-card-title>
+
+          <p>UserName: {{user?.userName}}</p>
+          <p>Email: {{user?.email}}</p>
+
+        </ion-card-content>
+
+
+      </ion-card>
 
     </div>
+
+
+
+
+  </div>  
 </ion-content>

@@ -1,190 +1,157 @@
-// import { Component, VERSION, OnInit, ViewChild, OnDestroy, AfterContentInit } from '@angular/core';
-// import { IonicPage, NavController, NavParams, ActionSheetController, LoadingController, ViewController } from 'ionic-angular';
-// import {  ZXingScannerComponent } from '@zxing/ngx-scanner';
-// import * as Quagga from 'Quagga';
-// import { User, Ui, BarcodeDecoderProvider, BarcodeValidatorProvider } from '../../providers/providers';
-// import { Subject } from 'rxjs/Subject';
-// import { Camera, CameraOptions } from '@ionic-native/camera';
-// // import {encodeCode39, renderBarcodeToSVG} from "barcodejs"
-// //import { NgxZxingComponent } from '@zxing/ngx-scanner';
-
-// //https://github.com/Schibum/barcode.js
-
-// import * as Tesseract from 'tesseract.js'
+import { Component, VERSION, OnInit, ViewChild, OnDestroy, AfterContentInit } from '@angular/core';
+import { IonicPage, NavController, NavParams, ActionSheetController, LoadingController, ViewController } from 'ionic-angular';
+import { User, Ui } from '../../providers/providers';
+import { Subject } from 'rxjs/Subject';
+import { Camera, CameraOptions } from '@ionic-native/camera';
 
 
-// @IonicPage()
-// @Component({
-//     selector: 'page-modal-label-scanner',
-//     templateUrl: 'modal-label-scanner.html',
-// })
-// export class ModalLabelScannerPage {
-//     @ViewChild('scanner') scanner: ZXingScannerComponent;
-
-//     sound = new Audio('assets/barcode.wav');
-//     hasCameras = false;
-//     hasPermission: boolean;
-//     qrResultString: string;
-
-//     srcImage: string;
-//     OCRAD: any;
-
-//     // availableDevices: MediaDeviceInfo[];
-//     // selectedDevice: MediaDeviceInfo;
-
-//     // lastResult: any;
-//     // message: any;
-//     // error: any;
-  
-//     // code$ = new Subject<any>();
-  
-//     // @ViewChild('interactive') interactive;
-
-//     constructor(public navCtrl: NavController,
-//         public navParams: NavParams, 
-//         public camera: Camera,
-//         public viewCtrl: ViewController,
-//         public actionSheetCtrl: ActionSheetController,
-//         private decoderService: BarcodeDecoderProvider, 
-//         private barcodeValidator: BarcodeValidatorProvider,
-//         public loadingCtrl: LoadingController) {
-//     }
+import * as Tesseract from 'tesseract.js'
 
 
-//     ngOnInit(): void {
-         
+@IonicPage()
+@Component({
+    selector: 'page-modal-label-scanner',
+    templateUrl: 'modal-label-scanner.html', 
+})
+export class ModalLabelScannerPage {
 
-        
-//         // this.decoderService.onLiveStreamInit();
-//         // this.decoderService.onDecodeProcessed();
+    srcImage: string;
+    private files: File[] = [];
+    private uploadedfiles: File[] = [];
+    //submitted = false;
+    isFileSaved: boolean;
+    private base64textString: String = '';
+
+
+    constructor(public navCtrl: NavController,
+        public navParams: NavParams,
+        public camera: Camera,
+        public viewCtrl: ViewController,
+        public actionSheetCtrl: ActionSheetController,
+        public loadingCtrl: LoadingController) {
+    }
+
+
+    ngOnInit(): void {
+    }
+
+    ngAfterContentInit() {
+
+    }
+    analyze() {
     
-//         // this.decoderService
-//         //   .onDecodeDetected()
-//         //   .then(code => {
-//         //     this.lastResult = code;
-//         //     alert('Code Scanned: ' + code);
-//         //     this.decoderService.onPlaySound();
-//         //     this.code$.next(code);
-//         //   })
-//         //   .catch((err) => this.error = '');
-    
-//         // this.barcodeValidator
-//         //   .doSearchbyCode(this.code$)
-//         //   .subscribe(
-//         //     res => this.message = res,
-//         //     err => {
-//         //       this.message = 'Error';
-//         //     },
-//         //   );
+        var job = Tesseract.recognize(this.srcImage);
+        var loadReader = this.loadingCtrl.create({
+            content: 'Please wait...',
+            dismissOnPageChange: true
+          });
 
-  
+          loadReader.present();
 
-//     }
-//     ngAfterContentInit() {
-//         //this.interactive.nativeElement.children[0].style.position = 'absolute';
-//       }
-    
-//       ngOnDestroy() {
-//         this.decoderService.onDecodeStop();
-//       }
-//               // handleQrCodeResult(resultString: string) {
-//         //     console.log('Result: ', resultString);
-//         //     this.qrResultString = resultString;
-//         // }
 
-//         onDeviceSelectChange(selectedValue: string) {
-//             console.log('Selection changed: ', selectedValue);
-//             //this.selectedDevice = this.scanner.getDeviceById(selectedValue);
-//         }
 
-//         presentActionSheet() {
-//           const actionSheet = this.actionSheetCtrl.create({
-//             buttons: [
-//               {
-//                 text: 'Choose Photo',
-//                 handler: () => {
-//                   this.getPicture(0); // 0 == Library
-//                 }
-//               },{
-//                 text: 'Take Photo',
-//                 handler: () => {
-//                   this.getPicture(1); // 1 == Camera
-//                 }
-//               },{
-//                 text: 'Demo Photo',
-//                 handler: () => {
-//                   this.srcImage = 'assets/img/demo.png';
-//                 }
-//               },{
-//                 text: 'Cancel',
-//                 role: 'cancel'
-//               }
-//             ]
-//           });
-//           actionSheet.present();
-//         }
-//         getPicture(sourceType: number) {
-//           // You can check the values here:
-//           // https://github.com/driftyco/ionic-native/blob/master/src/plugins/camera.ts
-//           this.camera.getPicture({
-//             quality: 100,
-//             destinationType: 0, // DATA_URL
-//             sourceType,
-//             allowEdit: true,
-//             saveToPhotoAlbum: false,
-//             correctOrientation: true
-//           }).then((imageData) => {
-//             this.srcImage = `data:image/jpeg;base64,${imageData}`;
-//           }, (err) => {
-//             console.log('ERROR');
-//           });
-//         }
-      
-//         analyze() {
-//           // let loader = this.loadingCtrl.create({
-//           //  content: 'Please wait...'
-//           // });
-//           // loader.present();
-//           // (<any>window).OCRAD(document.getElementById('image'), text => {
-//           //   loader.dismissAll();
-//           //   alert(text);
-//           //   console.log(text);
-//           // }, err => {
-//           //   loader.dismissAll();
-//           //   alert(err);
-//           // });
-//           var job = Tesseract.recognize(this.srcImage);
-//           job.progress(message => console.log(message));
-//           job.catch(err => console.error(err));
-//           job.then(result => {
-//             console.log(result)
-//             let data = { ocrdata: result.text };
+        job.progress(message => console.log(message));
+        job.catch(err => console.error(err));
+        job.then(result => {
+            console.log(result)
+            let data = { ocrdata: result.text, scanedData: this.srcImage };
+
+            loadReader.dismiss();
             
-              
-//             this.viewCtrl.dismiss(data);
+            this.viewCtrl.dismiss(data);
 
-//           });
-//           job.finally(resultOrError => console.log(resultOrError));
+        });
+        job.finally(resultOrError => console.log(resultOrError));
 
-//         }
+    }
+
+    restart() {
+        this.srcImage = '';
+        //this.presentActionSheet();
+    }
+    presentLoading() {
       
-//         restart() {
-//           this.srcImage = '';
-//           this.presentActionSheet();
-//         }
+      }
+
+    presentActionSheet() {
+        const actionSheet = this.actionSheetCtrl.create({
+            buttons: [
+                {
+                    text: 'Choose Photo',
+                    handler: () => {
+                        this.getPicture(0); // 0 == Library
+                    }
+                }, {
+                    text: 'Take Photo',
+                    handler: () => {
+                        this.getPicture(1); // 1 == Camera
+                    }
+                }, {
+                    text: 'Demo Photo',
+                    handler: () => {
+                        this.srcImage = 'assets/img/demo.png';
+                    }
+                }, {
+                    text: 'Cancel',
+                    role: 'cancel'
+                }
+            ]
+        });
+        actionSheet.present();
+    }
+    getPicture(sourceType: number) {
+        // You can check the values here:
+        // https://github.com/driftyco/ionic-native/blob/master/src/plugins/camera.ts
+        this.camera.getPicture({
+            quality: 100,
+            destinationType: 0, // DATA_URL
+            sourceType,
+            allowEdit: true,
+            saveToPhotoAlbum: false,
+            correctOrientation: true
+        }).then((imageData) => {
+            this.srcImage = `data:image/jpeg;base64,${imageData}`;
+        }, (err) => {
+            console.log('ERROR');
+        });
+    }
+    onFileChange(event: EventTarget) {
+        this.files = [];
+        let eventObj: MSInputMethodContext = <MSInputMethodContext>event;
+        let target: HTMLInputElement = <HTMLInputElement>eventObj.target;
+        var ocrFiles = target.files;
+        var file = ocrFiles[0];
 
 
-// }
+        var reader = new FileReader();
 
+        if (ocrFiles && file) {
+            var reader = new FileReader();
+    
+            reader.onloadend = (e: any) => {
+                let test = e;
+            }
+            reader.onload =this._handleReaderLoaded.bind(this);
+            reader.readAsDataURL(file);
 
+            //this.srcImage = reader.result;
 
+        }
 
-//         // handleQrCodeResult(resultString: string) {
-//         //     console.log('Result: ', resultString);
-//         //     this.qrResultString = resultString;
-//         // }
+        // for (let i = 0; i < target.files.length; i++) {
+        //     this.files.push(target.files.item(i));
+        // }
+        // let imageData = this.files[0];
+        //  `data:image/jpeg;base64,${imageData}`;
+       // this.analyze();
 
-//         // onDeviceSelectChange(selectedValue: string) {
-//         //     console.log('Selection changed: ', selectedValue);
-//         //     this.selectedDevice = this.scanner.getDeviceById(selectedValue);
-//         // } 
+      
+        this.isFileSaved = false;
+    }
+ _handleReaderLoaded(readerEvt) {
+     var binaryString = readerEvt.target.result;
+            this.base64textString= btoa(binaryString);
+            console.log(btoa(binaryString));
+            this.srcImage = binaryString;
+    }
+}

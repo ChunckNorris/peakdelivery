@@ -7,7 +7,7 @@ import { Config, Nav, Platform, App, IonicApp, MenuController, Events } from 'io
 import { WelcomePage } from '../pages/welcome/welcome';
 import { LoginPage } from '../pages/login/login';
 import { Settings } from '../providers/providers';
-import { AdminDashboardPage, CustomerDashboardPage, DriverDashboardPage, ProfilePage, ModalSignPage } from '../pages/pages'
+import { AdminDashboardPage, CustomerDashboardPage, DriverDashboardPage, ProfilePage, ModalSignPage, MainDashboardPage } from '../pages/pages'
 import { LoadingIndicatorComponent } from '../components/loading-indicator/loading-indicator';
 
 
@@ -43,7 +43,7 @@ export class MyApp {
 
 
   pages: any[] = [
-
+    { title: 'Dashboard', component: MainDashboardPage },
     { title: 'My Profile', component: ProfilePage },
     { title: 'Settings', component: 'SettingsPage' },
     { title: 'Logout', component: LoginPage },

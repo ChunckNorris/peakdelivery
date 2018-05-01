@@ -17,13 +17,16 @@
  
 
     <ion-item>
-      <ion-label color="primary">Scan Id</ion-label>
-      <ion-input placeholder="Search....."></ion-input>
-      <button ion-button item-end (click)="scanCode('tote')">
-        <ion-icon name="camera"></ion-icon>
-      </button>
+        <button ion-button full large (click)="searchAccounts()">Account Lookup</button>
+
     </ion-item>
 
+
+    <ion-item *ngIf="isAdminSearchEnabled">
+        <ion-label color="primary">Scan Id</ion-label>
+        <ion-input placeholder="Search....."></ion-input>
+      </ion-item>
+    
 
     <ion-item *ngIf="ocrData">
       <ion-label>Search Data</ion-label>
@@ -50,7 +53,7 @@
 
         <ion-item>
           <span item-left>
-            <button ion-button icon-left clear small (click)="mapDelivery()">
+            <button ion-button icon-left clear small (click)="navigateToDelivery(del)">
               <ion-icon name="navigate"></ion-icon>
               <div>Map</div>
             </button>
@@ -60,7 +63,7 @@
             Deliver
           </button>
         </ion-item>
-      </ion-card>
+      </ion-card> 
 
     </div>
 

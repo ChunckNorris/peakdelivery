@@ -10,7 +10,14 @@ import { UserClaim,
     NewUser, 
     CreatedUser, 
     Account,
-    Delivery } from '../../models/index';
+    Delivery,
+    DeliveryRunTypes,
+    AccountBillingOptions,
+    AccountRunOptions,
+DeliveryActivities,
+SearchedUser,
+DeliveryItem,
+DeliveryBillings } from '../../models/index';
 declare var cordova: any;
 
 export class Endpoint {
@@ -27,15 +34,38 @@ export class Endpoint {
 
 export class Endpoints {
     static token = new Endpoint('~/oauth/token');
+
+    //User Data//
     static getUsers = new Endpoint('~/v1/getuser/');
     static getProfile = new Endpoint('~/v1/accounts/user/{userId}');
     static createUser = new Endpoint('~/v1/accounts/create');
+    static getUsersToApprove = new Endpoint('~/v1/accounts/users/needapproval');
+    static approveUser = new Endpoint('~/v1/accounts/user/approved/{id}');
+    static searchUser = new Endpoint('~/v1/accounts/users/{search}');
 
+
+    //Get Acount//
     static upsertAccount = new Endpoint('~/v1/accounts/update');
-    static getAccountList = new Endpoint('~/v1/accounts/get/-1');
+    static getAccountList = new Endpoint('~/v1/accounts/search/{name}');
+    static getAllActiveAccounts = new Endpoint('~/v1/accounts/get/-1');
 
 
+
+    //Delivery Data
     static upsertDelivery = new Endpoint('~/v1/delivery/update');
+    static getDeliveryByAccount = new Endpoint('~/v1/delivery/account/get/{accountid}');
+
+    //Option List Data//
+    static getBillingOptions = new Endpoint('~/v1/options/getbillings');
+    static getRunOptionsByAccount = new Endpoint('~/v1/options/getruns/{accountId}');
+    static getRunOptionsDefault = new Endpoint('~/v1/options/getruns');
+    static getActivityList = new Endpoint('~/v1/options/getactivites');
+
+
+
+
+
+
 }
 export class Authorization {
   access_token: string
@@ -97,23 +127,7 @@ export class Api {
             .share();;
     }
 
-    // private userRequest<T>(method: string, relativeUrl: string, searchParams?: any, requestBody?: any, requestHeaders?: Headers, useBearerToken = true): Observable<T> {
-    //     let options = new RequestOptions();
-    //     options.headers = requestHeaders || new Headers();
-    //     options.method = method.toUpperCase();
 
-    //     options.body = options.body || requestBody;
-    //     if (searchParams) options.search = options.search || this.convertToUrlSearchParams(searchParams);
-
-    //     options.headers.append('Accept', 'application/json');
-    //     options.headers.append('Accept', 'aapplication/x-www-form-urlencoded');
-        
-
-    //     return this.http.request(this.env.settings.apiUrl + relativeUrl, options)
-    //         .map((res: Response) => { return res.json(); })
-    //         .map((stream => { return stream; }))
-    //         .share();
-    // }
 
 
 
@@ -138,6 +152,24 @@ export class Api {
         return this.request<UserClaim>(HttpMethods.get, endpoint);
     
       }
+      public getUsersToApprove(): Observable<SearchedUser[]> {
+        let endpoint = Endpoints.getUsersToApprove.getUrl();
+        return this.request<SearchedUser[]>(HttpMethods.get, endpoint);
+    
+      }
+      public approveUser(id): Observable<any> {
+        let endpoint = Endpoints.approveUser.getUrl({id: id});
+        let newUser = this.request<any>(HttpMethods.post, endpoint, null);
+        return newUser;
+      }
+
+      public searchUsers(search): Observable<SearchedUser[]> {
+        let endpoint = Endpoints.searchUser.getUrl({search: search});
+        let foundUser = this.request<SearchedUser[]>(HttpMethods.get, endpoint);
+        return foundUser;
+      }
+
+
     public createNewUser(user: NewUser): Observable<CreatedUser> {
         let endpoint = Endpoints.createUser.getUrl();
         let newUser = this.request<CreatedUser>(HttpMethods.post, endpoint, null, user);
@@ -151,8 +183,8 @@ export class Api {
         let newUser = this.request<any>(HttpMethods.post, endpoint, null, account);
         return newUser;
       }
-      public getAccountList(): Observable<Account[]> {
-        let endpoint = Endpoints.getAccountList.getUrl();
+      public getAccountList(search): Observable<Account[]> {
+        let endpoint = Endpoints.getAccountList.getUrl({name: search});
         return this.request<Account[]>(HttpMethods.get, endpoint);
     
       }
@@ -164,4 +196,37 @@ export class Api {
         let newUser = this.request<any>(HttpMethods.post, endpoint, null, delivery);
         return newUser;
       }
+
+      //Account Related//
+      public getDeiliveryByAccount(accountId): Observable<DeliveryItem[]> {
+        let endpoint = Endpoints.getDeliveryByAccount.getUrl({accountId: accountId});
+        let foundUser = this.request<DeliveryItem[]>(HttpMethods.get, endpoint);
+        return foundUser;
+      }
+
+
+      //Options List Calls//
+      public getBillingOptions(): Observable<DeliveryBillings[]> {
+        let endpoint = Endpoints.getBillingOptions.getUrl();
+        return this.request<DeliveryBillings[]>(HttpMethods.get, endpoint);
+    
+      }
+
+      public getActivityOptions(): Observable<DeliveryActivities[]> {
+        let endpoint = Endpoints.getActivityList.getUrl();
+        return this.request<DeliveryActivities[]>(HttpMethods.get, endpoint);
+    
+      }
+
+      public getRunOptionsByAccount(accountId: string): Observable<DeliveryRunTypes[]> {
+        let endpoint = Endpoints.getRunOptionsByAccount.getUrl({ 'accountId': accountId });
+        return this.request<DeliveryRunTypes[]>(HttpMethods.get, endpoint);
+    
+      }
+      public getRunOptions(): Observable<DeliveryRunTypes[]> {
+        let endpoint = Endpoints.getRunOptionsDefault.getUrl();
+        return this.request<DeliveryRunTypes[]>(HttpMethods.get, endpoint);
+    
+      }
+
 }

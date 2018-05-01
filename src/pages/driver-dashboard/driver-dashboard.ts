@@ -68,7 +68,11 @@ export class DriverDashboardPage {
     this.navCtrl.push(DriverListDeliveryPage);
   }
   deliverPackage(del){
-    this.navCtrl.push(DriverEditDeliveryPage, { delivery: del});
+    this.navCtrl.push(DriverEditDeliveryPage, { delivery: del });
+  }
+  navigateToDelivery(selectedDelivery: Delivery) {
+    let url = 'https://www.google.com/maps/search/?q=' + selectedDelivery.address1 + ', ' + selectedDelivery.city + ', ' + selectedDelivery.state;
+    window.open(url, "_blank");
   }
 
 }

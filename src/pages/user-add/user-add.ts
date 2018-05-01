@@ -22,7 +22,7 @@ export class UserAddPage {
     public formBuilder: FormBuilder,
     public toastCtrl: ToastController,
     public api: Api) {
-    this.newUser = new NewUser();
+    this.newUser = new NewUser(); 
 
 
 

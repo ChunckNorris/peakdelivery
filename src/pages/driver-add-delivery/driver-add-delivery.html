@@ -45,22 +45,27 @@
             </ion-item>
         <ion-item>
           <ion-label color="primary">Driver Assigned</ion-label>
-          <ion-input formControlName="driverName" placeholder="Driver Name"></ion-input>
+          <ion-input formControlName="driverName" placeholder="Driver Name" readonly></ion-input>
           <button ion-button item-end>
             <ion-icon name="checkmark-circle" (click)="assignToSelf()"></ion-icon>
           </button>
 
         </ion-item>
-        <ion-item>
+        <ion-item> 
           <ion-label>Run</ion-label>
           <ion-select formControlName="run" submitText="Select" cancelText="Cancel">
-            <ion-option value="Stat">Stat</ion-option>
+            <!-- <ion-option value="Stat">Stat</ion-option>
             <ion-option value="OnCall">OnCall</ion-option>
             <ion-option value="9AM">9 AM</ion-option>
             <ion-option value="2:30PM">2:30 PM</ion-option>
             <ion-option value="6PM">6 PM</ion-option>
             <ion-option value="830PM">8:30 PM</ion-option>
-            <ion-option value="NorthernArizona">Northern Arizona</ion-option>
+            <ion-option value="NorthernArizona">Northern Arizona</ion-option> -->
+            <div *ngFor="let run of runOptions">
+                <ion-option value="{{run.key}}">{{run.value}}
+                </ion-option>
+              </div>
+
           </ion-select>
 
 
@@ -68,34 +73,40 @@
         <ion-item>
           <ion-label color="primary">Bag Tote</ion-label>
           <ion-input formControlName="bagToteId" placeholder="Bag Tote"></ion-input>
-          <button ion-button item-end (click)="scanCode('tote')">
+          <!-- <button ion-button item-end (click)="scanCode('tote')">
             <ion-icon name="camera"></ion-icon>
-          </button>
+          </button> -->
         </ion-item>
         <ion-item>
           <ion-label color="primary">Slip Tote</ion-label>
           <ion-input formControlName="slipToteId" placeholder="Slip Tote"></ion-input>
-          <button ion-button item-end (click)="scanCode('slip')">
+          <!-- <button ion-button item-end (click)="scanCode('slip')">
             <ion-icon name="camera"></ion-icon>
-          </button>
+          </button> -->
         </ion-item>
         <ion-item>
             <ion-label>Activity</ion-label>
             <ion-select formControlName="activity" submitText="Select" cancelText="Cancel">
+                <div *ngFor="let activity of activityOptions">
+                    <ion-option value="{{activity.key}}">{{activity.value}}
+                    </ion-option>
+                  </div>
+<!-- 
               <ion-option value="Delivered">Delivered</ion-option>
               <ion-option value="NOH">NOH</ion-option>
               <ion-option value="Deceased">Deceased</ion-option>
               <ion-option value="Cancelled">Cancelled</ion-option>
-              <ion-option value="Refused">Refused</ion-option>
+              <ion-option value="Refused">Refused</ion-option> -->
             </ion-select>  
       </ion-item>
 
         <ion-item>
             <ion-label>Billing</ion-label>
             <ion-select formControlName="billing" submitText="Select" cancelText="Cancel">
-              <ion-option value="Standard">Standard</ion-option>
-              <ion-option value="Stat">Stat</ion-option>
-              <ion-option value="ASAP">ASAP</ion-option>
+                <div *ngFor="let billing of billingOptions">
+                    <ion-option value="{{billing.key}}">{{billing.value}}
+                    </ion-option>
+                  </div>
             </ion-select>  
       </ion-item>
         <!-- <ion-item>
@@ -106,10 +117,14 @@
           <ion-label color="primary">Time Delivered</ion-label>
           <ion-datetime displayFormat="h:mm A" pickerFormat="h mm A" formControlName="timeDelivered"></ion-datetime>
         </ion-item> -->
-        <!-- <ion-item>
-          <ion-label color="primary">Text</ion-label>
+        <ion-item>
+          <ion-label color="primary">Contact Phone</ion-label>
+          <ion-input formControlName="contactNumber" placeholder="Text"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label color="primary">Name</ion-label>
           <ion-input formControlName="text" placeholder="Text"></ion-input>
-        </ion-item> -->
+        </ion-item>
         <ion-item>
             <ion-label color="primary">Address1</ion-label>
             <ion-input formControlName="address1" placeholder="Address1"></ion-input>
@@ -143,6 +158,15 @@
         <button ion-button full large (click)="saveDelivery()">Save Delivery</button>
 
       </ion-item>
+      <ion-item >
+        <button ion-button full large (click)="scanDelivery()">Scan Delivery</button>
+
+      </ion-item>
+      <ion-item *ngIf="ocrData">
+        <ion-label>Scan Data</ion-label>
+        <ion-textarea rows="8" [(ngModel)]="ocrData" name="ocrData" [ngModelOptions]="{standalone: true}"></ion-textarea>
+      </ion-item>
+
       <ion-item *ngIf="!isNewDelivery">
         <button ion-button full large (click)="saveDelivery()">Complete Delivery</button>
 
@@ -151,5 +175,5 @@
 
   </div>
 
-
+ 
 </ion-content>

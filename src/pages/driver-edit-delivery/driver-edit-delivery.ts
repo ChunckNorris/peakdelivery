@@ -2,11 +2,11 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
 import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
 
-import { Profile, Delivery } from '../../models/index';
+import { Profile, Delivery, DeliveryActivities, DeliveryBillings, DeliveryRunTypes  } from '../../models/index';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 import { ModalSignPage } from '../../pages/pages'
 import { Api } from '../../providers/api/api';
-
+import { User, Ui } from '../../providers/providers';
 import {
   MainPage,
   CustomerDashboardPage,
@@ -16,6 +16,7 @@ import {
 } from '../pages';
 
 
+import { Observable } from 'rxjs/Observable';
 
 @IonicPage()
 @Component({
@@ -24,7 +25,9 @@ import {
 })
 export class DriverEditDeliveryPage {
   isAdderChanged: boolean;
-
+  activityOptions: Array<DeliveryActivities>;
+  billingOptions: Array<DeliveryBillings>;
+  runOptions: Array<DeliveryRunTypes>;
   delivery: Delivery;
   form: FormGroup;
   driver: Profile;
@@ -37,18 +40,23 @@ export class DriverEditDeliveryPage {
     public formBuilder: FormBuilder,
     public modalCtrl: ModalController,
     private barcodeScanner: BarcodeScanner,
-    public api: Api) {
+    public api: Api,
+    public ui: Ui) {
     this.driver = new Profile();
+    this.ui.showLoadingIndicator(true);
 
+    this.activityOptions = new Array<DeliveryActivities>();
+    this.billingOptions = new Array<DeliveryBillings>();
+    this.runOptions = new Array<DeliveryRunTypes>()
     this.isAdderChanged =  false;
 
-
+    this.loadOptions();
     this.driver.firstName = 'Test';
     this.driver.lastName = 'Driver';
 
 
     if (this.navParams.data) {
-      this.delivery = this.navParams.data.delivery;
+      this.delivery = this.navParams.data.delivery; 
 
 
 
@@ -112,7 +120,7 @@ export class DriverEditDeliveryPage {
 
     this.api.saveDelivered(this.delivery).subscribe(res => {
       alert('Delivery Updated');
-      
+      this.navCtrl.pop();
     })
 
   }
@@ -133,4 +141,31 @@ export class DriverEditDeliveryPage {
   changeAddress(){
 
   }
+  loadOptions() {
+    
+        let _getActivites = this.api.getActivityOptions().map(acctivitiesRes => {
+          this.activityOptions = acctivitiesRes;
+        })
+        let _getBillingOptions = this.api.getBillingOptions().map(billingRes => {
+          this.billingOptions = billingRes;
+    
+        })
+        let _getRunOptions = this.api.getRunOptions().map(runRes => {
+          this.runOptions = runRes;
+        })
+    
+    
+    
+        Observable.forkJoin([_getActivites,
+          _getBillingOptions,
+          _getRunOptions,
+        ]).subscribe(results => {
+          this.ui.showLoadingIndicator(false);
+        }, (error) => {
+          console.log(error);
+          this.ui.showLoadingIndicator(false);
+        });
+    
+      }
+
 }

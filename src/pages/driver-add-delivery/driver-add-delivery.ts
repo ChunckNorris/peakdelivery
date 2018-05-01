@@ -5,16 +5,23 @@ import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms'
 import { Profile, Delivery } from '../../models/index';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 import { Camera, CameraOptions } from '@ionic-native/camera';
-import { Account, AccountBillingOptions, AccountRunOptions } from '../../models/index';
+import { Account, AccountBillingOptions, AccountRunOptions, DeliveryActivities, DeliveryBillings, DeliveryRunTypes } from '../../models/index';
 import { Api } from '../../providers/api/api';
+import { User, Ui } from '../../providers/providers';
+
 import {
   MainPage,
   CustomerDashboardPage,
   AdminDashboardPage,
   DriverDashboardPage,
   DriverListDeliveryPage,
-  AccountSearchPage
+  AccountSearchPage,
+  ModalLabelScannerPage,
+  UserSearchPage
 } from '../pages';
+
+import { Observable } from 'rxjs/Observable';
+
 
 @IonicPage()
 @Component({
@@ -29,6 +36,14 @@ export class DriverAddDeliveryPage {
   myItems: Array<Delivery>;
   isNewDelivery: boolean;
   callback: any;
+  ocrData: any;
+  scanedImage: string;
+  activityOptions: Array<DeliveryActivities>;
+  billingOptions: Array<DeliveryBillings>;
+  runOptions: Array<DeliveryRunTypes>;
+  driverId: string;
+
+
 
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
@@ -36,13 +51,18 @@ export class DriverAddDeliveryPage {
     public camera: Camera,
     public modalCtrl: ModalController,
     public api: Api,
-    private barcodeScanner: BarcodeScanner) {
-
-
+    public user: User,
+    private barcodeScanner: BarcodeScanner,
+  public ui:Ui) {
+    this.ui.showLoadingIndicator(true);
+    this.activityOptions = new Array<DeliveryActivities>();
+    this.billingOptions = new Array<DeliveryBillings>();
+    this.runOptions = new Array<DeliveryRunTypes>()
     this.callback = this.navParams.get('callback');
+    this.ocrData = '';
 
-
-
+this.loadOptions();
+    
     if (this.navParams.data.data.length > 0) {
 
       this.myItems = this.navParams.data.data;
@@ -67,11 +87,12 @@ export class DriverAddDeliveryPage {
         , slipToteId: [this.delivery.slipToteId]
         , activity: [this.delivery.activity]
         , billing: [this.delivery.billing]
-        , accountName: [this.delivery.accountName] 
+        , accountName: [this.delivery.accountName]
         , accountId: [this.delivery.accountId]
+        , contactNumber: [this.delivery.contactPhone]
         // , timeDelivered: [this.delivery.timeDelivered]
         // , dateDelivered: [this.delivery.dateDelivered]
-        // , text: [this.delivery.text]
+        , text: [this.delivery.text]
         , address1: [this.delivery.address1]
         , address2: [this.delivery.address2]
         , city: [this.delivery.city]
@@ -118,16 +139,17 @@ export class DriverAddDeliveryPage {
         , slipToteId: [null]
         , activity: [null]
         , billing: [null]
-        , accountName: [null] 
+        , accountName: [null]
         , accountId: [null]
         // , timeDelivered: [null]
         // , dateDelivered: [null]
-        // , text: [null]
+        , text: [null]
         , address1: [null]
         , address2: [null]
         , city: [null]
         , state: [null]
         , zip: [null]
+        , contactNumber: [null]
         , altAddress1: [null]
         , altAddress2: [null]
         , altCity: [null]
@@ -148,13 +170,61 @@ export class DriverAddDeliveryPage {
     console.log('ionViewDidLoad DriverAddDeliveryPage');
   }
 
+  loadOptions() {
+
+    let _getActivites = this.api.getActivityOptions().map(acctivitiesRes => {
+      this.activityOptions = acctivitiesRes;
+    })
+    let _getBillingOptions = this.api.getBillingOptions().map(billingRes => {
+      this.billingOptions = billingRes;
+
+    })
+    let _getRunOptions = this.api.getRunOptions().map(runRes => {
+      this.runOptions = runRes;
+    })
+
+
+
+    Observable.forkJoin([_getActivites,
+      _getBillingOptions,
+      _getRunOptions,
+    ]).subscribe(results => {
+      this.ui.showLoadingIndicator(false);
+    }, (error) => {
+      console.log(error);
+      this.ui.showLoadingIndicator(false);
+    });
+
+  }
+
   assignToSelf() {
-    this.form.controls['driverName'].setValue(this.driver.firstName + ' ' + this.driver.lastName);
+
+    if (this.user.userRole === 'ADMIN') {
+      this.searchUser();
+    } else {
+      this.form.controls['driverName'].setValue(this.driver.firstName + ' ' + this.driver.lastName);
+      this.driverId = this.user.userProfile.id;
+    }
+
+
+
 
 
 
   }
+  searchUser() {
+    let modal = this.modalCtrl.create(UserSearchPage);
+    modal.present();
+    modal.onDidDismiss(data => {
+      if (data.user) {
+        let selectedUser = data.user;
+        this.form.controls['driverName'].setValue(selectedUser.firstName + ' ' + selectedUser.lastName);
 
+      } else {
+        alert('No Driver Selected');
+      }
+    });
+  }
   scanCode(type) {
     switch (type) {
       case 'tote':
@@ -211,16 +281,17 @@ export class DriverAddDeliveryPage {
       this.delivery.billing = this.form.value.billing;
       this.delivery.accountId = this.form.value.accountId;
       this.delivery.accountName = this.form.value.accountName;
+      this.delivery.contactPhone = this.form.value.contactNumber;
       // this.delivery.timeDelivered = this.form.value.timeDelivered;
       // this.delivery.dateDelivered = this.form.value.dateDelivered;
-      // this.delivery.text = this.form.value.text;
+      this.delivery.text = this.form.value.text;
       this.delivery.address1 = this.form.value.address1;
       this.delivery.address2 = this.form.value.address2;
       this.delivery.city = this.form.value.city;
       this.delivery.state = this.form.value.state;
       this.delivery.zip = this.form.value.zip;
-      this.delivery.multiLineText = this.form.value.multiLineText;
-
+      this.delivery.multiLineText = this.ocrData;
+      this.delivery.scannedImage = this.scanedImage;
 
 
       this.api.saveDelivered(this.delivery).subscribe(res => {
@@ -236,7 +307,7 @@ export class DriverAddDeliveryPage {
       }
 
 
-  
+
     } else {
       this.navCtrl.pop();
     }
@@ -247,7 +318,7 @@ export class DriverAddDeliveryPage {
 
   }
 
-  findAccount(){
+  findAccount() {
     let modal = this.modalCtrl.create(AccountSearchPage);
     modal.present();
     modal.onDidDismiss(data => {
@@ -262,5 +333,84 @@ export class DriverAddDeliveryPage {
   completeDelivery() {
 
   }
+  scanDelivery() {
+    let modal = this.modalCtrl.create(ModalLabelScannerPage);
+    modal.present();
+    modal.onDidDismiss(data => {
+      if (data) {
+        this.ocrData = data.ocrdata;
+        this.scanedImage = data.scanedData;
+        let parse = this.ocrData.split('\n');
+        let adderArray = [];
+        var searchAdder = /,/gi;
+        let searchphone = /-/gi;
+        parse.forEach(element => {
+          if (element.length > 0) {
+            var re = /delivery/gi;
 
+            if (element.search(re) == -1) {
+              adderArray.push(element);
+
+              // if(this.isLetter(element.substr(0,1))){
+              //   adderArray.push(element);
+              // }else{
+              //   adderArray.push(element.substr(1));
+              // }
+
+            }
+
+          }
+        });
+
+
+        if (adderArray[0] && adderArray[0].length > 0) {
+          this.form.controls['text'].setValue(adderArray[0]);
+        }
+        if (adderArray[1] && adderArray[1].length > 0) {
+          this.form.controls['address1'].setValue(adderArray[1]);
+        }
+        if (adderArray[2] && adderArray[2].length > 0 && adderArray[2].search(searchAdder) === -1) {
+          this.form.controls['address2'].setValue(adderArray[2]);
+        }
+        if (adderArray[2] && adderArray[2].length > 0 && adderArray[2].search(searchAdder) != -1) {
+          let locationSplit = adderArray[2].split(',')
+          this.form.controls['city'].setValue(locationSplit[0]);
+          this.form.controls['state'].setValue(locationSplit[1].substr(0, 3));
+          this.form.controls['zip'].setValue(locationSplit[1].substr(3));
+        }
+        if (adderArray[3] && adderArray[3].length > 0 && adderArray[3].search(searchAdder) != -1) {
+          let locationSplit = adderArray[3].split(',')
+          this.form.controls['city'].setValue(locationSplit[0]);
+          this.form.controls['state'].setValue(locationSplit[1].substr(0, 3));
+          this.form.controls['zip'].setValue(locationSplit[1].substr(3));
+        }
+        if (adderArray[3] && adderArray[3].length > 0 && adderArray[3].search(searchphone) != -1) {
+
+          this.form.controls['contactNumber'].setValue(adderArray[3]);
+
+        }
+        if (adderArray[4] && adderArray[4].length > 0 && adderArray[4].search(searchphone) != -1) {
+
+          this.form.controls['contactNumber'].setValue(adderArray[4]);
+
+        }
+        //alert(adderArray[2].search(searchAdder));
+
+        //this.form.controls['text'].setValue(adderArray[0]);
+        //this.form.controls['address1'].setValue(adderArray[1]);
+
+        //this.form.controls['address1'].setValue(adderArray[1]);
+
+      }
+    });
+  }
+  isLetter(c) {
+    return c.toLowerCase() != c.toUpperCase();
+  }
+
+
+
+  parseAddressFields(ocrContent: Array<any>, field: string) {
+
+  }
 }

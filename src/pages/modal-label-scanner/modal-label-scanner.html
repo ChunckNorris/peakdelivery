@@ -1,23 +1,20 @@
-
-
-
 <ion-content padding>
-  <!-- <zxing-scanner></zxing-scanner> -->
-  <!-- <video id="video" width="300" height="200" style="border: 1px solid gray"></video> -->
-  <!-- <div *ngIf="availableDevices">
+    <!-- <zxing-scanner></zxing-scanner> -->
+    <!-- <video id="video" width="300" height="200" style="border: 1px solid gray"></video> -->
+    <!-- <div *ngIf="availableDevices">
     <select (change)="onDeviceSelectChange($event.target.value)">
       <option value="" [selected]="!selectedDevice">No Device</option>
       <option *ngFor="let device of availableDevices" [value]="device.deviceId" [selected]="selectedDevice && device.deviceId === selectedDevice.deviceId">{{ device.label }}</option>
     </select>
   </div>
   <br>-->
-  <!-- <div style="display: none">
+    <!-- <div style="display: none">
     <zxing-scanner #scanner  start="true" [device]="selectedDevice" (scanSuccess)="handleQrCodeResult($event)"></zxing-scanner> 
   </div>  -->
- 
 
 
-  <!-- <p>Notice: You must allow to use your webcam. This Option only works on IE11+ and may not work with Android browser
+
+    <!-- <p>Notice: You must allow to use your webcam. This Option only works on IE11+ and may not work with Android browser
     older version. Alternatively use upload file option.</p>
 
   <div class="show__sm" *ngIf="lastResult">
@@ -26,7 +23,7 @@
     <p *ngIf="!message">Searching...</p>
     <p *ngIf="message">{{message}}</p>
   </div> -->
-  <!-- <div *ngIf="availableDevices">
+    <!-- <div *ngIf="availableDevices">
     <select (change)="onDeviceSelectChange($event.target.value)">
       <option value="" [selected]="!selectedDevice">No Device</option>
       <option *ngFor="let device of availableDevices" [value]="device.deviceId" [selected]="selectedDevice && device.deviceId === selectedDevice.deviceId">{{ device.label }}</option>
@@ -43,24 +40,25 @@
   <div id="interactive" class="viewport" #interactive></div>
   </div> -->
 
-<!--   
-  <section id="container" class="container">
-        <button class="select-image" ion-button block *ngIf="!srcImage" (click)="presentActionSheet()" color="light">
-                <ion-icon name="camera"></ion-icon>
-              </button>
-              
-        <div *ngIf="srcImage" class="image-wrapper">
-                <img id="image" [src]="srcImage" />
-                <button ion-button icon-left block (click)="analyze()" color="light">
-                  <ion-icon name="search"></ion-icon>
-                  Read
-                </button>
-                <button ion-button icon-left block (click)="restart()" color="light">
-                  <ion-icon name="refresh"></ion-icon>
-                  Restart
-                </button>
-              </div> -->
 
+    <section id="container" class="container">
+        <button class="select-image" ion-button block *ngIf="!srcImage" color="light">
+            <ion-icon name="camera"></ion-icon>
+            <input type="file" accept="image/*;capture=camera" class="field" (change)="onFileChange($event)" />
+        </button>
+
+        <div *ngIf="srcImage" class="image-wrapper">
+            <img id="image" [src]="srcImage" />
+            <button ion-button icon-left block (click)="analyze()" color="light">
+                <ion-icon name="search"></ion-icon>
+                Read
+            </button>
+            <button ion-button icon-left block (click)="restart()" color="light">
+                <ion-icon name="refresh"></ion-icon>
+                Restart
+            </button>
+        </div>
+    </section>
     <!-- <h3>The user's camera</h3>
     <p>If your platform supports the <strong>getUserMedia</strong> API call, you can try the real-time locating and decoding features.
         Simply allow the page to access your web-cam and point it to a barcode. You can switch between <strong>Code128</strong>
@@ -144,6 +142,6 @@
     <ul class="collector"></ul>
   </div>
   <div id="interactive"  #interactive class="viewport"></div> 
-</section>-->
+-->
 
 </ion-content>

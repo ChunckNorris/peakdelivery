@@ -1,186 +1,190 @@
 <ion-header>
-  
-    <ion-navbar>
-      <ion-title>Deliver Package</ion-title>
-  
-      <ion-buttons end>
-          <button ion-button menuToggle>
-            <ion-icon name="menu"></ion-icon>
-          </button>
-        </ion-buttons>
-  
-    </ion-navbar>
-  
-  </ion-header>
-  
-  <ion-content padding>
-    <div style="max-width: 800px; margin: auto; ">
-      <ion-card>
-  
+
+  <ion-navbar>
+    <ion-title>Deliver Package</ion-title>
+
+    <ion-buttons end>
+      <button ion-button menuToggle>
+        <ion-icon name="menu"></ion-icon>
+      </button>
+    </ion-buttons>
+
+  </ion-navbar>
+
+</ion-header>
+
+<ion-content padding>
+  <div style="max-width: 800px; margin: auto; ">
+    <ion-card>
+
+      <ion-item>
+        <ion-avatar item-start>
+          <img src="assets/img/driver-avatar.png">
+        </ion-avatar>
+        <h2>{{delivery?.driverName}}</h2>
+        <p>Peak Delivery</p>
+      </ion-item>
+
+
+
+
+
+    </ion-card>
+
+
+
+    <form [formGroup]="form">
+      <ion-list>
         <ion-item>
-          <ion-avatar item-start>
-            <img src="assets/img/driver-avatar.png">
-          </ion-avatar>
-          <h2>Test Driver</h2>
-          <p>Peak Delivery</p>
+          <ion-label color="primary">Driver Assigned</ion-label>
+          <ion-input formControlName="driverName" placeholder="Driver Name"></ion-input>
+          <button ion-button item-end>
+            <ion-icon name="checkmark-circle" (click)="assignToSelf()"></ion-icon>
+          </button>
+
         </ion-item>
-  
-  
-  
-  
-  
-      </ion-card>
-  
-  
-  
-      <form [formGroup]="form">
-        <ion-list>
-          <ion-item>
-            <ion-label color="primary">Driver Assigned</ion-label>
-            <ion-input formControlName="driverName" placeholder="Driver Name"></ion-input>
-            <button ion-button item-end>
-              <ion-icon name="checkmark-circle" (click)="assignToSelf()"></ion-icon>
-            </button>
-  
-          </ion-item>
-          <ion-item>
-            <ion-label>Run</ion-label>
-            <ion-select formControlName="run" submitText="Select" cancelText="Cancel">
-              <ion-option value="Stat">Stat</ion-option>
-              <ion-option value="OnCall">OnCall</ion-option>
-              <ion-option value="9 AM">9 AM</ion-option>
-              <ion-option value="2:30 PM">2:30 PM</ion-option>
-              <ion-option value="6 PM">6 PM</ion-option>
-              <ion-option value="8:30 PM">8:30 PM</ion-option>
-              <ion-option value="Northern Arizona">Northern Arizona</ion-option>
-            </ion-select>
-  
-  
-          </ion-item>
-          <ion-item>
-            <ion-label color="primary">Bag Tote</ion-label>
-            <ion-input formControlName="bagToteId" placeholder="Bag Tote"></ion-input>
-            <button ion-button item-end (click)="scanCode('tote')">
-              <ion-icon name="camera"></ion-icon>
-            </button>
-          </ion-item>
-          <ion-item>
-            <ion-label color="primary">Slip Tote</ion-label>
-            <ion-input formControlName="slipToteId" placeholder="Slip Tote"></ion-input>
-            <button ion-button item-end (click)="scanCode('slip')">
-              <ion-icon name="camera"></ion-icon>
-            </button>
-          </ion-item>
-          <ion-item>
-              <ion-label>Activity</ion-label>
-              <ion-select formControlName="activity" submitText="Select" cancelText="Cancel">
-                <ion-option value="Delivered">Delivered</ion-option>
-                <ion-option value="NOH">NOH</ion-option>
-                <ion-option value="Deceased">Deceased</ion-option>
-                <ion-option value="Cancelled">Cancelled</ion-option>
-                <ion-option value="Refused">Refused</ion-option>
-              </ion-select>  
+        <ion-item>
+          <ion-label>Run</ion-label>
+          <ion-select formControlName="run" submitText="Select" cancelText="Cancel">
+            <div *ngFor="let run of runOptions">
+              <ion-option value="{{run.key}}">{{run.value}}
+              </ion-option>
+            </div>
+
+          </ion-select>
+
+
         </ion-item>
-  
-          <ion-item>
-              <ion-label>Billing</ion-label>
-              <ion-select formControlName="billing" submitText="Select" cancelText="Cancel">
-                <ion-option value="Standard">Standard</ion-option>
+        <ion-item>
+          <ion-label color="primary">Bag Tote</ion-label>
+          <ion-input formControlName="bagToteId" placeholder="Bag Tote"></ion-input>
+          <button ion-button item-end (click)="scanCode('tote')">
+            <ion-icon name="camera"></ion-icon>
+          </button>
+        </ion-item>
+        <ion-item>
+          <ion-label color="primary">Slip Tote</ion-label>
+          <ion-input formControlName="slipToteId" placeholder="Slip Tote"></ion-input>
+          <button ion-button item-end (click)="scanCode('slip')">
+            <ion-icon name="camera"></ion-icon>
+          </button>
+        </ion-item>
+        <ion-item>
+          <ion-label>Activity</ion-label>
+          <ion-select formControlName="activity" submitText="Select" cancelText="Cancel">
+            <div *ngFor="let activity of activityOptions">
+              <ion-option value="{{activity.key}}">{{activity.value}}
+              </ion-option>
+            </div>
+          </ion-select>
+        </ion-item>
+
+        <ion-item>
+          <ion-label>Billing</ion-label>
+
+          <!-- <ion-option value="Standard">Standard</ion-option>
                 <ion-option value="Stat">Stat</ion-option>
-                <ion-option value="ASAP">ASAP</ion-option>
-              </ion-select>  
+                <ion-option value="ASAP">ASAP</ion-option> -->
+          <ion-select formControlName="billing" submitText="Select" cancelText="Cancel">
+            <div *ngFor="let billing of billingOptions">
+              <ion-option value="{{billing.key}}">{{billing.value}}
+              </ion-option>
+            </div>
+
+          </ion-select>
         </ion-item>
-          <ion-item>
-            <ion-label color="primary">Date Delivered</ion-label>
-            <ion-datetime displayFormat="MMM DD, YYYY HH:mm" formControlName="dateDelivered"></ion-datetime>
-          </ion-item>
-          <!-- <ion-item>
+        <ion-item>
+          <ion-label color="primary">Date Delivered</ion-label>
+          <ion-datetime displayFormat="MMM DD, YYYY HH:mm" formControlName="dateDelivered"></ion-datetime>
+        </ion-item>
+        <!-- <ion-item>
             <ion-label color="primary">Time Delivered</ion-label>
             <ion-datetime displayFormat="h:mm A" pickerFormat="h mm A" formControlName="timeDelivered"></ion-datetime>
           </ion-item> -->
+        <ion-item>
+          <ion-label color="primary">Text</ion-label>
+          <ion-input formControlName="text" placeholder="Text"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label>Changed Delivery Address</ion-label>
+          <ion-checkbox [(ngModel)]="isAdderChanged" [ngModelOptions]="{standalone: true}" (ionChange)="changeAddress()"></ion-checkbox>
+        </ion-item>
+        <div *ngIf="!isAdderChanged">
           <ion-item>
-            <ion-label color="primary">Text</ion-label>
-            <ion-input formControlName="text" placeholder="Text"></ion-input>
+            <ion-label color="primary">Address1</ion-label>
+            <ion-input formControlName="address1" placeholder="Address1"></ion-input>
           </ion-item>
           <ion-item>
-            <ion-label>Changed Delivery Address</ion-label>
-            <ion-checkbox [(ngModel)]="isAdderChanged" [ngModelOptions]="{standalone: true}"  (ionChange)="changeAddress()"></ion-checkbox>
+            <ion-label color="primary">Address2</ion-label>
+            <ion-input formControlName="address2" placeholder="Address2"></ion-input>
           </ion-item>
-          <div *ngIf="!isAdderChanged">
-            <ion-item>
-              <ion-label color="primary">Address1</ion-label>
-              <ion-input formControlName="address1" placeholder="Address1"></ion-input>
-            </ion-item>
-            <ion-item>
-              <ion-label color="primary">Address2</ion-label>
-              <ion-input formControlName="address2" placeholder="Address2"></ion-input>
-            </ion-item>
-            <ion-item>
-              <ion-label color="primary">City</ion-label>
-              <ion-input formControlName="city" placeholder="City"></ion-input>
-            </ion-item>
-            <ion-item>
-              <ion-label color="primary">State</ion-label>
-              <ion-input formControlName="state" placeholder="State"></ion-input>
-            </ion-item>
-            <ion-item>
-              <ion-label color="primary">Zip</ion-label>
-              <ion-input formControlName="zip" placeholder="Zip"></ion-input>
-            </ion-item>
-  
+          <ion-item>
+            <ion-label color="primary">City</ion-label>
+            <ion-input formControlName="city" placeholder="City"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label color="primary">State</ion-label>
+            <ion-input formControlName="state" placeholder="State"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label color="primary">Zip</ion-label>
+            <ion-input formControlName="zip" placeholder="Zip"></ion-input>
+          </ion-item>
 
+
+        </div>
+        <div *ngIf="isAdderChanged">
+          <ion-item>
+            <ion-label color="primary">Alt Address1</ion-label>
+            <ion-input formControlName="altAddress1" placeholder="Address1"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label color="primary">Alt Address2</ion-label>
+            <ion-input formControlName="altAddress2" placeholder="Address2"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label color="primary">Alt City</ion-label>
+            <ion-input formControlName="altCity" placeholder="City"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label color="primary">Alt State</ion-label>
+            <ion-input formControlName="altState" placeholder="State"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label color="primary">Alt Zip</ion-label>
+            <ion-input formControlName="altZip" placeholder="Zip"></ion-input>
+          </ion-item>
+          <div style="padding: 10px">
+            <h6>Original Delivery Address</h6>
+            {{delivery?.address1}}
+            <span *ngIf="delivery.address2">
+              <br>{{delivery?.address2}}</span>
+            <br> {{delivery?.city}}, {{delivery?.state}} {{delivery?.zip}}
           </div>
-          <div *ngIf="isAdderChanged">
-            <ion-item>
-              <ion-label color="primary" >Alt Address1</ion-label>
-              <ion-input formControlName="altAddress1" placeholder="Address1"></ion-input>
-            </ion-item>
-            <ion-item>
-              <ion-label color="primary">Alt Address2</ion-label>
-              <ion-input formControlName="altAddress2" placeholder="Address2"></ion-input>
-            </ion-item>
-            <ion-item>
-              <ion-label color="primary">Alt City</ion-label>
-              <ion-input formControlName="altCity" placeholder="City"></ion-input>
-            </ion-item>
-            <ion-item>
-              <ion-label color="primary">Alt State</ion-label>
-              <ion-input formControlName="altState" placeholder="State"></ion-input>
-            </ion-item>
-            <ion-item>
-              <ion-label color="primary">Alt Zip</ion-label>
-              <ion-input formControlName="altZip" placeholder="Zip"></ion-input>
-            </ion-item> 
-            <div style="padding: 10px">
-              <h6>Original Delivery Address</h6>
-              {{delivery?.address1}}
-              <span *ngIf="delivery.address2"><br>{{delivery?.address2}}</span>
-              <br> {{delivery?.city}},  {{delivery?.state}} {{delivery?.zip}}
-            </div>
-          </div>
-       
+        </div>
 
 
 
 
-          <!-- <ion-item *ngIf="isAdderChanged">
+
+        <!-- <ion-item *ngIf="isAdderChanged">
             <ion-label>Delivery Address</ion-label>
 
           </ion-item> -->
-          <ion-item>
-            <button ion-button full icon-right (click)="getSig()">
-              Signature
-              <ion-icon ios="ios-clipboard" md="md-clipboard"></ion-icon>
-            </button>
-          </ion-item>
-  
-        </ion-list>
-        <div *ngIf="signature">
-          <img [src]="signature"/>
+        <ion-item>
+          <button ion-button full icon-right (click)="getSig()">
+            Signature
+            <ion-icon ios="ios-clipboard" md="md-clipboard"></ion-icon>
+          </button>
+        </ion-item>
 
-        </div>
+      </ion-list>
+      <div *ngIf="signature">
+        <img [src]="signature" />
 
-        <!-- <ion-row >
+      </div>
+
+      <!-- <ion-row >
           <ion-col></ion-col>
           <ion-col width-80>
             <img [src]="signature"/>
@@ -197,13 +201,13 @@
         </ion-row> -->
 
 
-        <ion-item>
-          <button ion-button full large (click)="completeDelivery()">Complete Delivery</button>
-  
-        </ion-item>
-      </form>
-  
-    </div>
-  
-  
-  </ion-content>
+      <ion-item>
+        <button ion-button full large (click)="completeDelivery()">Complete Delivery</button>
+
+      </ion-item>
+    </form>
+
+  </div>
+
+
+</ion-content>

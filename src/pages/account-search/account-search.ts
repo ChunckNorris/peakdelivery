@@ -34,12 +34,12 @@ export class AccountSearchPage {
     let searchTerm = event.target.value;
 
     try {
-      if (searchTerm && searchTerm.trim().length > 4) {
+      if (searchTerm && searchTerm.trim().length > 2) {
         this.accounts = [];
         this.ui.showLoadingIndicator(true);
 
         //Call API to Search
-        this.api.getAccountList().subscribe(res => {
+        this.api.getAccountList(searchTerm).subscribe(res => {
           this.accounts = res;
           this.ui.showLoadingIndicator(false);
         }, err => {
