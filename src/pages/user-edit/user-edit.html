@@ -56,7 +56,7 @@
 
 
             <ion-card>
- 
+
                 <ion-card-content>
                     <ion-card-title>
                         {{userFromSearch?.fullName}}
@@ -78,9 +78,32 @@
                             <ion-icon name='close-circle'></ion-icon>
                             Deny
                         </button>
-                    </ion-col> 
+                    </ion-col>
                 </ion-row>
+                <ion-row no-padding *ngIf="editUser.emailConfirmed">
+                    <ion-list>
+                        <ion-item>
+                            <ion-label color="primary">Old Password</ion-label>
+                            <ion-input [(ngModel)]="changePassword.oldPassword"  placeholder="Old Password"></ion-input>
 
+                        </ion-item>
+                        <ion-item>
+                            <ion-label color="primary">New Password</ion-label>
+                            <ion-input [(ngModel)]="changePassword.newPassword" placeholder="New Password"></ion-input>
+
+                        </ion-item>
+                        <ion-item>
+                            <ion-label color="primary">Confirm Password</ion-label>
+                            <ion-input  [(ngModel)]="verifyPasswordChange" placeholder="New Password"></ion-input>
+
+                        </ion-item>
+                        <ion-item>
+                                <button ion-button full large (click)="changeUserPassword()">Change Password</button>
+                                <!-- <button [disabled]="!form.valid" ion-button full large (click)="saveNewUser()">Save User</button> -->
+                        </ion-item>
+                    </ion-list>
+
+                </ion-row>
             </ion-card>
 
 

@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ModalController, ToastController } from 'ionic-angular';
 import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
-import { Account, AccountBillingOptions, AccountRunOptions } from '../../models/index';
+import { Account, AccountBillingOptions, AccountRunOptions, AccountRunModel, DeliveryRunTypes } from '../../models/index';
 import {
   MainPage,
 AccountSearchPage
@@ -20,7 +20,8 @@ export class AccountEditPage {
   account: Account;
   accountRunOptions: Array<AccountRunOptions>;
   accountBillingOptions: Array<AccountBillingOptions>;
-
+  runOptionToAdd: string;
+  runOptions: Array<DeliveryRunTypes>;
 
 
   constructor(public navCtrl: NavController,
@@ -33,6 +34,7 @@ export class AccountEditPage {
     this.accountRunOptions = new  Array<AccountRunOptions>();
     this.accountBillingOptions = new Array<AccountBillingOptions>();
     this.isValidAccountSelcted = false;
+    this.runOptions = new Array<DeliveryRunTypes>();
 
     this.form = this.formBuilder.group({
       accountName: [null]
@@ -53,10 +55,10 @@ export class AccountEditPage {
     ///todo get all options assigned to an account for billing and runs. 
   }
 
-  addrunOption(option){
-    //call api and on success add to the display array 
-    this.accountRunOptions.push()
-  }
+  // addrunOption(option){
+  //   //call api and on success add to the display array 
+  //   this.accountRunOptions.push()
+  // }
   searchAccounts(){
     
    
@@ -76,11 +78,40 @@ export class AccountEditPage {
         this.form.controls['accountContactName'].setValue(this.account.accountContact);
         this.form.controls['accountContactPhone'].setValue(this.account.contactNumber);
         this.form.controls['accountContactEmail'].setValue(this.account.contactEmail);
+
+
+        this.loadRunOptions();
       }
     });
 
     //if account found 
 
+  }
+  addAccountRunOption(){
+    let addedRunOption = new AccountRunModel();
+
+    addedRunOption.runName = this.runOptionToAdd;
+    addedRunOption.accountId = this.account.accountId;
+    addedRunOption.isActive = true;
+
+    this.api.saveRunOptions(addedRunOption).subscribe(res => {
+      this.runOptionToAdd = '';
+      this.loadRunOptions();
+
+    }, (error) => {
+
+    })
+  }
+
+  loadRunOptions(){
+     this.api.getRunOptionsByAccount(this.account.accountId).subscribe(runRes => {
+      this.runOptions = runRes;
+    })
+  }
+  removeRunOption(option){
+    this.api.removeRunOption(option, this.account.accountId).subscribe(runOptionRes => {
+      this.loadRunOptions();
+    })
   }
   saveEditAccount(){
 

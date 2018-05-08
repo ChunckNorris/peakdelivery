@@ -17,6 +17,8 @@ import { UserClaim,
 DeliveryActivities,
 SearchedUser,
 DeliveryItem,
+AccountRunModel,
+ChangePassword,
 DeliveryBillings } from '../../models/index';
 declare var cordova: any;
 
@@ -42,7 +44,7 @@ export class Endpoints {
     static getUsersToApprove = new Endpoint('~/v1/accounts/users/needapproval');
     static approveUser = new Endpoint('~/v1/accounts/user/approved/{id}');
     static searchUser = new Endpoint('~/v1/accounts/users/{search}');
-
+    static changeUserPassword = new Endpoint('~/v1/accounts/resetPassword');
 
     //Get Acount//
     static upsertAccount = new Endpoint('~/v1/accounts/update');
@@ -53,15 +55,19 @@ export class Endpoints {
 
     //Delivery Data
     static upsertDelivery = new Endpoint('~/v1/delivery/update');
-    static getDeliveryByAccount = new Endpoint('~/v1/delivery/account/get/{accountid}');
+    static getDeliveryByAccount = new Endpoint('~/v1/delivery/account/get/{accountId}');
+    static getAllUndelivered = new Endpoint('~/v1/delivery/notdelivered');
+    static getDeliveryByDriver = new Endpoint('~/v1/delivery/notdelivered/{driverid}');
+
+
 
     //Option List Data//
     static getBillingOptions = new Endpoint('~/v1/options/getbillings');
     static getRunOptionsByAccount = new Endpoint('~/v1/options/getruns/{accountId}');
     static getRunOptionsDefault = new Endpoint('~/v1/options/getruns');
     static getActivityList = new Endpoint('~/v1/options/getactivites');
-
-
+    static saveRunOption = new Endpoint('~/v1/options/run/update');
+    static removeRunOption = new Endpoint('~/v1/options/{accountId}/deactivaterun/{runid}');
 
 
 
@@ -175,7 +181,11 @@ export class Api {
         let newUser = this.request<CreatedUser>(HttpMethods.post, endpoint, null, user);
         return newUser;
       }
-
+      public changePassword(passwordChange: ChangePassword): Observable<any> {
+        let endpoint = Endpoints.changeUserPassword.getUrl();
+        let newUser = this.request<any>(HttpMethods.post, endpoint, null, passwordChange);
+        return newUser;
+      }
 
 
       public upsertAccount(account: Account): Observable<any> {
@@ -198,10 +208,32 @@ export class Api {
       }
 
       //Account Related//
-      public getDeiliveryByAccount(accountId): Observable<DeliveryItem[]> {
-        let endpoint = Endpoints.getDeliveryByAccount.getUrl({accountId: accountId});
+      public getDeiliveryByAccount(accountId: string): Observable<DeliveryItem[]> {
+        let endpoint = Endpoints.getDeliveryByAccount.getUrl({'accountId': accountId});
         let foundUser = this.request<DeliveryItem[]>(HttpMethods.get, endpoint);
         return foundUser;
+      }
+
+
+
+
+
+      public getDeiliveryByDriver(driverid: string): Observable<DeliveryItem[]> {
+        let endpoint = Endpoints.getDeliveryByDriver.getUrl({'driverid': driverid});
+        let deliveryByDriver = this.request<DeliveryItem[]>(HttpMethods.get, endpoint);
+        return deliveryByDriver;
+      }
+
+
+
+
+
+
+
+      public getAllUndelivered(): Observable<DeliveryItem[]> {
+        let endpoint = Endpoints.getAllUndelivered.getUrl();
+        let undelivered = this.request<DeliveryItem[]>(HttpMethods.get, endpoint);
+        return undelivered;
       }
 
 
@@ -218,15 +250,25 @@ export class Api {
     
       }
 
-      public getRunOptionsByAccount(accountId: string): Observable<DeliveryRunTypes[]> {
-        let endpoint = Endpoints.getRunOptionsByAccount.getUrl({ 'accountId': accountId });
+      public getRunOptionsByAccount(account: any): Observable<DeliveryRunTypes[]> {
+        let endpoint = Endpoints.getRunOptionsByAccount.getUrl({ 'accountId': account });
         return this.request<DeliveryRunTypes[]>(HttpMethods.get, endpoint);
-    
+     
       }
       public getRunOptions(): Observable<DeliveryRunTypes[]> {
         let endpoint = Endpoints.getRunOptionsDefault.getUrl();
         return this.request<DeliveryRunTypes[]>(HttpMethods.get, endpoint);
     
+      }
+      public saveRunOptions(runOption: AccountRunModel): Observable<any> {
+        let endpoint = Endpoints.saveRunOption.getUrl();
+        let addedOption = this.request<any>(HttpMethods.post, endpoint, null, runOption);
+        return addedOption;
+      }
+      public removeRunOption(option: DeliveryRunTypes, account: String): Observable<any> {
+        let endpoint = Endpoints.removeRunOption.getUrl({'runid': option.key, 'accountId': account});
+        let removedOptionResults = this.request<any>(HttpMethods.post, endpoint, null, option);
+        return removedOptionResults;
       }
 
 }

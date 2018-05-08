@@ -57,7 +57,14 @@ export class NewUser
       email: string;
 
     }
-
+    export class ChangePassword
+    {
+        userId: string;
+        oldPassword: string;
+        newPassword: string;
+  
+      }
+  
     export class SearchedUser {
         firstName: string;
         lastName: string;

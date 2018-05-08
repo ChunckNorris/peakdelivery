@@ -18,13 +18,18 @@
 
     <ion-item>
         <button ion-button full large (click)="searchAccounts()">Account Lookup</button>
-
+        <button ion-button full large (click)="searchByDriverId()">Driver Lookup</button>
+        <button ion-button full large (click)="getNonDelivered()">Get All Open</button>
     </ion-item>
 
 
     <ion-item *ngIf="isAdminSearchEnabled">
         <ion-label color="primary">Scan Id</ion-label>
         <ion-input placeholder="Search....."></ion-input>
+        <button ion-button item-end>
+          <ion-icon name="checkmark-circle" (click)="getNonDelivered()"></ion-icon>
+        </button>
+   
       </ion-item>
     
 

@@ -12,7 +12,8 @@ import { Api } from '../../providers/api/api';
 import {
   DriverAddDeliveryPage,
   DriverEditDeliveryPage,
-  AccountSearchPage
+  AccountSearchPage,
+  UserSearchPage
 } from '../pages';
 
 
@@ -140,7 +141,7 @@ export class DriverListDeliveryPage {
       if (data && data.account) {
         this.account = data.account;
         this.ui.showLoadingIndicator(true);
-        this.api.getDeiliveryByAccount(this.account.id).subscribe(dels => {
+        this.api.getDeiliveryByAccount(data.account.accountId).subscribe(dels => {
           this.deliveryList = dels;
           this.ui.showLoadingIndicator(false);
         }, error => {
@@ -152,6 +153,42 @@ export class DriverListDeliveryPage {
 
   }
 
+  searchByDriverId(){
+    let modal = this.modalCtrl.create(UserSearchPage);
+    modal.present();
+    modal.onDidDismiss(data => {
+         if (data.user) {
+          let selectedUser = data.user;
+          
+          this.ui.showLoadingIndicator(true);
+          this.api.getDeiliveryByDriver(selectedUser.id).subscribe(dels => {
+            this.deliveryList = dels;
+            this.ui.showLoadingIndicator(false);
+          }, error => {
+            this.ui.showLoadingIndicator(false);
+          })
+
+      
+        } else {
+          alert('No Driver Selected');
+        }
+
+
+ 
+      });
+  
+  }
+
+
+  getNonDelivered(){
+    this.ui.showLoadingIndicator(true);
+    this.api.getAllUndelivered().subscribe(dels => {
+      this.deliveryList = dels;
+      this.ui.showLoadingIndicator(false);
+    }, error => {
+      this.ui.showLoadingIndicator(false);
+    })
+  }
   deliverPackage(_delivery: Delivery) {
     this.navCtrl.push(DriverEditDeliveryPage, { delivery: _delivery });
 

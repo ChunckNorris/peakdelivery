@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ModalController, ToastController } from 'ionic-angular';
 
 import {
   UserAddPage,
@@ -7,7 +7,7 @@ import {
 } from '../pages';
 import { Api } from '../../providers/api/api';
 import { User, Ui } from '../../providers/providers';
-import { NewUser, SearchedUser, UserClaim } from '../../models/index';
+import { NewUser, SearchedUser, UserClaim, ChangePassword } from '../../models/index';
 import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
 
 @IonicPage()
@@ -22,12 +22,14 @@ export class UserEditPage {
   userForEdit: boolean;
   editUser: UserClaim;
   form: FormGroup;
-
+  changePassword: ChangePassword;
+  verifyPasswordChange: string;
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
     public modalCtrl: ModalController,
     public formBuilder: FormBuilder,
     public api: Api,
+    public toastCtrl: ToastController,
     public ui: Ui) {
     this.isUserApproval = false;
     this.userForEdit = false;
@@ -47,6 +49,8 @@ export class UserEditPage {
       this.userFromSearch = this.navParams.data.userToApprove;
       this.isUserApproval = true;
     }
+    this.changePassword = new ChangePassword();
+    this.verifyPasswordChange = '';
   }
 
   ionViewDidLoad() {
@@ -58,6 +62,7 @@ export class UserEditPage {
     modal.onDidDismiss(data => {
       if (data && data.isEdit) {
         this.userFromSearch = data.user;
+        this.changePassword.userId = this.userFromSearch.id;
         this.ui.showLoadingIndicator(true);
         this.api.getUserProfile(this.userFromSearch.id).subscribe(editUser => {
           this.editUser = editUser;
@@ -76,9 +81,41 @@ export class UserEditPage {
       this.navCtrl.pop();
     })
   }
+  changeUserPassword(){
+    this.ui.showLoadingIndicator(true);
+    if(this.changePassword.newPassword === this.verifyPasswordChange){
+      this.api.changePassword(this.changePassword).subscribe(res => {
+        this.ui.showLoadingIndicator(false);
+        let toast = this.toastCtrl.create({
+          message: 'Passwords Change Success',
+          duration: 1000,
+          position: 'top'
+        });
+        toast.present();
+      }, (error) => {
+        this.ui.showLoadingIndicator(false);
+        let toast = this.toastCtrl.create({
+          message: 'Error in Password Change',
+          duration: 1000,
+          position: 'top'
+        });
+        toast.present();
+       
+      })
+    }else{
+      this.ui.showLoadingIndicator(false);
+      let toast = this.toastCtrl.create({
+        message: 'Passwords do not match',
+        duration: 1000,
+        position: 'top'
+      });
+      toast.present();
+    }
+  }
   denyUser() {
     this.navCtrl.pop();
 
   }
+
 
 }

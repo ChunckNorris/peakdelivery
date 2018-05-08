@@ -129,7 +129,7 @@ this.loadOptions();
       this.driver.firstName = 'Test';
       this.driver.lastName = 'Driver';
 
-
+ 
 
 
       this.form = this.formBuilder.group({
@@ -219,7 +219,7 @@ this.loadOptions();
       if (data.user) {
         let selectedUser = data.user;
         this.form.controls['driverName'].setValue(selectedUser.firstName + ' ' + selectedUser.lastName);
-
+        this.driverId = selectedUser.id;
       } else {
         alert('No Driver Selected');
       }
@@ -275,12 +275,14 @@ this.loadOptions();
     if (this.isNewDelivery) {
       this.delivery.run = this.form.value.run;
       this.delivery.activity = this.form.value.activity;
+      this.delivery.accountId = this.form.value.accountId;
+      this.delivery.driverId = this.driverId;
       this.delivery.driverName = this.form.value.driverName;
       this.delivery.bagToteId = this.form.value.bagToteId;
       this.delivery.slipToteId = this.form.value.slipToteId;
       this.delivery.billing = this.form.value.billing;
       this.delivery.accountId = this.form.value.accountId;
-      this.delivery.accountName = this.form.value.accountName;
+      //this.delivery.accountName = this.form.value.accountName;
       this.delivery.contactPhone = this.form.value.contactNumber;
       // this.delivery.timeDelivered = this.form.value.timeDelivered;
       // this.delivery.dateDelivered = this.form.value.dateDelivered;
@@ -292,6 +294,7 @@ this.loadOptions();
       this.delivery.zip = this.form.value.zip;
       this.delivery.multiLineText = this.ocrData;
       this.delivery.scannedImage = this.scanedImage;
+      this.delivery.signature = '';
 
 
       this.api.saveDelivered(this.delivery).subscribe(res => {
@@ -323,10 +326,20 @@ this.loadOptions();
     modal.present();
     modal.onDidDismiss(data => {
       if (data && data.account) {
+        this.ui.showLoadingIndicator(true);
         this.account = data.account;
 
         this.form.controls['accountName'].setValue(this.account.accountName);
         this.form.controls['accountId'].setValue(this.account.accountId);
+
+         this.api.getRunOptionsByAccount(this.account.accountId).subscribe(runRes => {
+          this.runOptions = runRes;
+          this.ui.showLoadingIndicator(false);
+        }, (error) =>{
+          this.ui.showLoadingIndicator(false);
+        })
+
+
       }
     });
   }
@@ -340,6 +353,7 @@ this.loadOptions();
       if (data) {
         this.ocrData = data.ocrdata;
         this.scanedImage = data.scanedData;
+        console.log(data.scanedData);
         let parse = this.ocrData.split('\n');
         let adderArray = [];
         var searchAdder = /,/gi;

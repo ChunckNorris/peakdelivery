@@ -15,15 +15,24 @@ export class Account {
     accountContact: string;
     contactNumber: string;
     contactEmail: string;
-    
-    
+
+
 }
 export class AccountRunOptions {
     id: number;
     text: string;
-    
-}export class AccountBillingOptions {
-   id: number;
-   text: string;
-    
+
+}
+export class AccountBillingOptions {
+    id: number;
+    text: string;
+
+}
+
+export class AccountRunModel {
+    runName: string;
+    description: string;
+    accountId: string;
+    isActive: boolean;
+
 }
