@@ -19,7 +19,9 @@ SearchedUser,
 DeliveryItem,
 AccountRunModel,
 ChangePassword,
-DeliveryBillings } from '../../models/index';
+DeliveryBillings,
+ResetPassword,
+ForgotPassword } from '../../models/index';
 declare var cordova: any;
 
 export class Endpoint {
@@ -44,7 +46,9 @@ export class Endpoints {
     static getUsersToApprove = new Endpoint('~/v1/accounts/users/needapproval');
     static approveUser = new Endpoint('~/v1/accounts/user/approved/{id}');
     static searchUser = new Endpoint('~/v1/accounts/users/{search}');
-    static changeUserPassword = new Endpoint('~/v1/accounts/resetPassword');
+    static changeUserPassword = new Endpoint('~/v1/accounts/changePassword');
+    static forgotPassword = new Endpoint('~/v1/accounts/ForgotPassword');
+    static resetPassword = new Endpoint('~/v1/accounts/resetPassword');
 
     //Get Acount//
     static upsertAccount = new Endpoint('~/v1/accounts/update');
@@ -183,10 +187,19 @@ export class Api {
       }
       public changePassword(passwordChange: ChangePassword): Observable<any> {
         let endpoint = Endpoints.changeUserPassword.getUrl();
-        let newUser = this.request<any>(HttpMethods.post, endpoint, null, passwordChange);
-        return newUser;
+        let changePassword = this.request<any>(HttpMethods.post, endpoint, null, passwordChange);
+        return changePassword;
       }
-
+      public resetPassword(passwordChange: ResetPassword): Observable<any> {
+        let endpoint = Endpoints.resetPassword.getUrl();
+        let resetUserPassword = this.request<any>(HttpMethods.post, endpoint, null, passwordChange);
+        return resetUserPassword;
+      }
+      public forgotPassword(passwordChange: ForgotPassword): Observable<any> {
+        let endpoint = Endpoints.forgotPassword.getUrl();
+        let forgotUserPassword = this.request<any>(HttpMethods.post, endpoint, null, passwordChange);
+        return forgotUserPassword;
+      }
 
       public upsertAccount(account: Account): Observable<any> {
         let endpoint = Endpoints.upsertAccount.getUrl();

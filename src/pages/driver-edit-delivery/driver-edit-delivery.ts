@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
 import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
 
-import { Profile, Delivery, DeliveryActivities, DeliveryBillings, DeliveryRunTypes  } from '../../models/index';
+import { Profile, Delivery, DeliveryActivities, DeliveryBillings, DeliveryRunTypes } from '../../models/index';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 import { ModalSignPage } from '../../pages/pages'
 import { Api } from '../../providers/api/api';
@@ -12,7 +12,8 @@ import {
   CustomerDashboardPage,
   AdminDashboardPage,
   DriverDashboardPage,
-  DriverListDeliveryPage
+  DriverListDeliveryPage,
+  UserSearchPage
 } from '../pages';
 
 
@@ -41,14 +42,15 @@ export class DriverEditDeliveryPage {
     public modalCtrl: ModalController,
     private barcodeScanner: BarcodeScanner,
     public api: Api,
-    public ui: Ui) {
+    public ui: Ui,
+    public user: User) {
     this.driver = new Profile();
     this.ui.showLoadingIndicator(true);
 
     this.activityOptions = new Array<DeliveryActivities>();
     this.billingOptions = new Array<DeliveryBillings>();
     this.runOptions = new Array<DeliveryRunTypes>()
-    this.isAdderChanged =  false;
+    this.isAdderChanged = false;
 
     this.loadOptions();
     this.driver.firstName = 'Test';
@@ -56,13 +58,15 @@ export class DriverEditDeliveryPage {
 
 
     if (this.navParams.data) {
-      this.delivery = this.navParams.data.delivery; 
+      this.delivery = this.navParams.data.delivery;
 
 
 
       this.form = this.formBuilder.group({
         driverName: [this.delivery.driverName]
         , run: [this.delivery.run]
+        , driverId: [this.delivery.driverId]
+        , deliveryId: [this.delivery.deliveryId]
         , bagToteId: [this.delivery.bagToteId]
         , slipToteId: [this.delivery.slipToteId]
         , activity: [this.delivery.activity]
@@ -81,10 +85,11 @@ export class DriverEditDeliveryPage {
         , altZip: [this.delivery.altZip]
         , isAltAddress: [this.delivery.isAltAddress]
         , multiLineText: [this.delivery.multiLineText]
+        , scannedImage: [this.delivery.scannedImage]
       });
 
     } else {
-      this.delivery = new Delivery(); 
+      this.delivery = new Delivery();
 
     }
 
@@ -98,6 +103,8 @@ export class DriverEditDeliveryPage {
 
     this.delivery.activity = this.form.value.activity;
     this.delivery.driverName = this.form.value.driverName;
+    this.delivery.deliveryId = this.form.value.deliveryId;
+    this.delivery.driverId = this.form.value.driverId;
     this.delivery.run = this.form.value.run;
     this.delivery.bagToteId = this.form.value.bagToteId;
     this.delivery.slipToteId = this.form.value.slipToteId;
@@ -117,6 +124,7 @@ export class DriverEditDeliveryPage {
     this.delivery.isAltAddress = this.form.value.isAltAddress ? this.form.value.isAltAddress : '';
     this.delivery.multiLineText = this.form.value.multiLineText ? this.form.value.multiLineText : '';
     this.delivery.signature = this.signature ? this.signature : '';
+    this.delivery.scannedImage = this.form.value.scannedImage ? this.form.value.scannedImage : '';
 
     this.api.saveDelivered(this.delivery).subscribe(res => {
       alert('Delivery Updated');
@@ -124,48 +132,72 @@ export class DriverEditDeliveryPage {
     })
 
   }
-  getSig(){
+  getSig() {
     let modal = this.modalCtrl.create(ModalSignPage);
     modal.present();
 
     modal.onDidDismiss(data => {
-      if(data.length && data.length > 0){
+      if (data.length && data.length > 0) {
         this.signature = data;
-      }else{
+      } else {
         this.signature = null;
       }
-      
-        //alert(data);
-      });
+
+      //alert(data);
+    });
   }
-  changeAddress(){
+  changeAddress() {
 
   }
-  loadOptions() {
-    
-        let _getActivites = this.api.getActivityOptions().map(acctivitiesRes => {
-          this.activityOptions = acctivitiesRes;
-        })
-        let _getBillingOptions = this.api.getBillingOptions().map(billingRes => {
-          this.billingOptions = billingRes;
-    
-        })
-        let _getRunOptions = this.api.getRunOptions().map(runRes => {
-          this.runOptions = runRes;
-        })
-    
-    
-    
-        Observable.forkJoin([_getActivites,
-          _getBillingOptions,
-          _getRunOptions,
-        ]).subscribe(results => {
-          this.ui.showLoadingIndicator(false);
-        }, (error) => {
-          console.log(error);
-          this.ui.showLoadingIndicator(false);
-        });
-    
+  assignToSelf() {
+
+    if (this.user.userRole === 'ADMIN') {
+      this.searchUser();
+    } else {
+      this.form.controls['driverName'].setValue(this.user.userProfile.fullName);
+      this.form.controls['driverId'].setValue(this.user.userProfile.id);
+
+    }
+
+  }
+  searchUser() {
+    let modal = this.modalCtrl.create(UserSearchPage);
+    modal.present();
+    modal.onDidDismiss(data => {
+      if (data.user) {
+        let selectedUser = data.user;
+        this.form.controls['driverName'].setValue(selectedUser.firstName + ' ' + selectedUser.lastName);
+        this.form.controls['driverId'].setValue(selectedUser.id);
+      } else {
+        alert('No Driver Selected');
       }
+    });
+  }
+  loadOptions() {
+
+    let _getActivites = this.api.getActivityOptions().map(acctivitiesRes => {
+      this.activityOptions = acctivitiesRes;
+    })
+    let _getBillingOptions = this.api.getBillingOptions().map(billingRes => {
+      this.billingOptions = billingRes;
+
+    })
+    let _getRunOptions = this.api.getRunOptions().map(runRes => {
+      this.runOptions = runRes;
+    })
+
+
+
+    Observable.forkJoin([_getActivites,
+      _getBillingOptions,
+      _getRunOptions,
+    ]).subscribe(results => {
+      this.ui.showLoadingIndicator(false);
+    }, (error) => {
+      console.log(error);
+      this.ui.showLoadingIndicator(false);
+    });
+
+  }
 
 }

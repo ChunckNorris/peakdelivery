@@ -16,10 +16,10 @@ export class Profile {
     zipCode: string;
     gender: string;
 }
-export class AuthUser{
+export class AuthUser {
     email: string;
     password: string;
-    
+
 }
 export class TokenData {
     access_token: string;
@@ -38,8 +38,7 @@ export class UserClaim {
     roles: string[];
     claims: any[];
 }
-export class NewUser
-{
+export class NewUser {
     Email: string;
     Username: string;
     FirstName: string;
@@ -47,45 +46,52 @@ export class NewUser
     Password: string;
     ConfirmPassword: string;
     RoleName: string;
-  }
-  export class CreatedUser
-  {
-      url: string;
-      id: string;
-      userName: string;
-      fullName: string;
-      email: string;
+}
+export class CreatedUser {
+    url: string;
+    id: string;
+    userName: string;
+    fullName: string;
+    email: string;
 
-    }
-    export class ChangePassword
-    {
-        userId: string;
-        oldPassword: string;
-        newPassword: string;
-  
-      }
-  
-    export class SearchedUser {
-        firstName: string;
-        lastName: string;
-        level: number;
-        joinDate: Date;
-        email: string;
-        emailConfirmed: boolean;
-        passwordHash: string;
-        securityStamp: string;
-        phoneNumber?: any;
-        phoneNumberConfirmed: boolean;
-        twoFactorEnabled: boolean;
-        lockoutEndDateUtc?: any;
-        lockoutEnabled: boolean;
-        accessFailedCount: number;
-        roles: any[];
-        claims: any[];
-        logins: any[];
-        id: string;
-        userName: string;
-    }
+}
+export class ChangePassword {
+    userId: string;
+    oldPassword: string;
+    newPassword: string;
+
+}
+
+export class ResetPassword {
+    code: string;
+    confirmPassword: string;
+    email: string;
+    password: string;
+}
+export class ForgotPassword {
+    email: string;
+}
+export class SearchedUser {
+    firstName: string;
+    lastName: string;
+    level: number;
+    joinDate: Date;
+    email: string;
+    emailConfirmed: boolean;
+    passwordHash: string;
+    securityStamp: string;
+    phoneNumber?: any;
+    phoneNumberConfirmed: boolean;
+    twoFactorEnabled: boolean;
+    lockoutEndDateUtc?: any;
+    lockoutEnabled: boolean;
+    accessFailedCount: number;
+    roles: any[];
+    claims: any[];
+    logins: any[];
+    id: string;
+    userName: string;
+}
 
 
 

@@ -1,5 +1,6 @@
 export class Delivery {
     driverName: string;
+    deliveryId: string;
     driverId: string;
     clientId: string;
     run: string;
