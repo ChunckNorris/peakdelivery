@@ -1,13 +1,8 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
-/**
- * Generated class for the CustomerDashboardPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
-
+import { CustomerSearchDeliveryPage } from '../../pages/pages'
+import { LoginPage } from '../../pages/login/login';
 @IonicPage()
 @Component({
   selector: 'page-customer-dashboard',
@@ -20,6 +15,17 @@ export class CustomerDashboardPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad CustomerDashboardPage');
+  }
+
+  checkDelivery(){
+    this.navCtrl.push(CustomerSearchDeliveryPage, {'lookupType': 'Status'});
+  }
+
+  searchDelivery(){
+    this.navCtrl.push(CustomerSearchDeliveryPage, {'lookupType': 'Search'});
+  }
+  closeTapped(){
+    this.navCtrl.setRoot(LoginPage);
   }
 
 }

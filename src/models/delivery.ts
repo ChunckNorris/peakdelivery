@@ -77,3 +77,16 @@ export class DeliveryRunTypes {
     key: string;
     value: string;
 }
+
+export class DeliverySearchBindingModel
+{
+    deliveryId: number;
+      accountId: string;
+      driverId: string;
+      startDate: string;
+      endDate: string;
+      activityId: number;
+      searchTypeString: string;
+     deliverySearchType: string; 
+}
+

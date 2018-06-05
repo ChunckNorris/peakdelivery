@@ -21,7 +21,8 @@ AccountRunModel,
 ChangePassword,
 DeliveryBillings,
 ResetPassword,
-ForgotPassword } from '../../models/index';
+ForgotPassword,
+DeliverySearchBindingModel } from '../../models/index';
 declare var cordova: any;
 
 export class Endpoint {
@@ -50,21 +51,24 @@ export class Endpoints {
     static forgotPassword = new Endpoint('~/v1/accounts/ForgotPassword');
     static resetPassword = new Endpoint('~/v1/accounts/resetPassword');
 
-    //Get Acount//
+    //Acount//
     static upsertAccount = new Endpoint('~/v1/accounts/update');
     static getAccountList = new Endpoint('~/v1/accounts/search/{name}');
-    static getAllActiveAccounts = new Endpoint('~/v1/accounts/get/-1');
-
-
+    static getAllActiveAccounts = new Endpoint('~/v1/accounts/getAccountList/active');
+    static getAllNonActiveAccounts = new Endpoint('~/v1/accounts/getAccountList/inactive');
+    static setAccountStatus = new Endpoint('~/v1/accounts/setAccount/{accountId}/status/{accountStatus)');
+    static saveAcountforUser = new Endpoint('~/v1/accounts/user/addtoaccount/{userid}/{accountid}');
+    static getAccountByAccountId = new Endpoint('~/v1/accounts/get/{accountid}');
 
     //Delivery Data
     static upsertDelivery = new Endpoint('~/v1/delivery/update');
     static getDeliveryByAccount = new Endpoint('~/v1/delivery/account/get/{accountId}');
     static getAllUndelivered = new Endpoint('~/v1/delivery/notdelivered');
     static getDeliveryByDriver = new Endpoint('~/v1/delivery/notdelivered/{driverid}');
+    static searchDelivery = new Endpoint('~/v1/delivery/get');
 
 
-
+    
     //Option List Data//
     static getBillingOptions = new Endpoint('~/v1/options/getbillings');
     static getRunOptionsByAccount = new Endpoint('~/v1/options/getruns/{accountId}');
@@ -211,7 +215,33 @@ export class Api {
         return this.request<Account[]>(HttpMethods.get, endpoint);
     
       }
+      public getActiveAccountList(): Observable<Account[]> {
+        let endpoint = Endpoints.getAllActiveAccounts.getUrl();
+        return this.request<Account[]>(HttpMethods.get, endpoint);
+    
+      }
+      public getNonActiveAccountList(): Observable<Account[]> {
+        let endpoint = Endpoints.getAllNonActiveAccounts.getUrl();
+        return this.request<Account[]>(HttpMethods.get, endpoint);
+    
+      }
+      public saveAccountForUser(userid, accountid): Observable<any> {
+        let endpoint = Endpoints.saveAcountforUser.getUrl({'userid': userid, 'accountid': accountid});
+        let newUser = this.request<any>(HttpMethods.post, endpoint, null, null);
+        return newUser;
+      }
+      public getAccountById(accountid): Observable<Account> {
+        let endpoint = Endpoints.getAccountByAccountId.getUrl({'accountid': accountid});
+        return this.request<Account>(HttpMethods.get, endpoint);
+    
+      }
 
+     
+      public searchDelivery(searchData: DeliverySearchBindingModel): Observable<DeliveryItem[]> {
+        let endpoint = Endpoints.searchDelivery.getUrl();
+        let deliveryResults = this.request<DeliveryItem[]>(HttpMethods.post, endpoint, null, searchData);
+        return deliveryResults;
+      }
 
 
       public saveDelivered(delivery: Delivery): Observable<any> {

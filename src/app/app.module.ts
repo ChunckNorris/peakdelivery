@@ -41,7 +41,10 @@ AdminManageUserPage,
 UserSearchPage,
 UserEditPage,
 ModalLabelScannerPage,
-MainDashboardPage } from '../pages/pages'
+MainDashboardPage,
+CustomerSearchDeliveryPage,
+CustomerListDeliveryPage,
+CustomerDeliveryDetailPage } from '../pages/pages'
   import { LoginPage } from '../pages/login/login';
 import { Ui} from '../providers/ui/ui';
 import { LoadingIndicatorComponent } from '../components/loading-indicator/loading-indicator';
@@ -98,7 +101,10 @@ export function provideSettings(storage: Storage) {
     UserSearchPage,
     UserEditPage,
     ModalLabelScannerPage,
-    MainDashboardPage
+    MainDashboardPage,
+    CustomerSearchDeliveryPage,
+    CustomerListDeliveryPage,
+    CustomerDeliveryDetailPage
   ],
   imports: [ 
     FormsModule, 
@@ -139,7 +145,10 @@ export function provideSettings(storage: Storage) {
     UserSearchPage,
     UserEditPage,
     ModalLabelScannerPage,
-    MainDashboardPage
+    MainDashboardPage,
+    CustomerSearchDeliveryPage,
+    CustomerListDeliveryPage,
+    CustomerDeliveryDetailPage
   ],
   providers: [
     Api,

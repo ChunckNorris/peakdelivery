@@ -36,3 +36,4 @@ export * from './user-search/user-search';
 export * from './user-edit/user-edit';
 export * from './admin-manage-user/admin-manage-user';
 export * from './main-dashboard/main-dashboard';
+export * from './customer-delivery-detail/customer-delivery-detail';

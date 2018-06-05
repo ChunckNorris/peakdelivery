@@ -1,0 +1,81 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Delivery Detail</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <div style="max-width: 800px; margin: auto; ">
+
+
+
+
+
+
+
+
+    <p>Driver Assigned: {{delivery?.driverName}}</p>
+    <p>Run: {{delivery?.run}}</p>
+    <p>Tote: {{delivery?.bagToteId}}</p>
+    <p>Activity: {{delivery?.activity}}</p>
+
+
+    <p>Billing: {{delivery?.billing}}</p>
+    <p>Date Delivered: {{delivery?.dateDelivered}}</p>
+    <p>Text: {{delivery?.text}}</p>
+
+
+
+    <div *ngIf="!isAdderChanged">
+      <div style="padding: 10px">
+        <h6>Original Delivery Address</h6>
+        {{delivery?.address1}}
+        <span *ngIf="delivery.address2">
+          <br>{{delivery?.address2}}</span>
+        <br> {{delivery?.city}}, {{delivery?.state}} {{delivery?.zip}}
+      </div>
+
+
+
+
+    </div>
+    <div *ngIf="isAdderChanged">
+      <p>{{delivery?.altAddress1}}</p>
+      <p *ngIf="delivery.altAddress2">{{delivery?.altAddress2}}</p>
+      <p>{{delivery?.altCity}}, {{delivery?.altState}} {{delivery?.altZip}}</p>
+
+
+
+      <div style="padding: 10px">
+        <h6>Original Delivery Address</h6>
+        {{delivery?.address1}}
+        <span *ngIf="delivery.address2">
+          <br>{{delivery?.address2}}</span>
+        <br> {{delivery?.city}}, {{delivery?.state}} {{delivery?.zip}}
+      </div>
+    </div>
+
+
+
+
+
+    <ion-item>
+      <button ion-button full icon-right (click)="getSig()">
+        Show Signature
+        <ion-icon ios="ios-clipboard" md="md-clipboard"></ion-icon>
+      </button>
+    </ion-item>
+
+  
+    <div *ngIf="signature">
+      <img [src]="signature" />
+
+    </div>
+
+  </div>
+
+
+</ion-content>

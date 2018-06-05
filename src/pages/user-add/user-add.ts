@@ -15,6 +15,7 @@ export class UserAddPage {
   form: FormGroup;
 
   newUser: NewUser;
+  isAdmin: boolean;
 
 
   constructor(public navCtrl: NavController,
@@ -24,24 +25,43 @@ export class UserAddPage {
     public api: Api) {
     this.newUser = new NewUser(); 
 
+    if(this.navParams.data.isSignup){
+      this.isAdmin = false;
+    }else{
+      this.isAdmin = true;
+    }
+
+ 
 
 
-
-
-    this.form = this.formBuilder.group({
-      email: [null, <any>Validators.required]
-      , userName: [null, <any>Validators.required]
-      , firstName: [null, <any>Validators.required]
-      , lastName: [null, <any>Validators.required]
-      , password: [null, <any>Validators.required]
-      , confirmPassword: [null, <any>Validators.required]
-      , roleName: [null, <any>Validators.required]
-    });
+    if(this.isAdmin){
+      this.form = this.formBuilder.group({
+        email: [null, <any>Validators.required]
+        , userName: [null, <any>Validators.required]
+        , firstName: [null, <any>Validators.required]
+        , lastName: [null, <any>Validators.required]
+        , password: [null, <any>Validators.required]
+        , confirmPassword: [null, <any>Validators.required]
+        , roleName: [null, <any>Validators.required]
+      });
+    }else{
+      this.form = this.formBuilder.group({
+        email: [null, <any>Validators.required]
+        , userName: [null, <any>Validators.required]
+        , firstName: [null, <any>Validators.required]
+        , lastName: [null, <any>Validators.required]
+        , password: [null, <any>Validators.required]
+        , confirmPassword: [null, <any>Validators.required]
+        , roleName: ['CUSTOMER', <any>Validators.required]
+      });
+    }
+ 
 
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad UserAddPage');
+    
   }
   saveNewUser() {
 
@@ -56,13 +76,13 @@ export class UserAddPage {
 
     this.api.createNewUser(this.newUser).subscribe(res => {
       if(res.id){
-        let toast = this.toastCtrl.create({
-          message: 'User Account Created',
-          duration: 1000,
-          position: 'top' 
-        });
-        toast.present();
-
+        if(this.isAdmin){
+          let toast = this.toastCtrl.create({
+            message: 'User Account Created',
+            duration: 1000,
+            position: 'top' 
+          });
+          toast.present();
 
         this.form.controls['userName'].setValue(null);
         this.form.controls['email'].setValue(null);
@@ -71,6 +91,21 @@ export class UserAddPage {
         this.form.controls['password'].setValue(null);
         this.form.controls['confirmPassword'].setValue(null);
         this.form.controls['roleName'].setValue(null);
+
+
+        }else{
+          let toast = this.toastCtrl.create({
+            message: 'Request for User Account Sent',
+            duration: 1000,
+            position: 'top' 
+          });
+          toast.present();
+
+          this.navCtrl.pop();
+        }
+ 
+
+
 
 
 

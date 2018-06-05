@@ -37,6 +37,21 @@ export class UserClaim {
     joinDate: Date;
     roles: string[];
     claims: any[];
+    accountBelongsTo: AccountBelongsTo;
+}
+export class AccountBelongsTo {
+    accountId: string;
+    address1: string;
+    address2: string;
+    city: string;
+    state: string;
+    zip: string;
+    isActive: boolean;
+    accountName: string;
+    dateCreated: Date;
+    accountContact: string;
+    contactNumber: string;
+    contactEmail: string;
 }
 export class NewUser {
     Email: string;

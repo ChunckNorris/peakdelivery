@@ -5,11 +5,11 @@
       <ion-navbar>
           <ion-title>Add New User</ion-title>
       
-          <ion-buttons end>
+          <!-- <ion-buttons end>
               <button ion-button menuToggle>
                   <ion-icon name="menu"></ion-icon>
               </button>
-            </ion-buttons>
+            </ion-buttons> -->
             
         </ion-navbar>
   
@@ -50,10 +50,20 @@
                   <ion-label color="primary">Confirm Password</ion-label>
                   <ion-input formControlName="confirmPassword" placeholder="Confirm Password"></ion-input>
                 </ion-item>
-                <ion-item>
+                <ion-item *ngIf="isAdmin">
+                  <ion-label>Role Name</ion-label>
+        
+                  <!--  -->
+                  <ion-select formControlName="roleName" submitText="Select" cancelText="Cancel">
+                    <ion-option value="CUSTOMER">CUSTOMER</ion-option>
+                    <ion-option value="DRIVER">DRIVER</ion-option>
+                    <ion-option value="ADMIN">ADMIN</ion-option>
+                  </ion-select>
+                </ion-item>
+                <!-- <ion-item>
                   <ion-label color="primary">Role Name</ion-label>
                   <ion-input formControlName="roleName" placeholder="Role Name"></ion-input>
-                </ion-item>
+                </ion-item> -->
       
             </ion-list>
   

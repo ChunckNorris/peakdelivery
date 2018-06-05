@@ -4,11 +4,10 @@
             <ion-title>Customer Dashboard</ion-title>
         
             <ion-buttons end>
-                <button ion-button menuToggle>
-                    <ion-icon name="menu"></ion-icon>
+                <button ion-button icon-only color="dark" clear (click)="closeTapped()" tappable>
+                  Log Out  <ion-icon name="close-circle"></ion-icon>
                 </button>
               </ion-buttons>
-              
           </ion-navbar>
     
     </ion-header>
@@ -16,7 +15,23 @@
 
 <ion-content padding>
         <div style="max-width: 800px; margin: auto; ">
-
+            <ion-list>
+                <ion-item>
+                  Check Delivery Status By Status
+                  <button ion-button outline item-end icon-left (click)="checkDelivery()">
+                    <ion-icon name="search"></ion-icon>
+                    View
+                  </button>
+                </ion-item>
+    
+                <ion-item>
+                    Search Delivery Status By Date
+                    <button ion-button outline item-end icon-left (click)="searchDelivery()">
+                      <ion-icon name="search"></ion-icon>
+                      Search
+                    </button>
+                  </ion-item>
+              </ion-list>
 
         </div>
 </ion-content>

@@ -9,7 +9,8 @@ import {
   MainPage,
   CustomerDashboardPage,
   AdminDashboardPage,
-  DriverDashboardPage
+  DriverDashboardPage,
+  UserAddPage
 } from '../pages';
 
 @IonicPage()
@@ -83,7 +84,7 @@ export class LoginPage {
 
 
   signup() {
-    this.navCtrl.push('SignupPage');
+    this.navCtrl.push(UserAddPage, {isSignup: true});
   }
 
 

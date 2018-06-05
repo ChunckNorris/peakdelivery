@@ -105,7 +105,8 @@ export class User {
 
 
             }, err => {
-              alert('Invalid User Login');
+              observer.error('Invalid User Login');
+              //alert('Invalid User Login');
 
             })
           }

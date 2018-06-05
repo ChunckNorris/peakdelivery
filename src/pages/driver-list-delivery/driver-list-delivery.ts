@@ -118,7 +118,7 @@ export class DriverListDeliveryPage {
   }
 
   mapDelivery(_delivery: Delivery) {
-    let mapsurl = 'https://www.google.com/maps/search/?q=' + _delivery.address1 + ', ' + _delivery.city + ', ' + _delivery.state;
+    let mapsurl = 'http://maps.google.com/?q=' + _delivery.address1 + '+' + _delivery.city + '+' + _delivery.state;
     let target = "_blank";
     let inAppbrowser = this.iab.create(mapsurl, target, this.options);
 
@@ -126,7 +126,7 @@ export class DriverListDeliveryPage {
   }
 
   navigateToDelivery(selectedDelivery: Delivery) {
-    let url = 'https://www.google.com/maps/search/?q=' + selectedDelivery.address1 + ', ' + selectedDelivery.city + ', ' + selectedDelivery.state;
+    let url = 'http://maps.google.com/?q=' + selectedDelivery.address1 + '+' + selectedDelivery.city + '+' + selectedDelivery.state;
     window.open(url, "_blank");
   }
 

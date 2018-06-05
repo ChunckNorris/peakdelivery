@@ -7,7 +7,7 @@ import {
 } from '../pages';
 import { Api } from '../../providers/api/api';
 import { User, Ui } from '../../providers/providers';
-import { NewUser, SearchedUser, UserClaim, ChangePassword } from '../../models/index';
+import { NewUser, SearchedUser, UserClaim, ChangePassword, Account } from '../../models/index';
 import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
 
 @IonicPage()
@@ -24,6 +24,10 @@ export class UserEditPage {
   form: FormGroup;
   changePassword: ChangePassword;
   verifyPasswordChange: string;
+  userAccount: any;
+  accountOptions: any;
+  accounts: Array<Account>;
+
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
     public modalCtrl: ModalController,
@@ -33,7 +37,7 @@ export class UserEditPage {
     public ui: Ui) {
     this.isUserApproval = false;
     this.userForEdit = false;
-
+      this.accounts = new Array<Account>();
     this.form = this.formBuilder.group({
       email: [null]
       , userName: [null]
@@ -55,6 +59,10 @@ export class UserEditPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad UserEditPage');
+    this.api.getActiveAccountList().subscribe(res => {
+      this.accounts = res;
+
+    })
   }
   searchUser() {
     let modal = this.modalCtrl.create(UserSearchPage);
@@ -66,6 +74,7 @@ export class UserEditPage {
         this.ui.showLoadingIndicator(true);
         this.api.getUserProfile(this.userFromSearch.id).subscribe(editUser => {
           this.editUser = editUser;
+          this.userAccount = editUser.accountBelongsTo.accountName;
           this.userForEdit = true;
           this.ui.showLoadingIndicator(false);
         }, error => {
@@ -114,6 +123,23 @@ export class UserEditPage {
   }
   denyUser() {
     this.navCtrl.pop();
+
+  }
+
+  saveAccountForUser(){
+
+    this.ui.showLoadingIndicator(true);
+    this.api.saveAccountForUser(this.editUser.id, this.accountOptions).subscribe(savedAccount => {
+      this.api.getAccountById(this.accountOptions).subscribe(myUserAccount => {
+        this.userAccount = myUserAccount.accountName;
+        this.ui.showLoadingIndicator(false);
+      }, error => {
+        this.ui.showLoadingIndicator(false);
+      })
+     
+    }, error => {
+      this.ui.showLoadingIndicator(false);
+    })
 
   }
 

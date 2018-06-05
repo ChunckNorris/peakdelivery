@@ -71,8 +71,14 @@ export class DriverDashboardPage {
     this.navCtrl.push(DriverEditDeliveryPage, { delivery: del });
   }
   navigateToDelivery(selectedDelivery: Delivery) {
-    let url = 'https://www.google.com/maps/search/?q=' + selectedDelivery.address1 + ', ' + selectedDelivery.city + ', ' + selectedDelivery.state;
+    let url = 'http://maps.google.com/?q=' + selectedDelivery.address1 + '+' + selectedDelivery.city + '+' + selectedDelivery.state;
     window.open(url, "_blank");
   }
+  checkDelivery(){
+    this.navCtrl.push(DriverSearchDeliveryPage, {'lookupType': 'Status'});
+  }
 
+  searchDelivery(){
+    this.navCtrl.push(DriverSearchDeliveryPage, {'lookupType': 'Search'});
+  }
 }

@@ -56,7 +56,7 @@ export class DriverEditDeliveryPage {
     this.driver.firstName = 'Test';
     this.driver.lastName = 'Driver';
 
-
+ 
     if (this.navParams.data) {
       this.delivery = this.navParams.data.delivery;
 
