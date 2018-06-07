@@ -52,7 +52,7 @@ export class DriverEditDeliveryPage {
     this.runOptions = new Array<DeliveryRunTypes>()
     this.isAdderChanged = false;
 
-    this.loadOptions();
+  
     this.driver.firstName = 'Test';
     this.driver.lastName = 'Driver';
 
@@ -60,7 +60,7 @@ export class DriverEditDeliveryPage {
     if (this.navParams.data) {
       this.delivery = this.navParams.data.delivery;
 
-
+      this.loadOptions();
 
       this.form = this.formBuilder.group({
         driverName: [this.delivery.driverName]
@@ -87,10 +87,11 @@ export class DriverEditDeliveryPage {
         , multiLineText: [this.delivery.multiLineText]
         , scannedImage: [this.delivery.scannedImage]
       });
+      
 
     } else {
       this.delivery = new Delivery();
-
+      this.loadOptions();
     }
 
 
@@ -182,9 +183,17 @@ export class DriverEditDeliveryPage {
       this.billingOptions = billingRes;
 
     })
-    let _getRunOptions = this.api.getRunOptions().map(runRes => {
-      this.runOptions = runRes;
-    })
+    let _getRunOptions;
+    if(this.delivery.accountId){
+       _getRunOptions = this.api.getRunOptionsByAccount(this.delivery.accountId).map(runRes => {
+        this.runOptions = runRes;
+      })
+    }else{
+       _getRunOptions = this.api.getRunOptions().map(runRes => {
+        this.runOptions = runRes;
+      })
+    }
+   
 
 
 

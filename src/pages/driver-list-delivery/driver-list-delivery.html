@@ -17,8 +17,8 @@
  
 
     <ion-item>
-        <button ion-button full large (click)="searchAccounts()">Account Lookup</button>
-        <button ion-button full large (click)="searchByDriverId()">Driver Lookup</button>
+        <button ion-button full large (click)="searchAccounts()" *ngIf="isAdminSearchEnabled">Account Lookup</button>
+        <button ion-button full large (click)="searchByDriverId()" *ngIf="isAdminSearchEnabled">Driver Lookup</button>
         <button ion-button full large (click)="getNonDelivered()">Get All Open</button>
     </ion-item>
 

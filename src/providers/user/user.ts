@@ -57,7 +57,7 @@ export class User {
     let requests = new Observable<boolean>(observer => {
 
       this.api.getBearerToken(accountInfo.email, accountInfo.password).subscribe(res => {
-
+        Api.bearerToken = res.access_token;
         if (res.access_token) {
           let jwt = this.jwtHelper.decodeToken(res.access_token);
 
