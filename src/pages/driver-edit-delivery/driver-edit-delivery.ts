@@ -121,7 +121,7 @@ export class DriverEditDeliveryPage {
     this.delivery.altCity = this.form.value.altCity ? this.form.value.altCity : '';
     this.delivery.altState = this.form.value.altState ? this.form.value.altState : '';
     this.delivery.altZip = this.form.value.altZip ? this.form.value.altZip : '';
-    this.delivery.isAltAddress = this.form.value.isAltAddress ? this.form.value.isAltAddress : '';
+    this.delivery.isAltAddress = this.isAdderChanged;
     this.delivery.multiLineText = this.form.value.multiLineText ? this.form.value.multiLineText : '';
     this.delivery.signature = this.signature ? this.signature : '';
     this.delivery.scannedImage = this.form.value.scannedImage ? this.form.value.scannedImage : '';

@@ -12,13 +12,22 @@
     <div *ngIf="searchType === 'Status'">
       <ion-item>
         <ion-label>Activity</ion-label>
-        <ion-select [(ngModel)]="status" submitText="Select" cancelText="Cancel">
+        <ion-select [(ngModel)]="status" submitText="Select" cancelText="Cancel" (ionChange)="filterDelivery($event)">
           <div *ngFor="let activity of activityOptions">
             <ion-option value="{{activity.key}}">{{activity.value}}
             </ion-option>
           </div>
         </ion-select>
       </ion-item>
+      <div style="float: right">
+          <ion-item *ngIf="isFiltered">
+              <button ion-button icon-right color="dark" clear (click)="clearFilter()" tappable>
+                  <span>Reset Filter  </span> <ion-icon name="close-circle"></ion-icon>
+                </button>
+          </ion-item>
+      </div>
+   
+   
 
     </div>
     <div *ngIf="searchType=== 'Search'">
@@ -44,21 +53,53 @@
         </ion-select>
       </ion-item> -->
     </div>
-    <div>
+    <div *ngIf="!isFiltered">
       <ion-list>
         <ion-card *ngFor="let item of deliveryResults" (click)="itemTapped(item)">
           <ion-card-header>
             {{ item.text }}
           </ion-card-header>
           <ion-card-content>
+              <h5><strong>Delivery Address</strong></h5>
             <div>{{ item.address1 }}</div>
+            <div *ngIf="item.address2">{{ item.address2 }}</div>
             <div>{{ item.city }}, {{ item.state }} {{ item.zipCode }}</div>
-            <div>Status: {{ item.activity }}</div>
-            <div>Run: {{ item.run }}</div>
+            <div>Activity Status: {{ item.activityName }}</div>
+            <div>Biling: {{ item.billingName }}</div>
+            <div>Run: {{ item.runName }}</div>
+            <div *ngIf="item.isAltAddress === 'True'">
+              <h5><strong>Alt Address</strong></h5>
+              <div style="color: #0066cc">{{ item.altAddress1 }}</div>
+              <div style="color: #0066cc" *ngIf="item.altAddress2">{{ item.altAddress2 }}</div>
+              <div style="color: #0066cc">{{ item.altCity }}, {{ item.altState }} {{ item.altZip }}</div>
+            </div>
           </ion-card-content>
         </ion-card>
       </ion-list>
     </div>
-
+    <div *ngIf="isFiltered">
+        <ion-list>
+          <ion-card *ngFor="let item of deliverySearchResults" (click)="itemTapped(item)">
+            <ion-card-header>
+              {{ item.text }}
+            </ion-card-header>
+            <ion-card-content>
+                <h5><strong>Delivery Address</strong></h5>
+              <div>{{ item.address1 }}</div>
+              <div *ngIf="item.address2">{{ item.address2 }}</div>
+              <div>{{ item.city }}, {{ item.state }} {{ item.zipCode }}</div>
+              <div>Activity Status: {{ item.activityName }}</div>
+              <div>Biling: {{ item.billingName }}</div>
+              <div>Run: {{ item.runName }}</div>
+              <div *ngIf="item.isAltAddress === 'True'">
+                <h5><strong>Alt Address</strong></h5>
+                <div style="color: #0066cc">{{ item.altAddress1 }}</div>
+                <div style="color: #0066cc" *ngIf="item.altAddress2">{{ item.altAddress2 }}</div>
+                <div style="color: #0066cc">{{ item.altCity }}, {{ item.altState }} {{ item.altZip }}</div>
+              </div>
+            </ion-card-content>
+          </ion-card>
+        </ion-list>
+      </div>
   </div>
 </ion-content>

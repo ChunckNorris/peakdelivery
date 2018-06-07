@@ -66,7 +66,7 @@ export class Endpoints {
     static getAllUndelivered = new Endpoint('~/v1/delivery/notdelivered');
     static getDeliveryByDriver = new Endpoint('~/v1/delivery/notdelivered/{driverid}');
     static searchDelivery = new Endpoint('~/v1/delivery/get');
-
+    static getDeliverySignature = new Endpoint('~/v1/delivery/signature/get/{id}');
 
     
     //Option List Data//
@@ -312,6 +312,11 @@ export class Api {
         let endpoint = Endpoints.removeRunOption.getUrl({'runid': option.key, 'accountId': account});
         let removedOptionResults = this.request<any>(HttpMethods.post, endpoint, null, option);
         return removedOptionResults;
+      }
+      public getDeliverySignature(id): Observable<string> {
+        let endpoint = Endpoints.getDeliverySignature.getUrl({'id': id});
+        return this.request<string>(HttpMethods.get, endpoint);
+    
       }
 
 }

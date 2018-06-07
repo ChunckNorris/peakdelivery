@@ -29,7 +29,7 @@ export class LoginPage {
 
   constructor(public navCtrl: NavController,
     public user: User,
-    public toastCtrl: ToastController,
+    public toastCtrl: ToastController, 
     public translateService: TranslateService,
     public ui: Ui) {
 

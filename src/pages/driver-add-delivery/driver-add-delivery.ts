@@ -202,7 +202,7 @@ this.loadOptions();
     if (this.user.userRole === 'ADMIN') {
       this.searchUser();
     } else {
-      this.form.controls['driverName'].setValue(this.driver.firstName + ' ' + this.driver.lastName);
+      this.form.controls['driverName'].setValue(this.user.userProfile.fullName);
       this.driverId = this.user.userProfile.id;
     }
 

@@ -18,18 +18,18 @@
 
 
     <p>Driver Assigned: {{delivery?.driverName}}</p>
-    <p>Run: {{delivery?.run}}</p>
+    <p>Run: {{delivery?.runName}}</p>
     <p>Tote: {{delivery?.bagToteId}}</p>
-    <p>Activity: {{delivery?.activity}}</p>
+    <p>Activity: {{delivery?.activityName}}</p>
 
 
-    <p>Billing: {{delivery?.billing}}</p>
+    <p>Billing: {{delivery?.billingName}}</p>
     <p>Date Delivered: {{delivery?.dateDelivered}}</p>
     <p>Text: {{delivery?.text}}</p>
 
 
 
-    <div *ngIf="!isAdderChanged">
+    <div *ngIf="!showAltAddress">
       <div style="padding: 10px">
         <h6>Original Delivery Address</h6>
         {{delivery?.address1}}
@@ -42,14 +42,17 @@
 
 
     </div>
-    <div *ngIf="isAdderChanged">
-      <p>{{delivery?.altAddress1}}</p>
-      <p *ngIf="delivery.altAddress2">{{delivery?.altAddress2}}</p>
-      <p>{{delivery?.altCity}}, {{delivery?.altState}} {{delivery?.altZip}}</p>
-
-
-
+    <div *ngIf="showAltAddress">
+ 
       <div style="padding: 10px">
+          <h6>Alt Delivery Address</h6>
+          {{delivery?.altAddress1}}
+          <span *ngIf="delivery.altAddress2">
+            <br>{{delivery?.altAddress2}}</span>
+          <br> {{delivery?.altCity}}, {{delivery?.altState}} {{delivery?.altZip}}
+          <br>
+          <br>
+
         <h6>Original Delivery Address</h6>
         {{delivery?.address1}}
         <span *ngIf="delivery.address2">
@@ -70,8 +73,9 @@
     </ion-item>
 
   
-    <div *ngIf="signature">
-      <img [src]="signature" />
+    <div *ngIf="deliverySignature" style="margin: 0 auto; text-align: center;">
+      <br>
+      <img [src]="deliverySignature" />
 
     </div>
 

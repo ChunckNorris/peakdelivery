@@ -38,6 +38,7 @@ export class DeliveryItem {
     runId: number;
     runName?: any;
     activityId: number;
+    activity: string;
     activityName?: any;
     billingId: number;
     billingName?: any;

@@ -4,6 +4,9 @@ import { Api } from '../../providers/api/api';
 import { Profile, Delivery, DeliveryActivities, DeliveryBillings, DeliveryItem, DeliveryRunTypes, DeliverySearchBindingModel } from '../../models/index';
 import { User, Ui } from '../../providers/providers';
 import {  CustomerDeliveryDetailPage } from '../../pages/pages'
+import { Observable } from 'rxjs/Observable';
+
+
 
 @IonicPage()
 @Component({
@@ -17,8 +20,9 @@ export class CustomerSearchDeliveryPage {
   toDate: Date;
   fromDate: Date;
   deliveryResults: Array<DeliveryItem>;
-
-
+  accountId: string;
+  deliverySearchResults: Array<DeliveryItem>;
+  isFiltered: boolean;
   constructor(public navCtrl: NavController,
     public api: Api,
     public ui: Ui,
@@ -31,19 +35,58 @@ export class CustomerSearchDeliveryPage {
     this.fromDate = new Date();
     this.deliveryResults =  new Array<DeliveryItem>();
     this.searchType = this.navParams.data.lookupType;
+    this.accountId = this.user.userProfile.accountBelongsTo.accountId;
+    this.deliverySearchResults = new Array<DeliveryItem>();
+    this.isFiltered = false;
 
   }
 
   ionViewDidLoad() {
 
 
+    if(this.searchType === 'Status'){
+      let _getActivityOptions = this.api.getActivityOptions().map(acctivitiesRes => {
+        this.activityOptions = acctivitiesRes;
+  
+      }, err => {
+        
+      });
+  
+      let _getDeiliveryByAccount =  this.api.getDeiliveryByAccount(this.accountId).map(res => {
+        this.deliveryResults = res;
+      }, error => {
+  
+      });
+  
+      Observable.forkJoin([_getActivityOptions,
+        _getDeiliveryByAccount,
+      ]).subscribe(results => {
+        this.ui.showLoadingIndicator(false);
+      }, (error) => {
+        console.log(error);
+        this.ui.showLoadingIndicator(false);
+      });
+  
+    }else{
+      let _getActivityOptions = this.api.getActivityOptions().map(acctivitiesRes => {
+        this.activityOptions = acctivitiesRes;
+  
+      }, err => {
+        
+      });
 
-    this.api.getActivityOptions().subscribe(acctivitiesRes => {
-      this.activityOptions = acctivitiesRes;
-      this.ui.showLoadingIndicator(false);
-    }, err => {
-      this.ui.showLoadingIndicator(false);
-    })
+      Observable.forkJoin([_getActivityOptions
+      ]).subscribe(results => {
+        this.ui.showLoadingIndicator(false);
+      }, (error) => {
+        console.log(error);
+        this.ui.showLoadingIndicator(false);
+      });
+
+    }
+
+  
+
 
   }
 
@@ -67,5 +110,27 @@ export class CustomerSearchDeliveryPage {
   itemTapped(item){
     this.navCtrl.push(CustomerDeliveryDetailPage, {'delivery': item});
   }
+  clearFilter(){
+   this.status = null;
+    this.api.getActivityOptions().subscribe(acctivitiesRes => {
+      this.activityOptions = acctivitiesRes;
+      this.isFiltered = false;
+      this.deliverySearchResults = new Array<DeliveryItem>();
+    }, error => {
+      this.isFiltered = false;
+      this.deliverySearchResults = new Array<DeliveryItem>();
+    });
 
+   
+  }
+  filterDelivery(event){
+    this.isFiltered = true;
+    let filterBy = event;
+    this.deliverySearchResults = this.deliveryResults;
+    let filteredResults = this.deliverySearchResults.filter((del: DeliveryItem) => del.activity === filterBy);
+
+    //if(filteredResults.length > 0 ){
+      this.deliverySearchResults = filteredResults;
+   // }
+  }
 }
