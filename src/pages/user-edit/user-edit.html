@@ -84,7 +84,7 @@
                     <ion-list>
                         <ion-item>
                             <ion-label color="primary">Old Password</ion-label>
-                            <ion-input [(ngModel)]="changePassword.oldPassword"  placeholder="Old Password"></ion-input>
+                            <ion-input [(ngModel)]="changePassword.oldPassword" placeholder="Old Password"></ion-input>
 
                         </ion-item>
                         <ion-item>
@@ -94,37 +94,40 @@
                         </ion-item>
                         <ion-item>
                             <ion-label color="primary">Confirm Password</ion-label>
-                            <ion-input  [(ngModel)]="verifyPasswordChange" placeholder="New Password"></ion-input>
+                            <ion-input [(ngModel)]="verifyPasswordChange" placeholder="New Password"></ion-input>
 
                         </ion-item>
                         <ion-item>
-                                <button ion-button full large (click)="changeUserPassword()">Change Password</button>
-                                <!-- <button [disabled]="!form.valid" ion-button full large (click)="saveNewUser()">Save User</button> -->
+                            <button ion-button full large (click)="changeUserPassword()">Change Password</button>
+                            <!-- <button [disabled]="!form.valid" ion-button full large (click)="saveNewUser()">Save User</button> -->
                         </ion-item>
                     </ion-list>
 
                 </ion-row>
                 <ion-row>
-                        <ion-item>
-                                <ion-label color="primary">User Account</ion-label>
-                                <ion-input  [(ngModel)]="userAccount" placeholder="User Account" readonly></ion-input>
-    
-                            </ion-item>
-                        <ion-item>
-                                <ion-label>Add to Account</ion-label>
-                                <ion-select [(ngModel)]="accountOptions" submitText="Select" cancelText="Cancel">
-                                        <!-- <ion-option *ngFor="let item of accounts" [value]="item.accountId}">{{activity.accountName}}</ion-option> -->
-                                   <div *ngFor="let item of accounts">
+                    <ion-item>
+                        <ion-label color="primary">User Account</ion-label>
+                        <ion-input [(ngModel)]="userAccount" placeholder="User Account" readonly></ion-input>
+
+                    </ion-item>
+                    <ion-item>
+                        <ion-label>Add to Account</ion-label>
+                        <ion-select [(ngModel)]="accountOptions" submitText="Select" cancelText="Cancel">
+                            <!-- <ion-option *ngFor="let item of accounts" [value]="item.accountId}">{{activity.accountName}}</ion-option> -->
+                            <div *ngIf="accounts.length > 0">
+                                <div *ngFor="let item of accounts">
                                     <ion-option value="{{item.accountId}}">{{item.accountName}}
                                     </ion-option>
-                                  </div> 
-                                </ion-select>
-                              </ion-item>
-                              <br>
-                              <ion-item>
-                                    <button ion-button full large (click)="saveAccountForUser()">Save Account</button>
-                                    <!-- <button [disabled]="!form.valid" ion-button full large (click)="saveNewUser()">Save User</button> -->
-                            </ion-item>
+                                </div>
+                            </div>
+
+                        </ion-select>
+                    </ion-item>
+                    <br>
+                    <ion-item>
+                        <button ion-button full large (click)="saveAccountForUser()">Save Account</button>
+                        <!-- <button [disabled]="!form.valid" ion-button full large (click)="saveNewUser()">Save User</button> -->
+                    </ion-item>
                 </ion-row>
             </ion-card>
 

@@ -74,7 +74,10 @@ export class UserEditPage {
         this.ui.showLoadingIndicator(true);
         this.api.getUserProfile(this.userFromSearch.id).subscribe(editUser => {
           this.editUser = editUser;
-          this.userAccount = editUser.accountBelongsTo.accountName;
+          if(editUser.accountBelongsTo){
+            this.userAccount = editUser.accountBelongsTo.accountName;
+          }
+          
           this.userForEdit = true;
           this.ui.showLoadingIndicator(false);
         }, error => {
